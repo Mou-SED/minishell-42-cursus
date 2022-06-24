@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/06/18 10:53:49 by moseddik         ###   ########.fr        #
+#    Updated: 2022/06/24 20:35:12 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,12 @@ LIBFT_DIR		:= $(LIB_DIR)/libft
 
 # *********************************** Files ************************************
 NAME			:= minishell
-SRC				:= $(shell ls $(SRC_DIR))
+SRC				:= $(SRC_DIR)/main/main.c \
+					$(SRC_DIR)/lexical_analysis/scanner.c \
+					$(SRC_DIR)/lexical_analysis/tokenizer.c \
+					$(SRC_DIR)/syntax_analysis/parsing.c
 OBJ				:= $(SRC:.c=.o)
-INC				:= $(shell ls $(INC_DIR))
+INC				:= minishell.h
 LIBFT			:= libft.a
 LIBFT_SRC		:= $(shell ls $(LIBFT_DIR)/$(SRC_DIR))
 LIBFT_INC		:= libft.h
@@ -60,14 +63,15 @@ LIBFT_INC_DEP	:= $(LIBFT_DIR)/$(INC_DIR)/libft.h
 # ********************************** Targets ***********************************
 all: $(NAME)
 
-$(NAME): $(OBJ_DEP) $(INC_DEP) $(LIBFT_DEP)
-	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
-	@$(CC) $(CFLAGS) $(LIBFLAGS) $(OBJ_DEP) -o $(NAME)
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DEP)
+$(NAME): $(OBJ) $(INC_DEP) $(LIBFT_DEP)
 	@$(MKDIR) $(OBJ_DIR)
+	@mv $(OBJ) $(OBJ_DIR)
+	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
+	@$(CC) $(CFLAGS) $(LIBFLAGS) $(OBJ_DIR)/*.o -o $(NAME)
+
+%.o : %.c
 	@echo "$(GREEN)Compiling	$(YELLOW)$(shell basename $<)$(NC)"
-	@$(CC) $(CFLAGS) $(INCFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(LIBFT_DEP): $(LIBFT_SRC_DEP) $(LIBFT_INC_DEP)
 	@echo "$(BLUE)Building	$(CYAN)$(LIBFT)$(NC)"
