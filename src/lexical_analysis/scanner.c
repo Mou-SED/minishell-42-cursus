@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   scanner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/06/24 10:17:35 by moseddik         ###   ########.fr       */
+/*   Created: 2022/06/24 09:47:13 by moseddik          #+#    #+#             */
+/*   Updated: 2022/06/24 10:17:12 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-
-void	scanner(void);
-void	tokenizer(void);
-void	parsing(void);
-
-# endif
+void	scanner(void)
+{
+	printf("scanner\n");
+}
