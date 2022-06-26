@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/06/24 20:35:12 by moseddik         ###   ########.fr        #
+#    Updated: 2022/06/26 19:12:08 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ CYAN			:= \033[1;36m
 
 # ******************************** Readline lib ********************************
 
-ILIB	=	-I$(shell brew --prefix readline)/include -Ilibft/inc
-SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline -Llibft/lib -lft
+ILIB	=	-I$(shell brew --prefix readline)/include
+SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline
 
 # ******************************** Directories *********************************
 INC_DIR			:= include
@@ -46,8 +46,8 @@ LIBFT_INC		:= libft.h
 # ****************************** Compiler Options ******************************
 CC				:= cc
 CFLAGS			:= -Wall -Wextra -Werror -g
-INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR)
-LIBFLAGS		:= -L $(LIBFT_DIR) -lft
+INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) $(ILIB)
+LIBFLAGS		:= -L $(LIBFT_DIR) -lft $(SLIB)
 
 # ******************************* Other commands *******************************
 RM				:= rm -rf
