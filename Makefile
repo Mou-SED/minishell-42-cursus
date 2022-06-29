@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/06/26 19:12:08 by moseddik         ###   ########.fr        #
+#    Updated: 2022/06/28 15:44:16 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ $(NAME): $(OBJ) $(INC_DEP) $(LIBFT_DEP)
 	@$(MKDIR) $(OBJ_DIR)
 	@mv $(OBJ) $(OBJ_DIR)
 	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
-	@$(CC) $(CFLAGS) $(LIBFLAGS) $(OBJ_DIR)/*.o -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIBFLAGS) -lncurses $(OBJ_DIR)/*.o -o $(NAME)
 
 %.o : %.c
 	@echo "$(GREEN)Compiling	$(YELLOW)$(shell basename $<)$(NC)"
