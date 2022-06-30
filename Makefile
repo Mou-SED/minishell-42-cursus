@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/06/28 15:44:16 by moseddik         ###   ########.fr        #
+#    Updated: 2022/06/30 11:24:03 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ NAME			:= minishell
 SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/lexical_analysis/scanner.c \
 					$(SRC_DIR)/lexical_analysis/tokenizer.c \
-					$(SRC_DIR)/syntax_analysis/parsing.c
+					$(SRC_DIR)/syntax_analysis/parsing.c \
+					$(SRC_DIR)/signals_handler/signals_handler.c
 OBJ				:= $(SRC:.c=.o)
 INC				:= minishell.h
 LIBFT			:= libft.a
