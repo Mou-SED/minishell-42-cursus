@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
+#    By: zaabou <zaabou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/06/30 11:24:03 by moseddik         ###   ########.fr        #
+#    Updated: 2022/06/30 21:30:39 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/lexical_analysis/tokenizer.c \
 					$(SRC_DIR)/syntax_analysis/parsing.c \
 					$(SRC_DIR)/signals_handler/signals_handler.c
-OBJ				:= $(SRC:.c=.o)
+OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
 INC				:= minishell.h
 LIBFT			:= libft.a
 LIBFT_SRC		:= $(shell ls $(LIBFT_DIR)/$(SRC_DIR))
@@ -55,7 +55,6 @@ RM				:= rm -rf
 MKDIR			:= mkdir -p
 
 # ******************************** Dependencies ********************************
-OBJ_DEP			:= $(addprefix $(OBJ_DIR)/, $(OBJ))
 INC_DEP			:= $(addprefix $(INC_DIR)/, $(INC))
 LIBFT_DEP		:= $(LIBFT_DIR)/$(LIBFT)
 LIBFT_SRC_DEP	:= $(addprefix $(LIBFT_DIR)/$(SRC_DIR)/, $(LIBFT_SRC))
@@ -65,14 +64,14 @@ LIBFT_INC_DEP	:= $(LIBFT_DIR)/$(INC_DIR)/libft.h
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INC_DEP) $(LIBFT_DEP)
-	@$(MKDIR) $(OBJ_DIR)
-	@mv $(OBJ) $(OBJ_DIR)
 	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
-	@$(CC) $(CFLAGS) $(LIBFLAGS) -lncurses $(OBJ_DIR)/*.o -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIBFLAGS) -lncurses $(OBJ) -o $(NAME)
 
-%.o : %.c
+$(OBJ_DIR)/%.o : %.c
+	@mkdir -vp $(dir $@)
 	@echo "$(GREEN)Compiling	$(YELLOW)$(shell basename $<)$(NC)"
 	@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
+	
 
 $(LIBFT_DEP): $(LIBFT_SRC_DEP) $(LIBFT_INC_DEP)
 	@echo "$(BLUE)Building	$(CYAN)$(LIBFT)$(NC)"
