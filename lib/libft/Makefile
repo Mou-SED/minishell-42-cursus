@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moseddik <moseddik@student.42.fr>          +#+  +:+       +#+         #
+#    By: zaabou <zaabou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/21 20:18:19 by moseddik          #+#    #+#              #
-#    Updated: 2022/02/25 18:03:04 by moseddik         ###   ########.fr        #
+#    Updated: 2022/06/30 18:45:09 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,6 @@ bonus: ${OBJS_BONUS}
 	
 clean:
 	@rm -rf $(OBJDIR)
-	@echo " \n\t $(RED)The library is removed and all objects files$(NONE) \n "
 
 fclean:	clean
 	@rm -f ${NAME} 
