@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:34:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/06/30 12:41:16 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:19:30 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # include <termios.h>
 
 void	signals_handler(void);
-void	ctl_d_handler(char *cmd);
+void	ctl_d_handler(void);
 
 #endif

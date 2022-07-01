@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:20:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/01 17:29:30 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:19:39 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ static void	ctl_backslash_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	ctl_d_handler(char *cmd)
+void	ctl_d_handler(void)
 {
-	if (cmd == NULL)
-	{
-		printf("\x1B[1;A\x1B[11;Cexit\n");
-		exit(EXIT_SUCCESS);
-	}
+	printf("\x1B[1;A\x1B[11;Cexit\n");
+	exit(EXIT_SUCCESS);
 }
 
 void	signals_handler(void)
