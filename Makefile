@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zaabou <zaabou@student.42.fr>              +#+  +:+       +#+         #
+#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/06/30 21:30:39 by zaabou           ###   ########.fr        #
+#    Updated: 2022/07/01 16:51:54 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ LIBFLAGS		:= -L $(LIBFT_DIR) -lft $(SLIB)
 
 # ******************************* Other commands *******************************
 RM				:= rm -rf
-MKDIR			:= mkdir -p
+MKDIR			:= mkdir -vp
 
 # ******************************** Dependencies ********************************
 INC_DEP			:= $(addprefix $(INC_DIR)/, $(INC))
@@ -68,10 +68,9 @@ $(NAME): $(OBJ) $(INC_DEP) $(LIBFT_DEP)
 	@$(CC) $(CFLAGS) $(LIBFLAGS) -lncurses $(OBJ) -o $(NAME)
 
 $(OBJ_DIR)/%.o : %.c
-	@mkdir -vp $(dir $@)
+	@$(MKDIR) $(dir $@)
 	@echo "$(GREEN)Compiling	$(YELLOW)$(shell basename $<)$(NC)"
 	@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
-	
 
 $(LIBFT_DEP): $(LIBFT_SRC_DEP) $(LIBFT_INC_DEP)
 	@echo "$(BLUE)Building	$(CYAN)$(LIBFT)$(NC)"
