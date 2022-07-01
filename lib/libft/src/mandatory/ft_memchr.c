@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/20 00:49:13 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/01 17:03:30 by moseddik         ###   ########.fr       */
+/*   Created: 2021/11/08 09:47:59 by moseddik          #+#    #+#             */
+/*   Updated: 2022/07/01 17:01:26 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/libft.h"
+#include "../../include/libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	t_list	*ptr;
-	t_list	*temp;
+	size_t			i;
+	unsigned char	*str;
+	unsigned char	ch;
 
-	ptr = NULL;
-	while (lst)
+	i = 0;
+	str = (unsigned char *)s;
+	ch = (unsigned char)c;
+	while (i < n)
 	{
-		temp = ft_lstnew(f(lst->content));
-		if (!temp)
-		{
-			ft_lstclear(&ptr, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ptr, temp);
-		lst = lst->next;
+		if (str[i] == ch)
+			return (&str[i]);
+		i++;
 	}
-	return (ptr);
+	return (0);
 }

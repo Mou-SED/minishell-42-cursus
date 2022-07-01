@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/20 00:49:13 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/01 17:03:30 by moseddik         ###   ########.fr       */
+/*   Created: 2021/11/03 11:53:27 by moseddik          #+#    #+#             */
+/*   Updated: 2022/07/01 17:01:36 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/libft.h"
+#include "../../include/libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	*ft_memmove(void *dest, void *src, size_t len)
 {
-	t_list	*ptr;
-	t_list	*temp;
+	unsigned char	*s1;
+	unsigned char	*s2;
 
-	ptr = NULL;
-	while (lst)
+	s1 = (unsigned char *)dest;
+	s2 = (unsigned char *)src;
+	if (src > dest)
+		ft_memcpy(s1, s2, len);
+	else if (dest > src)
 	{
-		temp = ft_lstnew(f(lst->content));
-		if (!temp)
+		while (len > 0)
 		{
-			ft_lstclear(&ptr, del);
-			return (NULL);
+			s1[len - 1] = s2[len - 1];
+			len--;
 		}
-		ft_lstadd_back(&ptr, temp);
-		lst = lst->next;
 	}
-	return (ptr);
+	return (s1);
 }

@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/20 00:49:13 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/01 17:03:30 by moseddik         ###   ########.fr       */
+/*   Created: 2021/11/17 19:31:28 by moseddik          #+#    #+#             */
+/*   Updated: 2022/07/01 17:01:46 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/libft.h"
+#include "../../include/libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_list	*ptr;
-	t_list	*temp;
+	long int	nb;
 
-	ptr = NULL;
-	while (lst)
+	nb = n;
+	if (nb < 0)
 	{
-		temp = ft_lstnew(f(lst->content));
-		if (!temp)
-		{
-			ft_lstclear(&ptr, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ptr, temp);
-		lst = lst->next;
+		nb *= -1;
+		ft_putchar_fd('-', fd);
 	}
-	return (ptr);
+	if (nb >= 0 && nb <= 9)
+	{
+		ft_putchar_fd(nb + '0', fd);
+	}
+	if (nb > 9)
+	{
+		ft_putnbr_fd(nb / 10, fd);
+		ft_putnbr_fd(nb % 10, fd);
+	}
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_d_lstclear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 23:29:36 by moseddik          #+#    #+#             */
-/*   Updated: 2022/03/01 18:25:39 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:03:48 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../include/libft.h"
 
 void	ft_d_lstclear(t_d_list **lst, void (*del)(void *))
 {

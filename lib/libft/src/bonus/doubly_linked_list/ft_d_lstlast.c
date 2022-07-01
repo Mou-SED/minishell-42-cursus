@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_d_lstlast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:01:56 by moseddik          #+#    #+#             */
-/*   Updated: 2022/02/25 23:27:38 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:03:56 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../include/libft.h"
 
 t_d_list	*ft_d_lstlast(t_d_list *lst)
 {
