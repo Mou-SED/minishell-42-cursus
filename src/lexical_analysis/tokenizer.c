@@ -6,11 +6,11 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:49:00 by moseddik          #+#    #+#             */
-/*   Updated: 2022/06/24 10:17:19 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:29:24 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	tokenizer(void)
 {

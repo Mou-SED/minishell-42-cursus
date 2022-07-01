@@ -6,11 +6,11 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 12:44:04 by moseddik          #+#    #+#             */
-/*   Updated: 2022/06/30 12:44:29 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:29:33 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	parsing(void)
 {

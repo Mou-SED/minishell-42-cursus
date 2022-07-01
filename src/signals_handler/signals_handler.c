@@ -6,11 +6,11 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:20:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/06/30 12:43:53 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:29:30 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 static void	handle_ctl_c(int arg)
 {
