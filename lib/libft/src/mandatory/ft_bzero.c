@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/06/30 12:41:00 by moseddik         ###   ########.fr       */
+/*   Created: 2021/11/02 20:16:50 by moseddik          #+#    #+#             */
+/*   Updated: 2022/07/01 17:01:08 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../include/libft.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "sig_handler.h"
+void	ft_bzero(void *s, size_t n)
+{
+	char	*str;
+	size_t	i;
 
-void	scanner(void);
-void	tokenizer(void);
-void	parsing(void);
-
-#endif
+	str = (char *)s;
+	i = 0;
+	while (i < n)
+	{
+		str[i] = '\0';
+		i++;
+	}
+}

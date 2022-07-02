@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_d_lstmap.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/06/30 12:41:00 by moseddik         ###   ########.fr       */
+/*   Created: 2022/02/26 00:16:44 by moseddik          #+#    #+#             */
+/*   Updated: 2022/07/01 17:03:58 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../../include/libft.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "sig_handler.h"
+t_d_list	*ft_d_lstmap(t_d_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_d_list	*ptr;
+	t_d_list	*temp;
 
-void	scanner(void);
-void	tokenizer(void);
-void	parsing(void);
-
-#endif
+	ptr = NULL;
+	while (lst)
+	{
+		temp = ft_d_lstnew(f(lst->content));
+		if (!temp)
+		{
+			ft_d_lstclear(&ptr, del);
+			return (NULL);
+		}
+		ft_d_lstadd_back(&ptr, temp);
+		lst = lst->next;
+	}
+	return (ptr);
+}

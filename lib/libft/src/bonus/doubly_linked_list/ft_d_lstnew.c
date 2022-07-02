@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_d_lstnew.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/06/30 12:41:00 by moseddik         ###   ########.fr       */
+/*   Created: 2022/02/25 00:01:34 by moseddik          #+#    #+#             */
+/*   Updated: 2022/07/01 17:04:00 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../../include/libft.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "sig_handler.h"
+t_d_list	*ft_d_lstnew(void *content)
+{
+	t_d_list	*head;
 
-void	scanner(void);
-void	tokenizer(void);
-void	parsing(void);
-
-#endif
+	head = malloc(sizeof(t_d_list));
+	if (!head)
+		return (NULL);
+	head->prev = NULL;
+	head->content = content;
+	head->next = NULL;
+	return (head);
+}

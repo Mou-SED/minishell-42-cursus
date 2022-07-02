@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/06/30 12:41:00 by moseddik         ###   ########.fr       */
+/*   Created: 2021/11/03 09:50:44 by moseddik          #+#    #+#             */
+/*   Updated: 2022/07/01 17:01:34 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../include/libft.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "sig_handler.h"
+void	*ft_memcpy(void *dest, const void *src, size_t size)
+{
+	unsigned int	i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-void	scanner(void);
-void	tokenizer(void);
-void	parsing(void);
-
-#endif
+	str1 = (unsigned char *)dest;
+	str2 = (unsigned char *)src;
+	if (!dest && !src)
+		return (0);
+	i = 0;
+	while (i < size)
+	{
+		str1[i] = str2[i];
+		i++;
+	}
+	return (str1);
+}

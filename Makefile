@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/06/18 10:53:49 by moseddik         ###   ########.fr        #
+#    Updated: 2022/07/01 16:51:54 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ CYAN			:= \033[1;36m
 
 # ******************************** Readline lib ********************************
 
-ILIB	=	-I$(shell brew --prefix readline)/include -Ilibft/inc
-SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline -Llibft/lib -lft
+ILIB	=	-I$(shell brew --prefix readline)/include
+SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline
 
 # ******************************** Directories *********************************
 INC_DIR			:= include
@@ -33,9 +33,13 @@ LIBFT_DIR		:= $(LIB_DIR)/libft
 
 # *********************************** Files ************************************
 NAME			:= minishell
-SRC				:= $(shell ls $(SRC_DIR))
-OBJ				:= $(SRC:.c=.o)
-INC				:= $(shell ls $(INC_DIR))
+SRC				:= $(SRC_DIR)/main/main.c \
+					$(SRC_DIR)/lexical_analysis/scanner.c \
+					$(SRC_DIR)/lexical_analysis/tokenizer.c \
+					$(SRC_DIR)/syntax_analysis/parsing.c \
+					$(SRC_DIR)/signals_handler/signals_handler.c
+OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
+INC				:= minishell.h
 LIBFT			:= libft.a
 LIBFT_SRC		:= $(shell ls $(LIBFT_DIR)/$(SRC_DIR))
 LIBFT_INC		:= libft.h
@@ -43,15 +47,14 @@ LIBFT_INC		:= libft.h
 # ****************************** Compiler Options ******************************
 CC				:= cc
 CFLAGS			:= -Wall -Wextra -Werror -g
-INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR)
-LIBFLAGS		:= -L $(LIBFT_DIR) -lft
+INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) $(ILIB)
+LIBFLAGS		:= -L $(LIBFT_DIR) -lft $(SLIB)
 
 # ******************************* Other commands *******************************
 RM				:= rm -rf
-MKDIR			:= mkdir -p
+MKDIR			:= mkdir -vp
 
 # ******************************** Dependencies ********************************
-OBJ_DEP			:= $(addprefix $(OBJ_DIR)/, $(OBJ))
 INC_DEP			:= $(addprefix $(INC_DIR)/, $(INC))
 LIBFT_DEP		:= $(LIBFT_DIR)/$(LIBFT)
 LIBFT_SRC_DEP	:= $(addprefix $(LIBFT_DIR)/$(SRC_DIR)/, $(LIBFT_SRC))
@@ -60,14 +63,14 @@ LIBFT_INC_DEP	:= $(LIBFT_DIR)/$(INC_DIR)/libft.h
 # ********************************** Targets ***********************************
 all: $(NAME)
 
-$(NAME): $(OBJ_DEP) $(INC_DEP) $(LIBFT_DEP)
+$(NAME): $(OBJ) $(INC_DEP) $(LIBFT_DEP)
 	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
-	@$(CC) $(CFLAGS) $(LIBFLAGS) $(OBJ_DEP) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIBFLAGS) -lncurses $(OBJ) -o $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DEP)
-	@$(MKDIR) $(OBJ_DIR)
+$(OBJ_DIR)/%.o : %.c
+	@$(MKDIR) $(dir $@)
 	@echo "$(GREEN)Compiling	$(YELLOW)$(shell basename $<)$(NC)"
-	@$(CC) $(CFLAGS) $(INCFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(LIBFT_DEP): $(LIBFT_SRC_DEP) $(LIBFT_INC_DEP)
 	@echo "$(BLUE)Building	$(CYAN)$(LIBFT)$(NC)"
