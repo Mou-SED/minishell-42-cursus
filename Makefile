@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
+#    By: zaabou <zaabou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/07/01 16:51:54 by moseddik         ###   ########.fr        #
+#    Updated: 2022/07/04 20:30:09 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -g
+CFLAGS			:= -Wall -Wextra -Werror -g -fsanitize=address
 INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) $(ILIB)
 LIBFLAGS		:= -L $(LIBFT_DIR) -lft $(SLIB)
 
