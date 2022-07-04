@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/03 10:48:17 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:59:12 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "readline/readline.h"
 # include "readline/history.h"
 # include "sig_handler.h"
+# include "token.h" 
 
 void	scanner(void);
 void	tokenizer(void);
