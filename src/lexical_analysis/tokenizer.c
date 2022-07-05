@@ -3,107 +3,152 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:49:00 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/04 20:25:42 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/05 22:16:56 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// int		not_token(char *str)
-// {
-// 	if (*str == '|' || *str == '>' || *str == '<' || (*str == '&' && *(str + 1) == '&'))
-// 		return (1);
-// 	return (0);
-// }
-
-// char	*pipe_case(char *str)
-// {
-// 	t_token	*token_ptr;
-	
-// 	token_ptr = malloc(sizeof(t_token));
-// 	token_ptr->lexeme = strdup("|");
-// 	token_ptr->type = PIPE;
-// 	lst_add_back(head, token_ptr);
-// 	return (str + 1);
-// }
-
-t_token	*quote_case(char *str)
+t_token_list	*ft_lstnew_token(char *content)
 {
-	t_token	*token_ptr;
+	t_token_list	*head;
+
+	head = malloc(sizeof(t_token_list));
+	if (!head)
+		return (NULL);
+	head->lexeme = content;
+	head->next = NULL;
+	return (head);
+}
+
+void	ft_lstadd_token_back(t_token_list **alst, t_token_list *new)
+{
+	t_token_list	*ptr;
+
+	if (alst == NULL)
+		return ;
+	if (*alst == NULL)
+		*alst = new;
+	else
+	{
+		ptr = *alst;
+		while (ptr->next != NULL)
+			ptr = ptr->next;
+		ptr->next = new;
+		new->next = NULL;
+	}
+}
+
+int	is_token(char *str)
+{
+	if (*str == '|' || *str == '>' || *str == '<'
+		|| (*str == '&' && *(str + 1) == '&'))
+		return (1);
+	return (0);
+}
+
+char	*pipe_case(char *str, t_token_list *token_ptr)
+{
+	token_ptr->lexeme = ft_strdup("|");
+	token_ptr->type = PIPE;
+	return (++str);
+}
+
+char	*quote_case(char *str, t_token_list *token_ptr)
+{
 	char	quote_type;
 	int		index;
 
 	index = 0;
 	quote_type = str[index++];
-	token_ptr = malloc(sizeof(t_token));
-	while (str[index] != '\0' && str[index]  != quote_type)
+	while (str[index] != '\0' && str[index] != quote_type)
 		index++;
 	token_ptr->lexeme = malloc((index + 2) * sizeof(char));
 	index = 0;
 	token_ptr->lexeme[index++] = quote_type;
-	while (str[index] != '\0' && str[index]  != quote_type)
+	while (str[index] != '\0' && str[index] != quote_type)
 	{
 		token_ptr->lexeme[index] = str[index];
 		index++;
 	}
 	token_ptr->lexeme[index++] = quote_type;
-	token_ptr->lexeme[index++] = '\0';
+	token_ptr->lexeme[index] = '\0';
 	token_ptr->type = WORD;
-	return (token_ptr);
+	return (str + index);
 }
 
-// char	*word_case(char *str)
-// {
-// 	int i = 0;
-// 	t_token	*token_ptr;
-// 	token_ptr = malloc(sizeof(t_token));
-// 	while (str[i] != '\0' && str[i] != ' ' && not_token(str[i]))
-// 		i++;
-// 	ptr->content->lexeme = malloc((i * sizeof(char)) + 1);
-// 	i = 0;
-// 	while (str[i] != '\0' && not_token(str[i]))
-// 	{
-// 		ptr->content->lexeme[i] = str[i];
-// 		i++;
-// 	}
-// 	ptr->content->lexeme[i] = '\0';
-// 	ptr->content->type = WORD;
-// 	ft_lstadd_back(head, ptr);
-// 	return (str + i);
-// }
+char	*word_case(char *str, t_token_list *token_ptr)
+{
+	int		index;
+	char	*ptr;
 
-// void	operator_case(char str);
-// {
-// 	t_token	*token_ptr;
-// 	t_token_list *ptr = ft_lstnew(token_ptr);
-// 	if (*operator == '|')
-// 		ptr->content->lexeme = strdup("||");
-// 	else
-// 		ptr->content->lexeme = strdup("&&");
-// 	ptr->content->type = OPERATOR;
-// 	ft_lstadd_back(head, ptr);
-// 	return (str + 2);
-		
-		
-// }
-	
-// void	tokenizer(char *cmd, t_token_list **head)
-// {
-// 	if (*cmd == '\0')
-// 		return ;
-// 	else if (*cmd == 34 || *cmd == 39)
-// 		cmd = quote_case(cmd);
-// 	else if (*cmd == '|' && *(cmd + 1) == '|')
-// 		cmd = operator_token(cmd);
-// 	else if (*cmd == '&' && *(cmd + 1) == '&')
-// 		cmd = operator_token(cmd);
-// 	else if (*cmd == '|')
-// 		cmd = pipe_token(cmd);
-// 	else
-// 		cmd = dup_word(cmd);
-// 	tokenizer(cmd, head);
-// }
+	index = 0;
+	while (str[index] != '\0' && !is_token(&str[index]))
+	{
+		if (str[index] == 34 || str[index] == 39)
+			break ;
+		index++;
+	}
+	token_ptr->lexeme = malloc((index + 1) * sizeof(char));
+	index = 0;
+	while (str[index] != '\0' && !is_token(&str[index]))
+	{
+		if (str[index] == 34 || str[index] == 39)
+			break ;
+		token_ptr->lexeme[index] = str[index];
+		index++;
+	}
+	token_ptr->lexeme[index] = '\0';
+	ptr = token_ptr->lexeme;
+	if (str[index] == 34 || str[index] == 39)
+	{
+		str = quote_case(str + index, token_ptr);
+		token_ptr->lexeme = ft_strjoin(ptr, token_ptr->lexeme);
+		index = 0;
+	}
+	token_ptr->type = WORD;
+	return (str + index);
+}
 
+char	*operator_case(char *str, t_token_list *token_ptr)
+{
+	if (*str == '|')
+		token_ptr->lexeme = ft_strdup("||");
+	else
+		token_ptr->lexeme = ft_strdup("&&");
+	token_ptr->type = OPERATOR;
+	return (str + 2);
+}
+
+void	tokenizer(char *cmd, t_token_list *head)
+{
+	static int		value;
+	t_token_list	*token_ptr;
+	char			*buffer;
+
+	if (value == 0)
+	{
+		head = ft_lstnew_token(cmd);
+		token_ptr = head;
+		value++;
+	}
+	if (*cmd == '\0')
+		return ;
+	else if (*cmd == 34 || *cmd == 39)
+		buffer = quote_case(cmd, token_ptr);
+	else if (*cmd == '|' && *(cmd + 1) == '|')
+		buffer = operator_case(cmd, token_ptr);
+	else if (*cmd == '&' && *(cmd + 1) == '&')
+		buffer = operator_case(cmd, token_ptr);
+	else if (*cmd == '|')
+		buffer = pipe_case(cmd, token_ptr);
+	else
+		buffer = word_case(cmd, token_ptr);
+	ft_lstadd_token_back(&token_ptr, ft_lstnew_token("content"));
+	if (value != 0)
+		token_ptr = token_ptr->next;
+	tokenizer(buffer, token_ptr);
+}
