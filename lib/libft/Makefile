@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/21 20:18:19 by moseddik          #+#    #+#              #
-#    Updated: 2022/07/01 17:11:53 by moseddik         ###   ########.fr        #
+#    Updated: 2022/07/05 08:49:01 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC			:= $(SRC_DIR)/mandatory/ft_atoi.c \
 				$(SRC_DIR)/mandatory/ft_strlcpy.c \
 				$(SRC_DIR)/mandatory/ft_strlen.c \
 				$(SRC_DIR)/mandatory/ft_strmapi.c \
+				$(SRC_DIR)/mandatory/ft_strcmp.c \
 				$(SRC_DIR)/mandatory/ft_strncmp.c \
 				$(SRC_DIR)/mandatory/ft_strnstr.c \
 				$(SRC_DIR)/mandatory/ft_strrchr.c \
