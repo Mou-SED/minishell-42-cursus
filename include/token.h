@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:13:22 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/05 22:04:33 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/06 15:24:16 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ typedef struct s_token_list
 	struct s_token_list	*next;
 }	t_token_list;
 
-char	*quote_case(char *str, t_token_list *token_ptr);
-char	*pipe_case(char *str, t_token_list *token_ptr);
-char	*word_case(char *str, t_token_list *token_ptr);
-char	*operator_case(char *str, t_token_list *token_ptr);
+char			*pipe_case(char *str, t_token_list *token_ptr);
+char			*quote_case(char *str, t_token_list *token_ptr);
+char			*word_case(char *str, t_token_list *token_ptr);
+char			*operator_case(char *str, t_token_list *token_ptr);
+t_token_list	*ft_lstnew_token(char *content);
+void			ft_lstadd_token_back(t_token_list **alst, t_token_list *new);
 
-void	tokenizer(char *cmd, t_token_list *head);
+void			tokenizer(char *cmd, t_token_list **head);
 
 #endif

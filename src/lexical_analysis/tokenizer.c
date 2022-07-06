@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:49:00 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/05 22:16:56 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:13:44 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ void	ft_lstadd_token_back(t_token_list **alst, t_token_list *new)
 	}
 }
 
+char	*is_space(char *str)
+{
+	while (*str != '\0' && *str != ' ')
+		str++;
+	if (*str == ' ')
+		str++;
+	return (str);
+}
+
 int	is_token(char *str)
 {
 	if (*str == '|' || *str == '>' || *str == '<'
@@ -64,9 +73,16 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 
 	index = 0;
 	quote_type = str[index++];
-	while (str[index] != '\0' && str[index] != quote_type)
+	while (str[index] != '\0')
+	{
+		if (str[index] == quote_type && str[index + 1] == ' ')
+		{
+			index++;
+			break ;
+		}
 		index++;
-	token_ptr->lexeme = malloc((index + 2) * sizeof(char));
+	}
+	token_ptr->lexeme = malloc((index + 1) * sizeof(char));
 	index = 0;
 	token_ptr->lexeme[index++] = quote_type;
 	while (str[index] != '\0' && str[index] != quote_type)
@@ -74,8 +90,10 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 		token_ptr->lexeme[index] = str[index];
 		index++;
 	}
-	token_ptr->lexeme[index++] = quote_type;
+	if (str[index] == quote_type)
+		token_ptr->lexeme[index++] = quote_type;
 	token_ptr->lexeme[index] = '\0';
+	printf("%zu\n", ft_strlen(token_ptr->lexeme));
 	token_ptr->type = WORD;
 	return (str + index);
 }
@@ -88,7 +106,7 @@ char	*word_case(char *str, t_token_list *token_ptr)
 	index = 0;
 	while (str[index] != '\0' && !is_token(&str[index]))
 	{
-		if (str[index] == 34 || str[index] == 39)
+		if (str[index] == '\'' || str[index] == '"')
 			break ;
 		index++;
 	}
@@ -96,14 +114,14 @@ char	*word_case(char *str, t_token_list *token_ptr)
 	index = 0;
 	while (str[index] != '\0' && !is_token(&str[index]))
 	{
-		if (str[index] == 34 || str[index] == 39)
+		if (str[index] == '\'' || str[index] == '"')
 			break ;
 		token_ptr->lexeme[index] = str[index];
 		index++;
 	}
 	token_ptr->lexeme[index] = '\0';
 	ptr = token_ptr->lexeme;
-	if (str[index] == 34 || str[index] == 39)
+	if (str[index] == '\'' || str[index] == '"')
 	{
 		str = quote_case(str + index, token_ptr);
 		token_ptr->lexeme = ft_strjoin(ptr, token_ptr->lexeme);
@@ -123,32 +141,40 @@ char	*operator_case(char *str, t_token_list *token_ptr)
 	return (str + 2);
 }
 
-void	tokenizer(char *cmd, t_token_list *head)
+void	tokenizer(char *cmd, t_token_list **head)
 {
-	static int		value;
-	t_token_list	*token_ptr;
 	char			*buffer;
+	t_token_list	*add_newtoken;
+	static int		value;
 
+	add_newtoken = ft_lstnew_token("newline");
 	if (value == 0)
 	{
-		head = ft_lstnew_token(cmd);
-		token_ptr = head;
+		*head = ft_lstnew_token("content");
 		value++;
 	}
-	if (*cmd == '\0')
+	if (*cmd == '\0')// TODO: free
+	{
+		free(add_newtoken);
+		add_newtoken = NULL;
 		return ;
-	else if (*cmd == 34 || *cmd == 39)
-		buffer = quote_case(cmd, token_ptr);
+	}
+	else if (*cmd == ' ')
+	{
+		free(add_newtoken);
+		add_newtoken = *head;
+		buffer = is_space(cmd);
+	}
+	else if (*cmd == '\'' || *cmd == '"')
+		buffer = quote_case(cmd, *head);
 	else if (*cmd == '|' && *(cmd + 1) == '|')
-		buffer = operator_case(cmd, token_ptr);
+		buffer = operator_case(cmd, *head);
 	else if (*cmd == '&' && *(cmd + 1) == '&')
-		buffer = operator_case(cmd, token_ptr);
+		buffer = operator_case(cmd, *head);
 	else if (*cmd == '|')
-		buffer = pipe_case(cmd, token_ptr);
+		buffer = pipe_case(cmd, *head);
 	else
-		buffer = word_case(cmd, token_ptr);
-	ft_lstadd_token_back(&token_ptr, ft_lstnew_token("content"));
-	if (value != 0)
-		token_ptr = token_ptr->next;
-	tokenizer(buffer, token_ptr);
+		buffer = word_case(cmd, *head);
+	ft_lstadd_token_back(head, add_newtoken);
+	tokenizer(buffer, &add_newtoken);
 }
