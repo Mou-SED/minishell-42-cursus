@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:13:22 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/06 15:24:16 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:25:49 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ typedef enum s_token_type
 	WORD,
 	PIPE,
 	REDIRECTION,
-	OPERATOR
+	OPERATOR,
+	LEFTPAREN,
+	RIGHTPAREN
 }	t_token_type;
 
 typedef struct s_token_list
@@ -33,6 +35,7 @@ char			*pipe_case(char *str, t_token_list *token_ptr);
 char			*quote_case(char *str, t_token_list *token_ptr);
 char			*word_case(char *str, t_token_list *token_ptr);
 char			*operator_case(char *str, t_token_list *token_ptr);
+char			*paren_case(char *str, t_token_list *token_ptr);
 t_token_list	*ft_lstnew_token(char *content);
 void			ft_lstadd_token_back(t_token_list **alst, t_token_list *new);
 

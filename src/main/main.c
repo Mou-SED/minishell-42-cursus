@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/07 05:38:13 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/07 16:26:51 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_print_tokens(t_token_list *head)
 {
 	t_token_list  *tmp;
-	char *str[5] = {"WORD", "PIPE", "REDIRECTION", "OPERATOR"};
+	char *str[7] = {"WORD", "PIPE", "REDIRECTION", "OPERATOR", "LEFTPAREN", "RIGHTPAREN"};
 	if (head == NULL)
 		printf("head is Null\n");
 	while (ft_strcmp(head->lexeme, "newline"))

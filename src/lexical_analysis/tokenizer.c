@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:49:00 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/07 05:27:57 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/07 20:36:54 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ char	*is_space(char *str)
 	return (str);
 }
 
+char	*skip_space(char *str)
+{
+	while (*str != '\0' && *str == ' ')
+		str++;
+	return (str);
+}
+
 char	*redir_case(char *str, t_token_list *token_ptr)
 {
 	if (*str == '>')
@@ -70,12 +77,11 @@ char	*redir_case(char *str, t_token_list *token_ptr)
 	token_ptr->type = REDIRECTION;
 	return (str + ft_strlen(token_ptr->lexeme));
 }
-	
 
 int	is_token(char *str)
 {
 	if (*str == '|' || *str == '>' || *str == '<'
-		|| (*str == '&' && *(str + 1) == '&'))
+		|| (*str == '&' && *(str + 1) == '&') || *str == '(' || *str == ')')
 		return (1);
 	return (0);
 }
@@ -91,7 +97,7 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 {
 	char	quote_type;
 	int		index;
-	
+
 	index = 0;
 	quote_type = str[index++];
 	while (str[index] != '\0')
@@ -103,11 +109,11 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 			if (str[index] == '\'' || str[index] == '"')
 				quote_type = str[index];
 		}
-		index++;	
+		index++;
 	}
 	token_ptr->lexeme = malloc((index + 1) * sizeof(char));
 	ft_memcpy(token_ptr->lexeme, str, index);
-	token_ptr->lexeme[index] = '\0'; 
+	token_ptr->lexeme[index] = '\0';
 	token_ptr->type = WORD;
 	return (str + index);
 }
@@ -155,6 +161,28 @@ char	*operator_case(char *str, t_token_list *token_ptr)
 	return (str + 2);
 }
 
+char	*paren_case(char *str, t_token_list *token_ptr)
+{
+	int	index;
+
+	index = -1;
+	if (str[++index] == ')')
+	{
+		token_ptr->lexeme = malloc(sizeof(char) + 1);
+		token_ptr->lexeme[index++] = ')';
+		token_ptr->lexeme[index] = '\0';
+		token_ptr->type = RIGHTPAREN;
+	}
+	else if (str[index] == '(')
+	{
+		token_ptr->lexeme = malloc(sizeof(char) + 1);
+		token_ptr->lexeme[index++] = '(';
+		token_ptr->lexeme[index] = '\0';
+		token_ptr->type = LEFTPAREN;
+	}
+	return (str + index);
+}
+
 void	tokenizer(char *cmd, t_token_list **head)
 {
 	char			*buffer;
@@ -177,8 +205,10 @@ void	tokenizer(char *cmd, t_token_list **head)
 	{
 		free(add_newtoken);
 		add_newtoken = *head;
-		buffer = is_space(cmd);
+		buffer = skip_space(cmd);
 	}
+	else if (*cmd == '(' || *cmd == ')')
+		buffer = paren_case(cmd, *head);
 	else if (*cmd == '\'' || *cmd == '"')
 		buffer = quote_case(cmd, *head);
 	else if (*cmd == '|' && *(cmd + 1) == '|')
