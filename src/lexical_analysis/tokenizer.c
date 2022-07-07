@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:49:00 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/06 17:13:44 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/07 03:54:01 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,26 @@ char	*is_space(char *str)
 	return (str);
 }
 
+char	*redir_case(char *str, t_token_list *token_ptr)
+{
+	if (*str == '>')
+	{
+		if (*(str + 1) == '>')
+			token_ptr->lexeme = strdup(">>");
+		else
+			token_ptr->lexeme = strdup(">");
+	}
+	else if (*str == '<')
+	{
+		if (*(str + 1) == '<')
+			token_ptr->lexeme = strdup("<<");
+		else
+			token_ptr->lexeme = strdup("<");
+	}
+	return (str + ft_strlen(token_ptr->lexeme));
+}
+	
+
 int	is_token(char *str)
 {
 	if (*str == '|' || *str == '>' || *str == '<'
@@ -70,31 +90,23 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 {
 	char	quote_type;
 	int		index;
-
+	
 	index = 0;
 	quote_type = str[index++];
 	while (str[index] != '\0')
 	{
-		if (str[index] == quote_type && str[index + 1] == ' ')
+		if (str[index] == quote_type)
 		{
-			index++;
-			break ;
+			if (str[++index] == ' ' || str[index] == '\0')
+				break ;
+			if (str[index] == '\'' || str[index] == '"')
+				quote_type = str[index];
 		}
-		index++;
+		index++;	
 	}
 	token_ptr->lexeme = malloc((index + 1) * sizeof(char));
-	index = 0;
-	token_ptr->lexeme[index++] = quote_type;
-	while (str[index] != '\0' && str[index] != quote_type)
-	{
-		token_ptr->lexeme[index] = str[index];
-		index++;
-	}
-	if (str[index] == quote_type)
-		token_ptr->lexeme[index++] = quote_type;
-	token_ptr->lexeme[index] = '\0';
-	printf("%zu\n", ft_strlen(token_ptr->lexeme));
-	token_ptr->type = WORD;
+	ft_memcpy(token_ptr->lexeme, str, index);
+	token_ptr->lexeme[index] = '\0'; 
 	return (str + index);
 }
 
@@ -112,7 +124,7 @@ char	*word_case(char *str, t_token_list *token_ptr)
 	}
 	token_ptr->lexeme = malloc((index + 1) * sizeof(char));
 	index = 0;
-	while (str[index] != '\0' && !is_token(&str[index]))
+	while (str[index] != '\0' && str[index] != ' ' && !is_token(&str[index]))
 	{
 		if (str[index] == '\'' || str[index] == '"')
 			break ;
@@ -173,6 +185,8 @@ void	tokenizer(char *cmd, t_token_list **head)
 		buffer = operator_case(cmd, *head);
 	else if (*cmd == '|')
 		buffer = pipe_case(cmd, *head);
+	else if (*cmd == '>' || *cmd == '<')
+		buffer = redir_case(cmd, *head);
 	else
 		buffer = word_case(cmd, *head);
 	ft_lstadd_token_back(head, add_newtoken);
