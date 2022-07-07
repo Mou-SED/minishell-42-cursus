@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:49:00 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/07 03:54:01 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/07 05:27:57 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	*redir_case(char *str, t_token_list *token_ptr)
 		else
 			token_ptr->lexeme = strdup("<");
 	}
+	token_ptr->type = REDIRECTION;
 	return (str + ft_strlen(token_ptr->lexeme));
 }
 	
@@ -107,6 +108,7 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 	token_ptr->lexeme = malloc((index + 1) * sizeof(char));
 	ft_memcpy(token_ptr->lexeme, str, index);
 	token_ptr->lexeme[index] = '\0'; 
+	token_ptr->type = WORD;
 	return (str + index);
 }
 
