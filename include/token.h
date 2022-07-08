@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:13:22 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/07 16:25:49 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/08 11:59:43 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,23 @@ typedef struct s_token_list
 	struct s_token_list	*next;
 }	t_token_list;
 
+// Linked List Functions
+t_token_list	*ft_lstnew_token(char *content);
+void			ft_lstadd_token_back(t_token_list **alst, t_token_list *new);
+
+// Case Functions
 char			*pipe_case(char *str, t_token_list *token_ptr);
 char			*quote_case(char *str, t_token_list *token_ptr);
 char			*word_case(char *str, t_token_list *token_ptr);
 char			*operator_case(char *str, t_token_list *token_ptr);
 char			*paren_case(char *str, t_token_list *token_ptr);
-t_token_list	*ft_lstnew_token(char *content);
-void			ft_lstadd_token_back(t_token_list **alst, t_token_list *new);
+char			*redir_case(char *str, t_token_list *token_ptr);
 
+// Tokenizer Utils_Functions
+char			*skip_space(char *str);
+int				is_token(char *str);
+
+// Tokenizer Function
 void			tokenizer(char *cmd, t_token_list **head);
 
 #endif

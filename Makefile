@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
+#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/07/07 03:24:39 by zaabou           ###   ########.fr        #
+#    Updated: 2022/07/08 11:59:24 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ NAME			:= minishell
 SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/lexical_analysis/scanner.c \
 					$(SRC_DIR)/lexical_analysis/tokenizer.c \
+					$(SRC_DIR)/lexical_analysis/linked_list_token.c \
+					$(SRC_DIR)/lexical_analysis/tokenizer_utils.c \
+					$(SRC_DIR)/lexical_analysis/cases_functions.c \
 					$(SRC_DIR)/syntax_analysis/parsing.c \
 					$(SRC_DIR)/signals_handler/signals_handler.c
 OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
