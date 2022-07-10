@@ -43,16 +43,18 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 {
 	char	quote_type;
 	int		index;
-
+	
 	index = 0;
 	quote_type = str[index++];
 	while (str[index] != '\0')
 	{
-		if (str[index] == quote_type)
+		if (str[index] == ' ' && !quote_type)
+			break ;
+		else if (str[index] == '\'' || str[index] == '"')
 		{
-			if (str[++index] == ' ' || str[index] == '\0')
-				break ;
-			if (str[index] == '\'' || str[index] == '"')
+			if (str[index] == quote_type)
+				quote_type = 0;
+			else if (quote_type == 0)
 				quote_type = str[index];
 		}
 		index++;
@@ -63,6 +65,7 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 	token_ptr->type = WORD;
 	return (str + index);
 }
+
 
 char	*operator_case(char *str, t_token_list *token_ptr)
 {
