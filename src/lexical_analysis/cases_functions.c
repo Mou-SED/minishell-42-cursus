@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:58:01 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/09 23:03:12 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/09 23:19:02 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 	quote_type = str[index++];
 	while (str[index] != '\0')
 	{
-		if (str[index] == ' ' && !quote_type)
+		if (str[index] == ' ' && quote_type == 0)
 			break ;
 		else if (str[index] == '\'' || str[index] == '"')
 		{
