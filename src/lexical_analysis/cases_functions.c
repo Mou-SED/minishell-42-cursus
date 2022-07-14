@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:58:01 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/09 23:19:02 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/14 14:53:42 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ char	*redir_case(char *str, t_token_list *token_ptr)
 	if (*str == '>')
 	{
 		if (*(str + 1) == '>')
-			token_ptr->lexeme = strdup(">>");
+			token_ptr->lexeme = ft_strdup(">>");
 		else
-			token_ptr->lexeme = strdup(">");
+			token_ptr->lexeme = ft_strdup(">");
 	}
 	else if (*str == '<')
 	{
 		if (*(str + 1) == '<')
-			token_ptr->lexeme = strdup("<<");
+			token_ptr->lexeme = ft_strdup("<<");
 		else
-			token_ptr->lexeme = strdup("<");
+			token_ptr->lexeme = ft_strdup("<");
 	}
 	token_ptr->type = REDIRECTION;
 	return (str + ft_strlen(token_ptr->lexeme));
@@ -43,12 +43,13 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 {
 	char	quote_type;
 	int		index;
-	
+
 	index = 0;
 	quote_type = str[index++];
 	while (str[index] != '\0')
 	{
-		if (str[index] == ' ' && quote_type == 0)
+		if ((str[index] == ' ' || is_token(&str[index]) == 1)
+			&& quote_type == 0)
 			break ;
 		else if (str[index] == '\'' || str[index] == '"')
 		{
@@ -59,7 +60,7 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 		}
 		index++;
 	}
-	token_ptr->lexeme = malloc((index + 1) * sizeof(char));
+	token_ptr->lexeme = ft_calloc((index + 1), sizeof(char));
 	ft_memcpy(token_ptr->lexeme, str, index);
 	token_ptr->lexeme[index] = '\0';
 	token_ptr->type = WORD;
@@ -84,14 +85,14 @@ char	*paren_case(char *str, t_token_list *token_ptr)
 	index = -1;
 	if (str[++index] == ')')
 	{
-		token_ptr->lexeme = malloc(sizeof(char) + 1);
+		token_ptr->lexeme = ft_calloc(2, sizeof(char));
 		token_ptr->lexeme[index++] = ')';
 		token_ptr->lexeme[index] = '\0';
 		token_ptr->type = RIGHTPAREN;
 	}
 	else if (str[index] == '(')
 	{
-		token_ptr->lexeme = malloc(sizeof(char) + 1);
+		token_ptr->lexeme = ft_calloc(2, sizeof(char));
 		token_ptr->lexeme[index++] = '(';
 		token_ptr->lexeme[index] = '\0';
 		token_ptr->type = LEFTPAREN;
