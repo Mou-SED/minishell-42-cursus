@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:13:22 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/08 11:59:43 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:39:15 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_token_list
 // Linked List Functions
 t_token_list	*ft_lstnew_token(char *content);
 void			ft_lstadd_token_back(t_token_list **alst, t_token_list *new);
+void			ft_lstdelone_token(t_token_list *lst, void (*del) (void *));
+void			ft_lstclear_token(t_token_list **lst, void (*del)(void *));
 
 // Case Functions
 char			*pipe_case(char *str, t_token_list *token_ptr);
