@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/14 21:14:38 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:57:22 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@ int	main(int ac, char **av)
 		if (cmd != NULL && *cmd != 0)
 		{
 			*head = ft_lstnew_token("content");
-			(add_history(cmd), tokenizer(cmd, head), ft_print_tokens(*head));
+			add_history(cmd), tokenizer(cmd, head);
+			free(cmd);
+			ft_print_tokens(*head);
 		}
 		else if (cmd == NULL)
 		{
 			ctl_d_handler();
 		}
 	}
+	ft_lstclear_token(head, &free);
 }

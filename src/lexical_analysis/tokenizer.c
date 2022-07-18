@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:49:00 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/14 21:13:16 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:00:47 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ void	tokenizer(char *cmd, t_token_list **head)
 {
 	t_token_list	*add_newtoken;
 
-	if (*cmd == ' ')
-		cmd = skip_space(cmd);
+	cmd = ft_strtrim(cmd, " ");
 	if (*cmd == '\0')
+	{
+		free(cmd);
 		return ;
+	}
 	if (*cmd == '(' || *cmd == ')')
 		cmd = paren_case(cmd, *head);
 	else if (*cmd == '\'' || *cmd == '"')
@@ -60,7 +62,6 @@ void	tokenizer(char *cmd, t_token_list **head)
 		cmd = redir_case(cmd, *head);
 	else if (*cmd != ' ')
 		cmd = word_case(cmd, *head);
-	cmd = skip_space(cmd);
 	if (*cmd != '\0')
 		(add_newtoken = ft_lstnew_token("newline"), ft_lstadd_token_back(head, add_newtoken));
 	tokenizer(cmd, &add_newtoken);
