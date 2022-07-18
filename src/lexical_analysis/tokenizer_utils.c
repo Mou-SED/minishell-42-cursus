@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/05 21:59:52 by moseddik         ###   ########.fr       */
+/*   Created: 2022/07/08 11:54:39 by moseddik          #+#    #+#             */
+/*   Updated: 2022/07/08 11:56:10 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../include/minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "../lib/libft/include/libft.h"
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "sig_handler.h"
-# include "token.h"
+char	*skip_space(char *str)
+{
+	while (*str != '\0' && *str == ' ')
+		str++;
+	return (str);
+}
 
-void	scanner(void);
-void	parsing(void);
-
-#endif
+int	is_token(char *str)
+{
+	if (*str == '|' || *str == '>' || *str == '<'
+		|| (*str == '&' && *(str + 1) == '&') || *str == '(' || *str == ')')
+		return (1);
+	return (0);
+}
