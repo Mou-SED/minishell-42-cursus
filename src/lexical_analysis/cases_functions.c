@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:58:01 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/14 14:53:42 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/18 16:34:48 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	*quote_case(char *str, t_token_list *token_ptr)
 	token_ptr->type = WORD;
 	return (str + index);
 }
-
 
 char	*operator_case(char *str, t_token_list *token_ptr)
 {
