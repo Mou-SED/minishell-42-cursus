@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:48:40 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/14 20:38:34 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:20:59 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	ft_lstdelone_token(t_token_list *lst, void (*del) (void *))
 {
 	if (!lst || del == NULL)
 		return ;
-	free(lst->lexeme);
-	free(lst);
+	del(lst->lexeme);
+	del(lst);
 }
 
-void	ft_lstclear_token(t_token_list **lst, void (*del)(void *))
+void	ft_lstclear_tokens(t_token_list **lst, void (*del)(void *))
 {
 	t_token_list	*tmp;
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
+#    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/07/08 11:59:24 by moseddik         ###   ########.fr        #
+#    Updated: 2022/07/19 14:18:13 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ LIBFT_DIR		:= $(LIB_DIR)/libft
 # *********************************** Files ************************************
 NAME			:= minishell
 SRC				:= $(SRC_DIR)/main/main.c \
-					$(SRC_DIR)/lexical_analysis/scanner.c \
 					$(SRC_DIR)/lexical_analysis/tokenizer.c \
 					$(SRC_DIR)/lexical_analysis/linked_list_token.c \
 					$(SRC_DIR)/lexical_analysis/tokenizer_utils.c \

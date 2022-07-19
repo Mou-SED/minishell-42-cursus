@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:58:01 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/18 16:34:48 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:45:27 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,15 @@ char	*operator_case(char *str, t_token_list *token_ptr)
 
 char	*paren_case(char *str, t_token_list *token_ptr)
 {
-	int	index;
-
-	index = -1;
-	if (str[++index] == ')')
+	if (*str == ')')
 	{
-		token_ptr->lexeme = ft_calloc(2, sizeof(char));
-		token_ptr->lexeme[index++] = ')';
-		token_ptr->lexeme[index] = '\0';
+		token_ptr->lexeme = ft_strdup(")");
 		token_ptr->type = RIGHTPAREN;
 	}
-	else if (str[index] == '(')
+	else if (*str == '(')
 	{
-		token_ptr->lexeme = ft_calloc(2, sizeof(char));
-		token_ptr->lexeme[index++] = '(';
-		token_ptr->lexeme[index] = '\0';
+		token_ptr->lexeme = ft_strdup("(");
 		token_ptr->type = LEFTPAREN;
 	}
-	return (str + index);
+	return (str + 1);
 }

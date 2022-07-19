@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:49:00 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/18 16:33:59 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:30:00 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*word_case(char *str, t_token_list *token_ptr)
 	{
 		str = quote_case(str + index, token_ptr);
 		token_ptr->lexeme = ft_strjoin(ptr, token_ptr->lexeme);
+		free(ptr);
 		index = 0;
 	}
 	token_ptr->type = WORD;
@@ -40,7 +41,7 @@ char	*word_case(char *str, t_token_list *token_ptr)
 
 void	tokenizer(char *cmd, t_token_list **head)
 {
-	t_token_list	*add_newtoken;
+	t_token_list	*next_token;
 
 	if (*cmd == '\0')
 		return ;
@@ -61,8 +62,8 @@ void	tokenizer(char *cmd, t_token_list **head)
 	cmd = skip_space(cmd);
 	if (*cmd != '\0')
 	{
-		add_newtoken = ft_lstnew_token("newline");
-		ft_lstadd_token_back(head, add_newtoken);
+		next_token = ft_lstnew_token("next_token");
+		ft_lstadd_token_back(head, next_token);
 	}
-	tokenizer(cmd, &add_newtoken);
+	tokenizer(cmd, &next_token);
 }

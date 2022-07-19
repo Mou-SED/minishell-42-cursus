@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:13:22 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/14 16:39:15 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:39:06 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_token_list
 t_token_list	*ft_lstnew_token(char *content);
 void			ft_lstadd_token_back(t_token_list **alst, t_token_list *new);
 void			ft_lstdelone_token(t_token_list *lst, void (*del) (void *));
-void			ft_lstclear_token(t_token_list **lst, void (*del)(void *));
+void			ft_lstclear_tokens(t_token_list **lst, void (*del)(void *));
 
 // Case Functions
 char			*pipe_case(char *str, t_token_list *token_ptr);
