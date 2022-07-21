@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:13:22 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/19 13:39:06 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/22 00:32:41 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define TOKEN_H
 # include "minishell.h"
 
-typedef enum s_token_type
+typedef enum e_token_type
 {
 	WORD,
 	PIPE,

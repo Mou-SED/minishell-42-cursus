@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/19 14:15:39 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/22 00:34:04 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	main(int ac, char **av)
 		{
 			(add_history(cmd), *head = ft_lstnew_token("content"));
 			(tokenizer(skip_space(cmd), head), free(cmd));
+			if (check_syntax_error(*head) == false)
+				continue ;
 			(ft_print_tokens(*head), ft_lstclear_tokens(head, &free));
 		}
 		else if (cmd == NULL)

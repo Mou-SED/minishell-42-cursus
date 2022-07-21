@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_print_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/21 17:20:41 by zaabou           ###   ########.fr       */
+/*   Created: 2022/07/21 17:03:06 by zaabou            #+#    #+#             */
+/*   Updated: 2022/07/21 17:09:18 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../include/minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdbool.h>
-# include "../lib/libft/include/libft.h"
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "sig_handler.h"
-# include "token.h"
-# include "error.h"
-
-void	scanner(void);
-void	parsing(void);
-
-#endif
+void	ft_print_error(char *str)
+{
+	ft_putstr_fd("Error : ", STDERR_FILENO);
+	ft_putendl_fd(str, STDERR_FILENO);
+}
