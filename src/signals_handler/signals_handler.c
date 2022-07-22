@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:20:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/01 18:59:46 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/22 15:48:45 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ static void	ctl_backslash_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	ctl_d_handler(void)
+void	ctl_d_handler(t_token_list **head)
 {
+	free(head);
 	rl_clear_history();
 	printf("\x1B[1;A\x1B[11;Cexit\n");
 	exit(EXIT_SUCCESS);
