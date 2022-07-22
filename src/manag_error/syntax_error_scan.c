@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error_scan.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:11:40 by zaabou            #+#    #+#             */
-/*   Updated: 2022/07/22 00:31:36 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/22 14:58:04 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,27 @@ bool    check_syntax_error(t_token_list *node)
 {
     int index;
 
-    index = 0;
-    if (node->type != WORD && node->type != REDIRECTION && node->type != LEFTPAREN)
-        return (ft_print_error("Syntax Error"), false);
+    if (node->type != WORD && node->type != REDIRECTION
+        && node->type != LEFTPAREN)
+        return (ft_print_error(node->lexeme), false);
     while (node != NULL)
     {
-        if ((node->type != WORD && node->type != RIGHTPAREN && node->type != REDIRECTION) && node->next == NULL)
-            return (ft_print_error("Syntax Error"), false);
-        else if (node->type == WORD && unclosed_quote(&node->lexeme[get_first_quote(node->lexeme, &index) + 1], node->lexeme[index]) == true)
-            return (ft_print_error("Syntax Error"), false);
-        else if (node->next && node->type == REDIRECTION && node->next->type != WORD)
-            return (ft_print_error("Syntax Error"), false);
-       else if (node->next && (node->type == OPERATOR || node->type == PIPE) && (node->next->type != WORD && node->next->type != LEFTPAREN && node->next->type != REDIRECTION))
-                return (ft_print_error("Syntax Error"), false);
-        node = node->next;
         index = 0;
+        if ((node->type != WORD && node->type != RIGHTPAREN
+            && node->type != REDIRECTION) && node->next == NULL)
+            return (ft_print_error(node->lexeme), false);
+        else if (node->type == WORD
+            && unclosed_quote(&node->lexeme[get_first_quote(node->lexeme,
+                &index) + 1], node->lexeme[index]) == true)
+            return (ft_print_error("unclosed_quote"), false);
+        else if (node->next && node->type == REDIRECTION
+            && node->next->type != WORD)
+            return (ft_print_error(node->next->lexeme), true);
+        else if (node->next && (node->type == OPERATOR || node->type == PIPE)
+            && (node->next->type != WORD && node->next->type != LEFTPAREN
+                && node->next->type != REDIRECTION))
+            return (ft_print_error(node->next->lexeme), true);
+        node = node->next;
     }
     return (true);
 }
