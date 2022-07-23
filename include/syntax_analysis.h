@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/07/21 16:18:56 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/23 23:18:21 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,21 @@
 # define SYNTAX_ANALYSIS_H
 # include "minishell.h"
 
+
+typedef enum e_node
+{
+    AND,
+    OR,
+    CMD,
+    PIP
+}   t_node;
+
 typedef  struct s_cmd
 {
-    char    *string;
-    char    **cmd;
+    char    **cmd_table;
+    char    *cmd_args;
+    char    *out_files;
+    char    *in_files;   
     int     fdin;
     int     fdout;
 }   t_cmd;
@@ -30,7 +41,7 @@ typedef  struct s_pipe
 
 typedef struct s_ast
 {
-    t_token_type    type;
+    t_node          type;
     struct s_ast    *right;
     struct s_ast    *left;
     t_cmd           *cmd_node;

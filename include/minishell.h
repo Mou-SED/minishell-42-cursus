@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/21 17:20:41 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/23 11:01:41 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "sig_handler.h"
 # include "token.h"
 # include "error.h"
+#include "syntax_analysis.h"
 
 void	scanner(void);
 void	parsing(void);
