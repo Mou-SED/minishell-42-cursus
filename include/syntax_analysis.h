@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/07/23 23:18:21 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/24 17:10:44 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ typedef enum e_node
     AND,
     OR,
     CMD,
-    PIP
+    PIP,
+    PAREN,
 }   t_node;
 
 typedef  struct s_cmd

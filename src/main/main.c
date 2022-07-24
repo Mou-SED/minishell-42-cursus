@@ -6,19 +6,21 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/23 23:58:35 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/25 00:13:01 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 t_ast	*ft_cmd_parse(t_token_list *token);
-t_ast	**building_ast(t_ast **root, t_token_list *token_list);
+t_ast	*building_ast(t_ast *root, t_token_list *token_list);
 
 void	print_parse_cmd(t_ast *node)
 {
 	if (node == NULL)
 		return ;
+	if (node->type == PAREN)
+		printf("i am (\n");
 	if (node->type == OR)
 			printf(" im ||\n");		
 	else if (node->type == AND)
@@ -30,8 +32,8 @@ void	print_parse_cmd(t_ast *node)
 		if (node->left->type == CMD)
 		{
 			printf("my left is : %s\n", node->left->cmd_node->cmd_args);
-			printf("my input fils [ %s ]\n", node->left->cmd_node->in_files);
-			printf("my output fils[ %s ]\n", node->left->cmd_node->out_files);
+			// printf("my input fils [ %s ]\n", node->left->cmd_node->in_files);
+			// printf("my output fils[ %s ]\n", node->left->cmd_node->out_files);
 		}
 		else if (node->left->type == PIP)
 			printf("my left is | \n");
@@ -43,8 +45,8 @@ void	print_parse_cmd(t_ast *node)
 		if (node->right->type == CMD)
 		{
 			printf("my right is : %s\n", node->right->cmd_node->cmd_args);
-			printf("my input fils [ %s ]\n", node->right->cmd_node->in_files);
-			printf("my output fils[ %s ]\n", node->right->cmd_node->out_files);
+			// printf("my input fils [ %s ]\n", node->right->cmd_node->in_files);
+			// printf("my output fils[ %s ]\n", node->right->cmd_node->out_files);
 		}
 		else if (node->right->type == PIP)
 			printf("my right is | \n");
@@ -72,12 +74,12 @@ int	main(int ac, char **av)
 {
 	char			*cmd;
 	t_token_list	**head;
-	t_ast			**root;
+	t_ast			*root;
 
 	(void)ac;
 	(void)av;
 	head = ft_calloc(1, sizeof(t_token_list *));
-	root = ft_calloc(1, sizeof(t_ast *));
+	root = ft_calloc(1, sizeof(t_ast));
 	signals_handler();
 	while (1)
 	{
@@ -92,7 +94,7 @@ int	main(int ac, char **av)
 				continue ;
 			}*/
 			root = building_ast(root, *head);
-			print_parse_cmd(*root);
+			print_parse_cmd(root);
 			//(ft_print_tokens(*head), ft_lstclear_tokens(head, &free));
 		}
 		else if (cmd == NULL)
