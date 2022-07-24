@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/23 23:37:10 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/23 23:58:35 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ void	print_parse_cmd(t_ast *node)
 	if (node->left != NULL)
 	{
 		if (node->left->type == CMD)
+		{
 			printf("my left is : %s\n", node->left->cmd_node->cmd_args);
+			printf("my input fils [ %s ]\n", node->left->cmd_node->in_files);
+			printf("my output fils[ %s ]\n", node->left->cmd_node->out_files);
+		}
 		else if (node->left->type == PIP)
 			printf("my left is | \n");
 		else
@@ -37,7 +41,11 @@ void	print_parse_cmd(t_ast *node)
 	if (node->right != NULL)
 	{
 		if (node->right->type == CMD)
+		{
 			printf("my right is : %s\n", node->right->cmd_node->cmd_args);
+			printf("my input fils [ %s ]\n", node->right->cmd_node->in_files);
+			printf("my output fils[ %s ]\n", node->right->cmd_node->out_files);
+		}
 		else if (node->right->type == PIP)
 			printf("my right is | \n");
 		else
