@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analysis.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/07/26 01:12:10 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:04:57 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ typedef  struct s_cmd
 {
     char    **cmd_table;
     char    *cmd_args;
-    char    *out_files;
-    char    *in_files;
+    char    *redir_files;
     int     fdin;
     int     fdout;
 }   t_cmd;
