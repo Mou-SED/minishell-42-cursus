@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/25 20:41:10 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:16:44 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	main(int ac, char **av)
 {
 	char			*cmd;
 	t_token_list	**head;
-	t_ast			*root;
+	t_ast			**root;
 
 	(void)ac;
 	(void)av;

@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 12:44:04 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/26 10:08:43 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:16:14 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_ast	*parce_parenteses(t_token_list *token)
 
 t_token_list	*get_next_operator(t_token_list *token_list)
 {
-	if (token_list == NULL || token_list->type == OPERATOR || token_list->type == RIGHTPAREN)
+	if (token_list == NULL || token_list->type == OPERATOR || token_list->type == RIGHTPAREN || token_list->type == LEFTPAREN)
 		return (token_list);
 	else
 		return (get_next_operator(token_list->next));
@@ -75,16 +75,6 @@ t_ast	*ft_cmd_parse(t_token_list *token)
 	node->cmd_node = ft_calloc(1, sizeof(t_cmd));
 	while (token != NULL && token->type != OPERATOR && token->type != RIGHTPAREN)
 	{
-		if (token->type == RIGHTPAREN)
-			break ;
-		if (token->type == LEFTPAREN)
-		{
-			paren_node = ft_calloc(1, sizeof(t_ast));
-			paren_node->type = PAREN;
-			paren_node->left = NULL;
-			paren_node->right = building_ast(paren_node, token->next);
-			return(paren_node);
-		}
 		if (token->type == PIPE)
 		{
 			pipe_node = ft_calloc(1, sizeof(t_ast));
@@ -160,7 +150,7 @@ t_ast	*building_ast(t_ast *root, t_token_list *token_list)
 		root = current_node;
 		current_node->right = ft_cmd_parse(token_list->next);
 		if (token_list->next && token_list->next->type == LEFTPAREN)
-			token_list = skip_to_right_parentheses(token_list->next->next);	
+			token_list = skip_to_right_parentheses(token_list->next->next);
 		else
 			token_list = get_next_operator(token_list->next);
 	}
