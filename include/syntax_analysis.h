@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analysis.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/07/24 17:10:44 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/26 01:12:10 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef enum e_node
     OR,
     CMD,
     PIP,
-    PAREN,
+    PAR
 }   t_node;
 
 typedef  struct s_cmd
@@ -29,7 +29,7 @@ typedef  struct s_cmd
     char    **cmd_table;
     char    *cmd_args;
     char    *out_files;
-    char    *in_files;   
+    char    *in_files;
     int     fdin;
     int     fdout;
 }   t_cmd;
