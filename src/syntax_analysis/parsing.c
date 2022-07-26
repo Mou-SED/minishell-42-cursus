@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 12:44:04 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/26 14:54:36 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:09:46 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,19 @@ t_ast	*ft_cmd_parse(t_token_list *token)
 			pipe_node->type = PIP;
 			pipe_node->left = node;
 			pipe_node->right = ft_cmd_parse(token->next);
+			printf("the right of pipe is %s\n", pipe_node->right->cmd_node->cmd_args);
 			return (pipe_node);
 		}
 		if (token->type == REDIRECTION)
 		{
 			node->type = CMD;
-			if (ft_strcmp(token->lexeme, "<") == 0)
+			if (ft_strcmp(token->lexeme, "<") == 0 || ft_strcmp(token->lexeme, ">") == 0 || ft_strcmp(token->lexeme, ">>") == 0)
 			{
-				if (node->cmd_node->in_files == NULL)
-					node->cmd_node->in_files = ft_strdup(token->lexeme);
+				if (node->cmd_node->redir_files == NULL)
+					node->cmd_node->redir_files = ft_strdup(token->lexeme);
 				else
-					node->cmd_node->in_files = ft_strjoin_char(node->cmd_node->in_files, token->lexeme, ' ');
-				node->cmd_node->in_files = ft_strjoin_char(node->cmd_node->in_files, token->next->lexeme, ' ');
-			}
-			else if (ft_strcmp(token->lexeme, ">") == 0)
-			{
-				if (node->cmd_node->out_files == NULL)
-					node->cmd_node->out_files = ft_strdup(token->lexeme);
-				else
-					node->cmd_node->out_files = ft_strjoin_char(node->cmd_node->out_files, token->lexeme, ' ');
-				node->cmd_node->out_files = ft_strjoin_char(node->cmd_node->out_files, token->next->lexeme, ' ');
+					node->cmd_node->redir_files = ft_strjoin_char(node->cmd_node->redir_files, token->lexeme, ' ');
+				node->cmd_node->redir_files = ft_strjoin_char(node->cmd_node->redir_files, token->next->lexeme, ' ');
 			}
 			token = token->next;
 		}

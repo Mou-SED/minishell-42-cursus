@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/26 13:29:07 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:08:23 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ void	clear_ast(t_ast *root)
 			free(root->cmd_node->cmd_table);
 		if(root->cmd_node->cmd_args)
 			free(root->cmd_node->cmd_args);
-		if(root->cmd_node->out_files)
-			free(root->cmd_node->out_files);
-		if(root->cmd_node->in_files)
-			free(root->cmd_node->in_files);
+		if(root->cmd_node->redir_files)
+			free(root->cmd_node->redir_files);
 		free(root->cmd_node);
 	}
 	free(root);
@@ -104,8 +102,7 @@ void	print_parse_cmd(t_ast *node)
 		if (node->left->type == CMD)
 		{
 			printf("my left is : %s\n", node->left->cmd_node->cmd_args);
-			// printf("my input fils [ %s ]\n", node->left->cmd_node->in_files);
-			// printf("my output fils[ %s ]\n", node->left->cmd_node->out_files);
+			printf("my input && output files [ %s ]\n", node->left->cmd_node->redir_files);
 		}
 		else if (node->left->type == PIP)
 			printf("my left is | \n");
@@ -119,8 +116,7 @@ void	print_parse_cmd(t_ast *node)
 		if (node->right->type == CMD)
 		{
 			printf("\t\t\t\tmy right is : %s\n", node->right->cmd_node->cmd_args);
-			// printf("my input fils [ %s ]\n", node->right->cmd_node->in_files);
-			// printf("my output fils[ %s ]\n", node->right->cmd_node->out_files);
+			printf("my input && output files [ %s ]\n", node->right->cmd_node->redir_files);
 		}
 		else if (node->right->type == PIP)
 			printf("\t\t\t\tmy right is | \n");
