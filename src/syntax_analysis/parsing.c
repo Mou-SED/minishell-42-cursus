@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 12:44:04 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/26 11:16:14 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:54:36 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_ast	*ft_cmd_parse(t_token_list *token)
 
 	if (token->type == LEFTPAREN)
 		return (parce_parenteses(token));
-	node = ft_calloc(1, sizeof(t_ast));
+	node = ft_calloc(1, sizeof(t_ast)); 
 	node->cmd_node = ft_calloc(1, sizeof(t_cmd));
 	while (token != NULL && token->type != OPERATOR && token->type != RIGHTPAREN)
 	{
@@ -136,11 +136,11 @@ t_ast	*building_ast(t_ast *root, t_token_list *token_list)
 {
 	t_ast *current_node;
 
-	current_node = ft_calloc(1, sizeof(t_ast));
 	if (token_list == NULL || token_list->type == RIGHTPAREN)
 		return (root);
 	if (token_list->type == OPERATOR)
 	{
+		current_node = ft_calloc(1, sizeof(t_ast));
 		if (ft_strcmp(token_list->lexeme, "&&") == 0)
 			current_node->type = AND;
 		else
