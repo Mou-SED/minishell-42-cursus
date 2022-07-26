@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/26 11:16:44 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/26 13:29:07 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,29 @@ t_ast	*building_ast(t_ast *root, t_token_list *token_list); //TODO : ADD prototy
 // }
 //! ****************************************************************************
 
+void	clear_ast(t_ast *root)
+{
+	if (root == NULL)
+		return ;
+	if (root->left)
+		clear_ast(root->left);	
+	if (root->right)
+		clear_ast(root->right);
+	if (root->cmd_node)
+	{
+		if (root->cmd_node->cmd_table)
+			free(root->cmd_node->cmd_table);
+		if(root->cmd_node->cmd_args)
+			free(root->cmd_node->cmd_args);
+		if(root->cmd_node->out_files)
+			free(root->cmd_node->out_files);
+		if(root->cmd_node->in_files)
+			free(root->cmd_node->in_files);
+		free(root->cmd_node);
+	}
+	free(root);
+	root = NULL;
+}
 void	print_parse_cmd(t_ast *node)
 {
 	char *str[2] = {"&&", "||"};
@@ -125,12 +148,11 @@ int	main(int ac, char **av)
 {
 	char			*cmd;
 	t_token_list	**head;
-	t_ast			**root;
+	t_ast			*root;
 
 	(void)ac;
 	(void)av;
 	head = ft_calloc(1, sizeof(t_token_list *));
-	root = ft_calloc(1, sizeof(t_ast));
 	signals_handler();
 	while (1)
 	{
@@ -144,10 +166,11 @@ int	main(int ac, char **av)
 				ft_lstclear_tokens(head, &free);
 				continue ;
 			}
-			*root = building_ast(*root, *head);
+			root = building_ast(root, *head);
 			// execution(*root); //TODO : Delete this line
-			print_parse_cmd(*root);
-			//(ft_print_tokens(*head), ft_lstclear_tokens(head, &free));
+			print_parse_cmd(root);
+			ft_lstclear_tokens(head, &free);
+			clear_ast(root);
 		}
 		else if (cmd == NULL)
 			ctl_d_handler(head);
