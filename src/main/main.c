@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/26 16:08:23 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/27 22:41:48 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	clear_ast(t_ast *root)
 }
 void	print_parse_cmd(t_ast *node)
 {
-	char *str[2] = {"&&", "||"};
+	char *str[5] = {"&&", "||", "CMD", "PIPE", "()"};
 	if (node == NULL)
 		return ;
 	if (node->type == PAR)
@@ -102,7 +102,7 @@ void	print_parse_cmd(t_ast *node)
 		if (node->left->type == CMD)
 		{
 			printf("my left is : %s\n", node->left->cmd_node->cmd_args);
-			printf("my input && output files [ %s ]\n", node->left->cmd_node->redir_files);
+			printf("my files : is [%s]\n", node->left->cmd_node->redir_files);
 		}
 		else if (node->left->type == PIP)
 			printf("my left is | \n");
@@ -116,7 +116,7 @@ void	print_parse_cmd(t_ast *node)
 		if (node->right->type == CMD)
 		{
 			printf("\t\t\t\tmy right is : %s\n", node->right->cmd_node->cmd_args);
-			printf("my input && output files [ %s ]\n", node->right->cmd_node->redir_files);
+			printf("\t\t\t\tmy files : is [%s]\n", node->right->cmd_node->redir_files);
 		}
 		else if (node->right->type == PIP)
 			printf("\t\t\t\tmy right is | \n");

@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 12:44:04 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/26 16:09:46 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/27 20:47:14 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_ast	*parce_parenteses(t_token_list *token); //TODO : ADD prototype to our Header file
 t_ast	*building_ast(t_ast *root, t_token_list *token_list); //TODO : ADD prototype to our Header file
+t_token_list	*skip_to_right_parentheses(t_token_list *token); //TODO : ADD prototype to our Header file
 
 t_ast	*parce_parenteses(t_token_list *token)
 {
@@ -30,10 +31,15 @@ t_ast	*parce_parenteses(t_token_list *token)
 
 t_token_list	*get_next_operator(t_token_list *token_list)
 {
-	if (token_list == NULL || token_list->type == OPERATOR || token_list->type == RIGHTPAREN || token_list->type == LEFTPAREN)
+	if (token_list == NULL || token_list->type == OPERATOR || token_list->type == RIGHTPAREN)
 		return (token_list);
-	else
-		return (get_next_operator(token_list->next));
+	if (token_list->type == LEFTPAREN)
+	{
+		token_list = skip_to_right_parentheses(token_list->next);
+		if (token_list == NULL || token_list->type == OPERATOR || token_list->type == RIGHTPAREN)
+			return (token_list);
+	}
+	return (get_next_operator(token_list->next));
 }
 char	*ft_strjoin_char(char *s1, char const *s2, char c)
 {
@@ -69,19 +75,23 @@ t_ast	*ft_cmd_parse(t_token_list *token)
 	t_ast	*node;
 	t_ast	*pipe_node;
 
-	if (token->type == LEFTPAREN)
-		return (parce_parenteses(token));
 	node = ft_calloc(1, sizeof(t_ast)); 
 	node->cmd_node = ft_calloc(1, sizeof(t_cmd));
 	while (token != NULL && token->type != OPERATOR && token->type != RIGHTPAREN)
 	{
+		if (token->type == LEFTPAREN)
+		{
+			node = parce_parenteses(token);
+			token = skip_to_right_parentheses(token->next);
+			if (token == NULL || token->type == OPERATOR)
+				return (node);
+		}
 		if (token->type == PIPE)
 		{
 			pipe_node = ft_calloc(1, sizeof(t_ast));
 			pipe_node->type = PIP;
 			pipe_node->left = node;
 			pipe_node->right = ft_cmd_parse(token->next);
-			printf("the right of pipe is %s\n", pipe_node->right->cmd_node->cmd_args);
 			return (pipe_node);
 		}
 		if (token->type == REDIRECTION)
@@ -109,8 +119,6 @@ t_ast	*ft_cmd_parse(t_token_list *token)
 	}
 	return (node);
 }
-
-t_token_list	*skip_to_right_parentheses(t_token_list *token); //TODO : ADD prototype to our Header file
 
 t_token_list	*skip_to_right_parentheses(t_token_list *token)
 {
@@ -151,7 +159,10 @@ t_ast	*building_ast(t_ast *root, t_token_list *token_list)
 	{
 		root = ft_cmd_parse(token_list);
 		if (root->type == PAR)
+		{
 			token_list = skip_to_right_parentheses(token_list->next);
+			return (root);
+		}
 		else
 			token_list = get_next_operator(token_list);
 	}
