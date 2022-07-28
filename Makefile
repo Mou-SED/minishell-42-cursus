@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
+#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/07/21 18:02:40 by zaabou           ###   ########.fr        #
+#    Updated: 2022/07/28 16:17:49 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,8 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/lexical_analysis/tokenizer_utils.c \
 					$(SRC_DIR)/lexical_analysis/cases_functions.c \
 					$(SRC_DIR)/syntax_analysis/parsing.c \
+					$(SRC_DIR)/syntax_analysis/ast.c \
+					$(SRC_DIR)/syntax_analysis/Helper_functions.c \
 					$(SRC_DIR)/signals_handler/signals_handler.c \
 					$(SRC_DIR)/manag_error/ft_print_error.c \
 					$(SRC_DIR)/manag_error/syntax_error_scan.c
