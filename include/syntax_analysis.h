@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analysis.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/07/26 16:04:57 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/28 20:03:08 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SYNTAX_ANALYSIS_H
 # define SYNTAX_ANALYSIS_H
 # include "minishell.h"
-
 
 typedef enum e_node
 {
@@ -48,5 +47,21 @@ typedef struct s_ast
     t_pipe          *pipe_node;
 }   t_ast;
 
+// AST functions
+t_ast           *ft_ast_new(t_token_list	*token);
+t_ast           *building_ast(t_ast *root, t_token_list *token_list);
+t_ast           *parse_operator(t_ast *root, t_token_list *token_list);
+t_ast           *parse_parenteses(t_ast *node, t_token_list *token);
+t_ast           *parse_cmd(t_token_list *token);
+t_ast           *parse_pipe(t_ast *root, t_token_list *token);
 
+// Memory Management functions
+void            clear_ast(t_ast *root);
+
+// Helper functions
+void            join_cmd_args(t_ast *node, t_token_list *token);
+void            join_files(t_ast *node, t_token_list *token);
+t_token_list    *get_next_operator(t_token_list *token_list);
+t_token_list    *skip_to_right_parentheses(t_token_list *token);
+char            *ft_strjoin_char(char *s1, char const *s2, char c);
 #endif
