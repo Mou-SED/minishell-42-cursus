@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/30 16:19:52 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/30 18:25:42 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int	main(int ac, char **av)
 		cmd = readline("\001\e[1;36m\002MiniShell~ \001\e[0m\002");
 		if (cmd != NULL && *cmd != 0)
 		{
-			(add_history(cmd), *head = ft_lstnew_token("content"));
+			(add_history(cmd), *head = ft_lstnew_token(NULL));
 			(tokenizer(skip_space(cmd), head), free(cmd));
-			if (check_syntax_error(*head) == false)
+			if ((*head)->lexeme == NULL || check_syntax_error(*head) == false)
 			{
 				ft_lstclear_tokens(head, &free);
 				continue ;
