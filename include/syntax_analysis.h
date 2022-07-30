@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/07/30 02:07:35 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/30 16:10:28 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void            clear_ast(t_ast *root);
 // Helper functions
 void            join_cmd_args(t_ast *node, t_token_list *token);
 t_token_list	*join_files(t_ast *node, t_token_list *token);
-t_token_list    *get_next_operator(t_token_list *token_list);
-t_token_list    *skip_to_right_parentheses(t_token_list *token);
+t_token_list	*get_next_to_parse(t_token_list *token);
 char            *ft_strjoin_char(char *s1, char const *s2, char c);
 #endif
