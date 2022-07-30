@@ -6,18 +6,12 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:07:37 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/29 19:19:27 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/30 16:21:52 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_token_list	*get_next_to_parse(t_token_list *token)
-{
-	while (token && token->is_parsed != 0)
-		token = token->next;
-	return (token);
-}
 t_ast	*ft_ast_new(t_token_list	*token)
 {
 	t_ast	*node;
@@ -25,8 +19,9 @@ t_ast	*ft_ast_new(t_token_list	*token)
 	node = ft_calloc(1, sizeof(t_ast));
 	if (node == NULL)
 		exit(EXIT_FAILURE);
-	if (token->type !=  OPERATOR)
+	if (token->type != OPERATOR)
 	{
+		node->type = CMD;
 		node->cmd_node = ft_calloc(1, sizeof(t_cmd));
 		if (node->cmd_node == NULL)
 			exit(EXIT_FAILURE);
@@ -37,7 +32,11 @@ t_ast	*ft_ast_new(t_token_list	*token)
 t_ast	*building_ast(t_ast *root, t_token_list *token)
 {
 	if (token == NULL || token->type == RIGHTPAREN)
+	{
+		if (token && token->type == RIGHTPAREN)
+			token->is_parsed = 1;
 		return (root);
+	}
 	if (token->type == OPERATOR)
 		root = parse_operator(root, token);
 	else

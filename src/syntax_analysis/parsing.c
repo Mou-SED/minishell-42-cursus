@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 12:44:04 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/30 02:13:15 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/30 15:48:02 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,14 @@ t_ast	*parse_cmd(t_token_list *token)
 	{
 		token->is_parsed = 1;
 		if (token->type == LEFTPAREN)
-		{
 			node = parse_parenteses(node, token);
-			token = skip_to_right_parentheses(token->next);
-			if (token == NULL || token->type == OPERATOR)
-				break ;
-		}
 		if (token->type == PIPE)
 			return (parse_pipe(node, token));
 		if (token->type == REDIRECTION)
 			token = join_files(node, token);
 		else if (token->type == WORD)
 			join_cmd_args(node, token);
-		if (token)
-			token = token->next;
+		token = get_next_to_parse(token);
 	}
 	return (node);
 }

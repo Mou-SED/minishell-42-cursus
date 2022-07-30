@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/28 18:44:28 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/30 16:19:52 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	print_parse_cmd(t_ast *node)
 		printf("\t\t my redir is %s\n", node->cmd_node->redir_files);
 	}
 	if (node->type == OR)
-			printf("\t\t im ||\n");
+		printf("\t\t im ||\n");
 	else if (node->type == AND)
-			printf("\t\t im &&\n");
+		printf("\t\t im &&\n");
 	if (node->type == PIP)
 		printf("\t\tthe sub_root is |\n");
 	if (node->left != NULL)
@@ -33,7 +33,7 @@ void	print_parse_cmd(t_ast *node)
 		if (node->left->type == CMD)
 		{
 			printf("my left is : %s\n", node->left->cmd_node->cmd_args);
-			printf("my files : is [%s]\n", node->left->cmd_node->redir_files);
+			printf("my file : is [%s]\n", node->left->cmd_node->redir_files);
 		}
 		else if (node->left->type == PIP)
 			printf("my left is | \n");

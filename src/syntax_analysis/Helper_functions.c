@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:16:45 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/30 02:26:08 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/30 16:22:19 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	join_cmd_args(t_ast *node, t_token_list *token)
 
 t_token_list	*join_files(t_ast *node, t_token_list *token)
 {
-	
 	if (!ft_strcmp(token->lexeme, "<") || !ft_strcmp(token->lexeme, ">")
 		|| !ft_strcmp(token->lexeme, ">>"))
 	{
@@ -70,32 +69,12 @@ t_token_list	*join_files(t_ast *node, t_token_list *token)
 				token->lexeme, ' ');
 		token->is_parsed = 1;
 	}
-	return(token);
+	return (token);
 }
 
-t_token_list	*get_next_operator(t_token_list *token_list)
+t_token_list	*get_next_to_parse(t_token_list *token)
 {
-	if (token_list == NULL || token_list->type == OPERATOR)
-		return (token_list);
-	if (token_list->type == LEFTPAREN)
-	{
-		token_list = skip_to_right_parentheses(token_list->next);
-		if (token_list == NULL || token_list->type == OPERATOR)
-			return (token_list);
-	}
-	return (get_next_operator(token_list->next));
-}
-
-t_token_list	*skip_to_right_parentheses(t_token_list *token)
-{
-	if (token == NULL)
-		return (NULL);
-	token->is_parsed = 1;
-	if (token->type == LEFTPAREN)
-		token = skip_to_right_parentheses(token->next);
-	if (token && token->type == RIGHTPAREN)
-		return (token->next);
-	if (token)
-		return (skip_to_right_parentheses(token->next));
-	return (NULL);
+	while (token && token->is_parsed != 0)
+		token = token->next;
+	return (token);
 }
