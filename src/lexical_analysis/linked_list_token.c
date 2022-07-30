@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:48:40 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/19 13:20:59 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/29 19:15:04 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_token_list	*ft_lstnew_token(char *content)
 	head = malloc(sizeof(t_token_list));
 	if (!head)
 		return (NULL);
+	head->is_parsed = 0;
 	head->lexeme = content;
 	head->next = NULL;
 	return (head);

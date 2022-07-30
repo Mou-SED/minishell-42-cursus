@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:07:37 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/28 19:41:38 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/29 19:19:27 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+t_token_list	*get_next_to_parse(t_token_list *token)
+{
+	while (token && token->is_parsed != 0)
+		token = token->next;
+	return (token);
+}
 t_ast	*ft_ast_new(t_token_list	*token)
 {
 	t_ast	*node;
@@ -33,22 +39,10 @@ t_ast	*building_ast(t_ast *root, t_token_list *token)
 	if (token == NULL || token->type == RIGHTPAREN)
 		return (root);
 	if (token->type == OPERATOR)
-	{
 		root = parse_operator(root, token);
-		if (token->type == LEFTPAREN)
-			token = skip_to_right_parentheses(token->next->next);
-		else
-			token = get_next_operator(token->next);
-	}
 	else
-	{
 		root = parse_cmd(token);
-		printf("ROOT : %u\n", root->type);
-		if (root->type == PAR)
-			return (root);
-		else
-			token = get_next_operator(token);
-	}
+	token = get_next_to_parse(token);
 	return (building_ast(root, token));
 }
 

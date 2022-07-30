@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:13:22 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/22 00:32:41 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/29 19:16:30 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ typedef enum e_token_type
 
 typedef struct s_token_list
 {
-	char				*lexeme;
+	int					is_parsed;
 	t_token_type		type;
+	char				*lexeme;
 	struct s_token_list	*next;
 }	t_token_list;
 

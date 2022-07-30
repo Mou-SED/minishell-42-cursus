@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 12:44:04 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/28 20:03:41 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/30 02:13:15 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_ast	*parse_operator(t_ast *root, t_token_list *token)
 {
 	t_ast	*current_node;
 
+	token->is_parsed = 1;
 	current_node = ft_ast_new(token);
 	if (ft_strcmp(token->lexeme, "&&") == 0)
 		current_node->type = AND;
@@ -37,6 +38,7 @@ t_ast	*parse_pipe(t_ast *node, t_token_list *token)
 {
 	t_ast	*pipe_node;
 
+	token->is_parsed = 1;
 	pipe_node = ft_ast_new(token);
 	pipe_node->type = PIP;
 	pipe_node->left = node;
@@ -52,6 +54,7 @@ t_ast	*parse_cmd(t_token_list *token)
 	while (token != NULL && token->type != OPERATOR
 		&& token->type != RIGHTPAREN)
 	{
+		token->is_parsed = 1;
 		if (token->type == LEFTPAREN)
 		{
 			node = parse_parenteses(node, token);
@@ -62,13 +65,11 @@ t_ast	*parse_cmd(t_token_list *token)
 		if (token->type == PIPE)
 			return (parse_pipe(node, token));
 		if (token->type == REDIRECTION)
-		{
-			join_files(node, token);
-			token = token->next;
-		}
+			token = join_files(node, token);
 		else if (token->type == WORD)
 			join_cmd_args(node, token);
-		token = token->next;
+		if (token)
+			token = token->next;
 	}
 	return (node);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:16:45 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/28 20:14:40 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/07/30 02:26:08 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,26 @@ void	join_cmd_args(t_ast *node, t_token_list *token)
 			= ft_strjoin_char(node->cmd_node->cmd_args, token->lexeme, ' ');
 }
 
-void	join_files(t_ast *node, t_token_list *token)
+t_token_list	*join_files(t_ast *node, t_token_list *token)
 {
+	
 	if (!ft_strcmp(token->lexeme, "<") || !ft_strcmp(token->lexeme, ">")
 		|| !ft_strcmp(token->lexeme, ">>"))
 	{
+		token->is_parsed = 1;
 		if (node->cmd_node->redir_files == NULL)
 			node->cmd_node->redir_files = ft_strdup(token->lexeme);
 		else
 			node->cmd_node->redir_files
 				= ft_strjoin_char(node->cmd_node->redir_files,
 					token->lexeme, ' ');
+		token = token->next;
 		node->cmd_node->redir_files
 			= ft_strjoin_char(node->cmd_node->redir_files,
-				token->next->lexeme, ' ');
+				token->lexeme, ' ');
+		token->is_parsed = 1;
 	}
+	return(token);
 }
 
 t_token_list	*get_next_operator(t_token_list *token_list)
@@ -85,6 +90,7 @@ t_token_list	*skip_to_right_parentheses(t_token_list *token)
 {
 	if (token == NULL)
 		return (NULL);
+	token->is_parsed = 1;
 	if (token->type == LEFTPAREN)
 		token = skip_to_right_parentheses(token->next);
 	if (token && token->type == RIGHTPAREN)
