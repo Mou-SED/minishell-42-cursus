@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_handler.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:34:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/07/22 15:55:30 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/01 14:27:26 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # include "token.h"
 
 void	signals_handler(void);
-void    ctl_d_handler(t_token_list **head);
+void	ctl_d_handler(t_token_list **head);
 
 #endif

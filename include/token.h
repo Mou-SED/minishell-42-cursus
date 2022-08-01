@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:13:22 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/29 19:16:30 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/31 16:54:51 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_token_list
 	int					is_parsed;
 	t_token_type		type;
 	char				*lexeme;
+	char				*heredoc_content;
 	struct s_token_list	*next;
 }	t_token_list;
 
