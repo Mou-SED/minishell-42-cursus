@@ -6,70 +6,94 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:11:40 by zaabou            #+#    #+#             */
-/*   Updated: 2022/07/22 14:58:04 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:41:01 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static bool    unclosed_quote(char *lexeme, char quote_type)
+static bool	unclosed_quote(char *lexeme, char quote_type)
 {
-    if (*lexeme == '\0' && quote_type != 0)
-        return (true);
-    else if (*lexeme == '\0')
-        return (false);
-    if (*lexeme == '\'' || *lexeme == '"')
-    {
-        if (*lexeme == quote_type)
-            return (unclosed_quote(++lexeme , 0));
-        else if (quote_type == 0)
-            return (unclosed_quote(&lexeme[1], *lexeme));
-        else
-            return (unclosed_quote(&lexeme[1], quote_type));
-    }
-    else
-        return (unclosed_quote(++lexeme, quote_type));
+	if (*lexeme == '\0' && quote_type != 0)
+		return (true);
+	else if (*lexeme == '\0')
+		return (false);
+	if (*lexeme == '\'' || *lexeme == '"')
+	{
+		if (*lexeme == quote_type)
+			return (unclosed_quote(++lexeme, 0));
+		else if (quote_type == 0)
+			return (unclosed_quote(&lexeme[1], *lexeme));
+		else
+			return (unclosed_quote(&lexeme[1], quote_type));
+	}
+	else
+		return (unclosed_quote(++lexeme, quote_type));
 }
 
-static int get_first_quote(char *lexeme, int *index)
+static int	get_first_quote(char *lexeme, int *index)
 {
-    if (*lexeme == '\0')
-        return (0);
-    else if (*lexeme == '\'' || *lexeme == '"')
-        return (*index);
-    else
-    {
-        (*index)++;
-        return(get_first_quote(++lexeme, index));
-    }
-    return (*index);
+	if (*lexeme == '\0')
+		return (0);
+	else if (*lexeme == '\'' || *lexeme == '"')
+		return (*index);
+	else
+	{
+		(*index)++;
+		return (get_first_quote(++lexeme, index));
+	}
+	return (*index);
 }
 
-bool    check_syntax_error(t_token_list *node)
+static bool	check_syntax_error_helper(t_token_list *token)
 {
-    int index;
+	int	index;
 
-    if (node->type != WORD && node->type != REDIRECTION
-        && node->type != LEFTPAREN)
-        return (ft_print_error(node->lexeme), false);
-    while (node != NULL)
-    {
-        index = 0;
-        if ((node->type != WORD && node->type != RIGHTPAREN
-            && node->type != REDIRECTION) && node->next == NULL)
-            return (ft_print_error(node->lexeme), false);
-        else if (node->type == WORD
-            && unclosed_quote(&node->lexeme[get_first_quote(node->lexeme,
-                &index) + 1], node->lexeme[index]) == true)
-            return (ft_print_error("unclosed_quote"), false);
-        else if (node->next && node->type == REDIRECTION
-            && node->next->type != WORD)
-            return (ft_print_error(node->next->lexeme), true);
-        else if (node->next && (node->type == OPERATOR || node->type == PIPE)
-            && (node->next->type != WORD && node->next->type != LEFTPAREN
-                && node->next->type != REDIRECTION))
-            return (ft_print_error(node->next->lexeme), true);
-        node = node->next;
-    }
-    return (true);
+	index = 0;
+	if ((token->type != WORD && token->type != RIGHTPAREN
+			&& token->type != REDIRECTION) && token->next == NULL)
+		return (ft_print_error(token->lexeme), true);
+	else if (token->type == WORD
+		&& unclosed_quote(
+			&token->lexeme[get_first_quote(token->lexeme, &index) + 1],
+			token->lexeme[index]) == true)
+		return (ft_print_error("unclosed_quote"), true);
+	else if (token->next && (token->type == OPERATOR || token->type == PIPE)
+		&& (token->next->type != WORD && token->next->type != LEFTPAREN
+			&& token->next->type != REDIRECTION))
+		return (ft_print_error(token->lexeme), true);
+	else if (token->next && token->type == REDIRECTION
+		&& token->next->type != WORD)
+	{
+		if (token->next->type == RIGHTPAREN)
+			return (ft_print_error(token->lexeme), true);
+		else
+			return (ft_print_error(token->next->lexeme), true);
+	}
+	return (true);
+}
+
+bool	check_syntax_error(t_token_list *token)
+{
+	if (token->type != WORD && token->type != REDIRECTION
+		&& token->type != LEFTPAREN)
+		return (ft_print_error(token->lexeme), true);
+	while (token != NULL)
+	{
+		check_syntax_error_helper(token);
+		token = token->next;
+	}
+	return (true);
+}
+
+bool	check_empty_parenthesis(t_ast *root)
+{
+	if (root == NULL)
+		return (false);
+	else if (root->type == PAR && (root->right == NULL
+			|| root->right->type == PAR))
+		return (true);
+	else
+		return (check_empty_parenthesis(root->left)
+			&& check_empty_parenthesis(root->right));
 }

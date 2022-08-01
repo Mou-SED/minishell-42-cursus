@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:16:45 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/30 16:22:19 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/01 14:39:03 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ char	*ft_strjoin_char(char *s1, char const *s2, char c)
 
 	if (s1 == NULL)
 	{
-		s1 = (char *)malloc(sizeof(char) * 1);
+		s1 = ft_calloc(1, sizeof(char) * 1);
 		if (s1 == NULL)
 			return (NULL);
-		s1[0] = '\0';
 	}
-	newstr = (char *)malloc((sizeof(char)
-				* (ft_strlen(s1) + ft_strlen(s2) + 2)));
+	newstr = ft_calloc(1, (sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2)));
 	if (newstr == NULL)
 		return (NULL);
 	i = -1;
@@ -67,6 +65,14 @@ t_token_list	*join_files(t_ast *node, t_token_list *token)
 		node->cmd_node->redir_files
 			= ft_strjoin_char(node->cmd_node->redir_files,
 				token->lexeme, ' ');
+		token->is_parsed = 1;
+	}
+	if (ft_strcmp(token->lexeme, "<<") == 0)
+	{
+		token->is_parsed = 1;
+		token = token->next;
+		if (token->heredoc_content)
+			node->cmd_node->heredoc = ft_strdup(token->heredoc_content);
 		token->is_parsed = 1;
 	}
 	return (token);

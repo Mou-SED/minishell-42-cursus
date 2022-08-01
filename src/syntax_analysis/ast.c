@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:07:37 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/30 16:21:52 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/31 15:41:00 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_ast	*ft_ast_new(t_token_list	*token)
 	node = ft_calloc(1, sizeof(t_ast));
 	if (node == NULL)
 		exit(EXIT_FAILURE);
-	if (token->type != OPERATOR)
+	if (token && token->type != OPERATOR)
 	{
 		node->type = CMD;
 		node->cmd_node = ft_calloc(1, sizeof(t_cmd));
