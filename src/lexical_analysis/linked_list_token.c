@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:48:40 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/29 19:15:04 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/01 12:18:54 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ t_token_list	*ft_lstnew_token(char *content)
 {
 	t_token_list	*head;
 
-	head = malloc(sizeof(t_token_list));
+	head = ft_calloc(1, sizeof(t_token_list));
 	if (!head)
 		return (NULL);
-	head->is_parsed = 0;
-	head->lexeme = content;
-	head->next = NULL;
+	if (content)
+		head->lexeme = content;
 	return (head);
 }
 
