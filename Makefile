@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/07/28 16:17:49 by moseddik         ###   ########.fr        #
+#    Updated: 2022/08/01 14:43:24 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/syntax_analysis/Helper_functions.c \
 					$(SRC_DIR)/signals_handler/signals_handler.c \
 					$(SRC_DIR)/manag_error/ft_print_error.c \
-					$(SRC_DIR)/manag_error/syntax_error_scan.c
+					$(SRC_DIR)/manag_error/syntax_error_scan.c \
+					$(SRC_DIR)/manag_error/heredoc_case.c
 OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
 INC				:= minishell.h
 LIBFT			:= libft.a
