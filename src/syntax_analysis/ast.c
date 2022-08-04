@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:07:37 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/31 15:41:00 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:36:11 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_ast	*ft_ast_new(t_token_list	*token)
 		node->cmd_node = ft_calloc(1, sizeof(t_cmd));
 		if (node->cmd_node == NULL)
 			exit(EXIT_FAILURE);
+		node->cmd_node->fdin = 0;
+		node->cmd_node->fdout = 1;
 	}
 	return (node);
 }
@@ -55,6 +57,8 @@ void	clear_ast(t_ast *root)
 		clear_ast(root->right);
 	if (root->cmd_node)
 	{
+		if (root->cmd_node->paths)
+			free(root->cmd_node->paths);
 		if (root->cmd_node->cmd_table)
 			free(root->cmd_node->cmd_table);
 		if (root->cmd_node->cmd_args)

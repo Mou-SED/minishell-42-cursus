@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/30 16:19:52 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/04 14:38:07 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ int	main(int ac, char **av)
 				(ft_lstclear_tokens(head, &free), clear_ast(root));
 				continue ;
 			}
-			print_parse_cmd(root);
+			execution(root);
 			(ft_lstclear_tokens(head, &free), clear_ast(root));
+			while (wait(NULL) != -1);
 		}
 		else if (cmd == NULL)
 			ctl_d_handler(head);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analysis.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/01 14:35:29 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/04 13:07:07 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ typedef enum e_node
 typedef struct s_cmd
 {
 	char	**cmd_table;
+	char	**paths;
 	char	*cmd_args;
 	char	*redir_files;
 	char	*heredoc;
-	char	*delemiter;
 	int		fdin;
 	int		fdout;
 }	t_cmd;
