@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/04 13:07:07 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/11 19:31:45 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,33 @@ typedef enum e_node
 	PAR
 }	t_node;
 
+typedef	enum e_file
+{
+	W_TRUNC,
+	W_APPRND,
+	READ,
+}	t_r;
+
+typedef struct files
+{
+	char	*filename;
+	t_r		mode;
+	struct files *next;
+	
+}t_lst;
+
+
 typedef struct s_cmd
 {
 	char	**cmd_table;
 	char	**paths;
 	char	*cmd_args;
-	char	*redir_files;
+	t_lst	*files;
 	char	*heredoc;
+	int		unused_pipe_fd;
 	int		fdin;
 	int		fdout;
 }	t_cmd;
-
-typedef struct s_pipe
-{
-	int	pipe_fd[2];
-}	t_pipe;
 
 typedef struct s_ast
 {
@@ -45,7 +57,6 @@ typedef struct s_ast
 	struct s_ast	*right;
 	struct s_ast	*left;
 	t_cmd			*cmd_node;
-	t_pipe			*pipe_node;
 }	t_ast;
 
 // AST functions

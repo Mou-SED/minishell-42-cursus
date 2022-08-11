@@ -6,11 +6,28 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:16:45 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/03 19:49:40 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/11 19:32:59 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+
+void	add_files(t_lst **head, t_lst *new)
+{
+	t_lst	*tmp;
+	
+	tmp = NULL;
+	if (*head == NULL)
+		*head = new;
+	else
+	{
+		tmp = *head;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
 
 char	*ft_strjoin_char(char *s1, char const *s2, char c)
 {
@@ -34,6 +51,7 @@ char	*ft_strjoin_char(char *s1, char const *s2, char c)
 	j = 0;
 	while (s2[j] != '\0')
 		newstr[i++] = s2[j++];
+	free(s1);
 	newstr[i] = '\0';
 	return (newstr);
 }
@@ -50,29 +68,26 @@ void	join_cmd_args(t_ast *node, t_token_list *token)
 
 t_token_list	*join_files(t_ast *node, t_token_list *token)
 {
-	if (!ft_strcmp(token->lexeme, "<") || !ft_strcmp(token->lexeme, ">")
-		|| !ft_strcmp(token->lexeme, ">>"))
+	t_lst	*tmp;
+
+	tmp = NULL;                                                                                                                                                                                                   
+	if (!ft_strcmp(token->lexeme, ">>") || !ft_strcmp(token->lexeme ,">")
+		|| !ft_strcmp(token->lexeme, "<") || !ft_strcmp(token->lexeme ,"<<"))
 	{
+		tmp = ft_calloc(1, sizeof(t_lst));
 		token->is_parsed = 1;
-		if (node->cmd_node->redir_files == NULL)
-			node->cmd_node->redir_files = ft_strdup(token->lexeme);
-		else
-			node->cmd_node->redir_files
-				= ft_strjoin_char(node->cmd_node->redir_files,
-					token->lexeme, ' ');
+		if (ft_strcmp(token->lexeme, ">") == 0)
+			tmp->mode = W_TRUNC;
+		else if (ft_strcmp(token->lexeme, ">>") == 0)
+			tmp->mode = W_APPRND;
+		else if (ft_strcmp(token->lexeme, "<") == 0)
+			tmp->mode = READ;
+		else if (ft_strcmp(token->lexeme, "<<") == 0)
+			tmp->mode = READ;
 		token = token->next;
-		node->cmd_node->redir_files
-			= ft_strjoin_char(node->cmd_node->redir_files,
-				token->lexeme, ' ');
 		token->is_parsed = 1;
-	}
-	if (ft_strcmp(token->lexeme, "<<") == 0)
-	{
-		token->is_parsed = 1;
-		token = token->next;
-		if (token->heredoc_content)
-			node->cmd_node->heredoc = ft_strdup(token->heredoc_content);
-		token->is_parsed = 1;
+		tmp->filename = ft_strdup(token->lexeme);
+		add_files(&node->cmd_node->files, tmp);
 	}
 	return (token);
 }

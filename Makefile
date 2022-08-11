@@ -6,7 +6,7 @@
 #    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/08/03 19:09:47 by zaabou           ###   ########.fr        #
+#    Updated: 2022/08/11 21:02:29 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_DIR			:= src
 OBJ_DIR			:= obj
 LIB_DIR			:= lib
 LIBFT_DIR		:= $(LIB_DIR)/libft
-
+tmp				:= /tmp/minishell
 # *********************************** Files ************************************
 NAME			:= minishell
 SRC				:= $(SRC_DIR)/main/main.c \
@@ -46,7 +46,8 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/manag_error/syntax_error_scan.c \
 					$(SRC_DIR)/manag_error/heredoc_case.c \
 					$(SRC_DIR)/execution/Helper_functions.c \
-					$(SRC_DIR)/execution/execution.c
+					$(SRC_DIR)/execution/execution.c \
+					$(SRC_DIR)/execution/built_in_cmd.c
 OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
 INC				:= minishell.h
 LIBFT			:= libft.a
@@ -55,7 +56,7 @@ LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -g
+CFLAGS			:= -Wall -Wextra -Werror -g -fsanitize=address
 INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) $(ILIB)
 LIBFLAGS		:= -L $(LIBFT_DIR) -lft $(SLIB)
 
@@ -75,6 +76,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(INC_DEP) $(LIBFT_DEP)
 	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
 	@$(CC) $(CFLAGS) $(LIBFLAGS) -lncurses $(OBJ) -o $(NAME)
+	@mkdir -p $(tmp)
 
 $(OBJ_DIR)/%.o : %.c
 	@$(MKDIR) $(dir $@)
@@ -96,6 +98,7 @@ fclean: clean
 	@make fclean -C $(LIBFT_DIR)
 	@echo "$(RED)Removing	$(PURPLE)$(NAME)$(NC)"
 	@$(RM) $(NAME)
+	@$(RM) $(tmp)
 
 re: fclean all
 

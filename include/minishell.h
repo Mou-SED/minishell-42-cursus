@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/03 19:02:23 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/11 23:08:54 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <string.h>
+# include <errno.h>
 # include "../lib/libft/include/libft.h"
 # include "readline/readline.h"
 # include "readline/history.h"
@@ -26,5 +28,9 @@
 # include "error.h"
 # include "syntax_analysis.h"
 # include <execution.h>
+
+void    waiting_for_my_children(void);
+void    wait_for_one_child(void);
+int status;
 
 #endif

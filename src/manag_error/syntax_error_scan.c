@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error_scan.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:11:40 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/01 14:41:01 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:38:36 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,16 @@ static bool	check_syntax_error_helper(t_token_list *token)
 			&token->lexeme[get_first_quote(token->lexeme, &index) + 1],
 			token->lexeme[index]) == true)
 		return (ft_print_error("unclosed_quote"), true);
+	else if (token->next && !ft_strcmp(token->lexeme, "(") && !ft_strcmp(token->next->lexeme, ")"))
+		return (ft_print_error(token->next->lexeme), true);
 	else if (token->next && (token->type == OPERATOR || token->type == PIPE)
 		&& (token->next->type != WORD && token->next->type != LEFTPAREN
 			&& token->next->type != REDIRECTION))
 		return (ft_print_error(token->lexeme), true);
 	else if (token->next && token->type == REDIRECTION
 		&& token->next->type != WORD)
-	{
-		if (token->next->type == RIGHTPAREN)
-			return (ft_print_error(token->lexeme), true);
-		else
 			return (ft_print_error(token->next->lexeme), true);
-	}
-	return (true);
+	return (false);
 }
 
 bool	check_syntax_error(t_token_list *token)
@@ -80,7 +77,8 @@ bool	check_syntax_error(t_token_list *token)
 		return (ft_print_error(token->lexeme), true);
 	while (token != NULL)
 	{
-		check_syntax_error_helper(token);
+		if (check_syntax_error_helper(token))
+			break ;
 		token = token->next;
 	}
 	return (true);

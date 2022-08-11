@@ -6,11 +6,24 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:07:37 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/04 14:36:11 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/09 10:08:42 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+
+void	lst_clear(t_lst *files)
+{
+	t_lst	*tmp;
+	while (files)
+	{
+		tmp = files;
+		files = files->next;
+		free(tmp->filename);
+		free(tmp);
+	}	
+}
 
 t_ast	*ft_ast_new(t_token_list	*token)
 {
@@ -27,6 +40,7 @@ t_ast	*ft_ast_new(t_token_list	*token)
 			exit(EXIT_FAILURE);
 		node->cmd_node->fdin = 0;
 		node->cmd_node->fdout = 1;
+		node->cmd_node->unused_pipe_fd = -1;
 	}
 	return (node);
 }
@@ -57,14 +71,12 @@ void	clear_ast(t_ast *root)
 		clear_ast(root->right);
 	if (root->cmd_node)
 	{
+		if (root->cmd_node->files)
+			lst_clear(root->cmd_node->files);
 		if (root->cmd_node->paths)
 			free(root->cmd_node->paths);
-		if (root->cmd_node->cmd_table)
-			free(root->cmd_node->cmd_table);
 		if (root->cmd_node->cmd_args)
 			free(root->cmd_node->cmd_args);
-		if (root->cmd_node->redir_files)
-			free(root->cmd_node->redir_files);
 		free(root->cmd_node);
 	}
 	free(root);

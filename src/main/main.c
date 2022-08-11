@@ -6,57 +6,31 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/04 14:38:07 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/11 23:28:05 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	print_parse_cmd(t_ast *node)
+void	waiting_for_my_children(void)
 {
-	char *str[5] = {"&&", "||", "CMD", "PIPE", "()"};
-	if (node == NULL)
-		return ;
-	if (node->type == PAR)
+	while (wait(&status) != -1)
 	{
-		printf("\t\t iam '('\n");
-		printf("\t\t my redir is %s\n", node->cmd_node->redir_files);
-	}
-	if (node->type == OR)
-		printf("\t\t im ||\n");
-	else if (node->type == AND)
-		printf("\t\t im &&\n");
-	if (node->type == PIP)
-		printf("\t\tthe sub_root is |\n");
-	if (node->left != NULL)
-	{
-		if (node->left->type == CMD)
-		{
-			printf("my left is : %s\n", node->left->cmd_node->cmd_args);
-			printf("my file : is [%s]\n", node->left->cmd_node->redir_files);
-		}
-		else if (node->left->type == PIP)
-			printf("my left is | \n");
-		else if (node->left->type == PAR)
-			printf("im %s\n", node->left->cmd_node->cmd_args);
-		else
-			printf("my left is %s\n", str[node->left->type]);
-	}
-	if (node->right != NULL)
-	{
-		if (node->right->type == CMD)
-		{
-			printf("\t\t\t\tmy right is : %s\n", node->right->cmd_node->cmd_args);
-			printf("\t\t\t\tmy files : is [%s]\n", node->right->cmd_node->redir_files);
-		}
-		else if (node->right->type == PIP)
-			printf("\t\t\t\tmy right is | \n");
-		else
-			printf("\t\t\t\tmy right is %s\n", str[node->right->type]);
-	}
-	print_parse_cmd(node->left);
-	print_parse_cmd(node->right);
-} // TODO: Delete this function
+        if (WIFEXITED(status))
+            status = WEXITSTATUS(status);
+        else if (WIFSIGNALED(status))
+            status = WTERMSIG(status) + 128;
+    }
+}
+
+void	wait_for_one_child(void)
+{
+	wait(&status);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		status = WTERMSIG(status) + 128;
+}
 
 int	main(int ac, char **av)
 {
@@ -78,19 +52,14 @@ int	main(int ac, char **av)
 			if ((*head)->lexeme == NULL || (check_syntax_error(*head) == true
 					&& her_doc(*head) == true))
 			{
+				status = 258;
 				ft_lstclear_tokens(head, &free);
 				continue ;
 			}
 			root = building_ast(root, *head);
-			if (check_empty_parenthesis(root) == true)
-			{
-				printf("This case is not required by the subject!\n");
-				(ft_lstclear_tokens(head, &free), clear_ast(root));
-				continue ;
-			}
 			execution(root);
 			(ft_lstclear_tokens(head, &free), clear_ast(root));
-			while (wait(NULL) != -1);
+			waiting_for_my_children();
 		}
 		else if (cmd == NULL)
 			ctl_d_handler(head);

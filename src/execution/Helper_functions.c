@@ -6,12 +6,12 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:30:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/04 13:40:51 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/10 10:55:58 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
+#include <errno.h>
 void    get_cmd(t_ast *node)
 {
     char    *path;
@@ -22,7 +22,10 @@ void    get_cmd(t_ast *node)
     absolute_path = NULL;
     path = getenv("PATH");
     if (!path)
-        exit(5);
+    {
+        printf("Minishell: %s: No such file or directory\n",node->cmd_node->cmd_table[0]);
+        exit(127);
+    }
     node->cmd_node->paths = ft_split(path, ':');
     while (node->cmd_node->paths[i])
     {
@@ -36,4 +39,53 @@ void    get_cmd(t_ast *node)
         free(absolute_path);
         i++;
     }
+}
+
+bool    redirections(t_ast *node)
+{
+    while (node->cmd_node->files)
+    {
+        if (node->cmd_node->files->mode == W_APPRND || node->cmd_node->files->mode == W_TRUNC)
+        {
+            close(node->cmd_node->fdout);
+            if (access(node->cmd_node->files->filename, F_OK) != 0)
+                node->cmd_node->fdout = open(node->cmd_node->files->filename, O_CREAT | O_WRONLY ,0644);
+            else if (check_file(node->cmd_node->files->filename, W_TRUNC) == false)
+                    return (false);
+            else if (node->cmd_node->files->mode == W_APPRND)
+                node->cmd_node->fdout = open(node->cmd_node->files->filename, O_WRONLY |  O_APPEND);
+            else if (node->cmd_node->files->mode == W_TRUNC)
+                node->cmd_node->fdout = open(node->cmd_node->files->filename, O_WRONLY |  O_TRUNC);
+        }
+        else if (node->cmd_node->files->mode == READ)
+        {
+            close(node->cmd_node->fdin);
+            if (check_file(node->cmd_node->files->filename, READ) == false)
+                return (false);
+            node->cmd_node->fdin = open(node->cmd_node->files->filename, O_RDONLY);
+        }
+        node->cmd_node->files = node->cmd_node->files->next;
+    }
+    return (true);
+}
+
+bool    check_file(char *filename, t_r mode)
+{
+    if (mode == W_TRUNC)
+    {
+        if (access(filename, W_OK) != 0)
+        {
+            execution_errors(filename);
+            return (false);
+        }
+    }
+    else if(mode == READ)
+    {
+        if (access(filename, R_OK) != 0)
+        {
+            execution_errors(filename);
+            return (false);
+        }
+    }
+    return (true);
 }
