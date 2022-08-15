@@ -21,5 +21,13 @@ bool    redirections(t_ast *node);
 void    get_cmd(t_ast *node);
 
 //Built in
-void    echo_cmd(char **arg);
+bool    check_if_built_in(t_ast *node);
+void    execute_built_in(t_ast *node);
+void    execute_echo(t_ast *node);
+void    execute_pwd(t_ast *node);
+void    execute_exit(t_ast *node, int sto);
+void    execute_cd(t_ast *node);
+
+// tools
+bool    ft_isnumber(char *str);
 #endif

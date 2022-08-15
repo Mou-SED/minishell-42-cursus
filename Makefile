@@ -6,7 +6,7 @@
 #    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/08/11 21:02:29 by zaabou           ###   ########.fr        #
+#    Updated: 2022/08/13 22:06:22 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,9 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/manag_error/heredoc_case.c \
 					$(SRC_DIR)/execution/Helper_functions.c \
 					$(SRC_DIR)/execution/execution.c \
-					$(SRC_DIR)/execution/built_in_cmd.c
+					$(SRC_DIR)/execution/built_in_cmd.c \
+					$(SRC_DIR)/execution/built_in.c \
+					$(SRC_DIR)/execution/tools.c
 OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
 INC				:= minishell.h
 LIBFT			:= libft.a

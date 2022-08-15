@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:11:40 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/10 11:38:36 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/13 21:19:39 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,24 @@ static bool	check_syntax_error_helper(t_token_list *token)
 	return (false);
 }
 
-bool	check_syntax_error(t_token_list *token)
+bool	check_syntax_error(t_token_list *token, int *i)
 {
+	*i = 0;
 	if (token->type != WORD && token->type != REDIRECTION
 		&& token->type != LEFTPAREN)
 		return (ft_print_error(token->lexeme), true);
 	while (token != NULL)
 	{
+		if (token->type == LEFTPAREN)
+			*i += 1;
+		else if (token->type == RIGHTPAREN)
+			*i -= 1;
 		if (check_syntax_error_helper(token))
 			break ;
 		token = token->next;
 	}
+	if (*i != 0)
+		printf("MiniShell: syntax error near unexpected token `unclosed_parentheses`\n");
 	return (true);
 }
 

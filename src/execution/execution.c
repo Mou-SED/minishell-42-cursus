@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:29:49 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/11 23:26:22 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/15 17:17:05 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 void    *subshell(t_ast *root)
 {
-    if (!fork())
+    pid_t   pid;
+    pid = fork();
+    if (!pid)
     {
         if (root->cmd_node->unused_pipe_fd != -1)
             close(root->cmd_node->unused_pipe_fd);
@@ -27,10 +29,12 @@ void    *subshell(t_ast *root)
         dup2(root->cmd_node->fdout, 1);
         execution(root->right);
         waiting_for_my_children();
-        exit(0);
+        exit(status);
     }
     else 
     {
+        if (root->cmd_node->wait == true)
+            wait_for_one_child(pid);
         if (root->cmd_node->fdin != 0)
 			close(root->cmd_node->fdin);
 		if (root->cmd_node->fdout != 1)
@@ -40,32 +44,45 @@ void    *subshell(t_ast *root)
 }
 void    execute_cmd(t_ast *node)
 {
-    if (!fork())
-    {
-        if (node->cmd_node->unused_pipe_fd != -1)
-            close(node->cmd_node->unused_pipe_fd);
-        node->cmd_node->cmd_table = ft_split(node->cmd_node->cmd_args, ' ');
-        if (node->cmd_node->files != NULL)
-            if (redirections(node) == false)
-                exit(EXIT_FAILURE);
-        if (!node->cmd_node->cmd_table)
-            exit(EXIT_FAILURE);
-        else
-            get_cmd(node);
-        dup2(node->cmd_node->fdout, 1);
-        dup2(node->cmd_node->fdin, 0);
-        execve(node->cmd_node->cmd_args, node->cmd_node->cmd_table, NULL);
-        dup2(STDERR_FILENO, STDOUT_FILENO);
-        printf("\x1b[32m Minshell : %s: command not found\n\x1b[0m", node->cmd_node->cmd_table[0]);
-        exit(127);
-    }
+    if (check_if_built_in(node) == true)
+        execute_built_in(node);
     else
     {
-        if (node->cmd_node->fdin != 0)
-			close(node->cmd_node->fdin);
-		if (node->cmd_node->fdout != 1)
-			close(node->cmd_node->fdout);
-        
+        pid_t   pid;
+        pid = fork();
+         if (!pid)
+        {
+            if (node->cmd_node->unused_pipe_fd != -1)
+                close(node->cmd_node->unused_pipe_fd);
+            node->cmd_node->cmd_table = ft_split(node->cmd_node->cmd_args, ' ');
+            if (node->cmd_node->files != NULL)
+                if (redirections(node) == false)
+                    exit(EXIT_FAILURE);
+            if (!node->cmd_node->cmd_table)
+                   exit(EXIT_FAILURE);
+            if (!ft_strchr(node->cmd_node->cmd_table[0], '/'))
+                    get_cmd(node);
+            else
+            {
+                free(node->cmd_node->cmd_args);
+                node->cmd_node->cmd_args = node->cmd_node->cmd_table[0];
+            }
+            dup2(node->cmd_node->fdout, 1);
+            dup2(node->cmd_node->fdin, 0);
+            execve(node->cmd_node->cmd_args, node->cmd_node->cmd_table, NULL);
+            dup2(STDERR_FILENO, STDOUT_FILENO);
+            printf("\x1b[32m Minshell : %s: command not found\n\x1b[0m", node->cmd_node->cmd_table[0]);
+            exit(127);
+        }
+        else
+        {
+            if (node->cmd_node->wait == true)
+                wait_for_one_child(pid);
+            if (node->cmd_node->fdin != 0)
+	    		close(node->cmd_node->fdin);
+		    if (node->cmd_node->fdout != 1)
+	    		close(node->cmd_node->fdout); 
+        }
     }
 }
 
@@ -83,6 +100,8 @@ void    create_pipe(t_ast *pipe_node)
     }
     if (pipe_node->right && pipe_node->right->cmd_node)
     {
+        if (pipe_node->cmd_node->wait == true)
+            pipe_node->right->cmd_node->wait = true;
         pipe_node->right->cmd_node->unused_pipe_fd = fd[1];
         pipe_node->right->cmd_node->fdin = fd[0];
     }
@@ -97,8 +116,9 @@ void    execution(t_ast *root)
     if (root->type == CMD)
         execute_cmd(root);
     else if (root->type == PAR)
-        root->right = subshell(root);
+        subshell(root);
     execution(root->left);
-    execution(root->right);
+    if ((root->type == OR && status != 0) || (root->type == AND && status == 0) || root->type == PIP)
+        execution(root->right);
 }
 

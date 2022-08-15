@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:07:37 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/09 10:08:42 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/15 15:58:31 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	lst_clear(t_lst *files)
 	}	
 }
 
-t_ast	*ft_ast_new(t_token_list	*token)
+t_ast	*ft_ast_new(t_token_list	*token, t_env **m_env)
 {
 	t_ast	*node;
 
@@ -38,14 +38,16 @@ t_ast	*ft_ast_new(t_token_list	*token)
 		node->cmd_node = ft_calloc(1, sizeof(t_cmd));
 		if (node->cmd_node == NULL)
 			exit(EXIT_FAILURE);
+		node->cmd_node->m_env = m_env;
 		node->cmd_node->fdin = 0;
 		node->cmd_node->fdout = 1;
 		node->cmd_node->unused_pipe_fd = -1;
+		node->cmd_node->wait = false;
 	}
 	return (node);
 }
 
-t_ast	*building_ast(t_ast *root, t_token_list *token)
+t_ast	*building_ast(t_ast *root, t_token_list *token, t_env **m_env)
 {
 	if (token == NULL || token->type == RIGHTPAREN)
 	{
@@ -54,15 +56,18 @@ t_ast	*building_ast(t_ast *root, t_token_list *token)
 		return (root);
 	}
 	if (token->type == OPERATOR)
-		root = parse_operator(root, token);
+		root = parse_operator(root, token, m_env);
 	else
-		root = parse_cmd(token);
+		root = parse_cmd(token, m_env);
 	token = get_next_to_parse(token);
-	return (building_ast(root, token));
+	return (building_ast(root, token, m_env));
 }
 
 void	clear_ast(t_ast *root)
 {
+	int	i;
+
+	i = 0;
 	if (root == NULL)
 		return ;
 	if (root->left)
@@ -71,6 +76,12 @@ void	clear_ast(t_ast *root)
 		clear_ast(root->right);
 	if (root->cmd_node)
 	{
+		if (root->cmd_node->cmd_table)
+		{
+			while (root->cmd_node->cmd_table[i])
+				free(root->cmd_node->cmd_table[i++]);
+			free(root->cmd_node->cmd_table);
+		}
 		if (root->cmd_node->files)
 			lst_clear(root->cmd_node->files);
 		if (root->cmd_node->paths)

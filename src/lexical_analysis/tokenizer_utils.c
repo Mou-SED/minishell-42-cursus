@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:54:39 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/08 11:56:10 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/13 10:59:26 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*skip_space(char *str)
 {
-	while (*str != '\0' && *str == ' ')
+	while (*str != '\0' && (*str == ' ' || *str == '\t'))
 		str++;
 	return (str);
 }

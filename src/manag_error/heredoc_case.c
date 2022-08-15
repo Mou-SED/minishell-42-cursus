@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:41:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/11 20:59:56 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/13 21:18:55 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ static bool	run_herdoc(t_token_list *token)
 	return (true);
 }
 
-bool	her_doc(t_token_list *token)
+bool	her_doc(t_token_list *token, int *i)
 {
+	if (*i != 0)
+		return (true);
 	if (token->type != WORD && token->type != REDIRECTION
 		&& token->type != LEFTPAREN)
 		return (true);
