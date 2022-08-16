@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:53:27 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/15 11:56:49 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/16 18:56:27 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ void    execute_built_in(t_ast *node)
         execute_pwd(node);
     if (!ft_strcmp(node->cmd_node->cmd_table[0], "exit"))
         execute_exit(node, stdo);
+    if (!ft_strcmp(node->cmd_node->cmd_table[0], "unset"))
+        execute_unset(node);
+    if (!ft_strcmp(node->cmd_node->cmd_table[0], "env") || !ft_strcmp(node->cmd_node->cmd_table[0], "ENV"))
+        execute_env(node);
     // if (!ft_strcmp(node->cmd_node->cmd_table[0], "cd"))
     //     execute_cd(node);
     close(node->cmd_node->fdin);

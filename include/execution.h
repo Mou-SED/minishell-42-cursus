@@ -27,6 +27,9 @@ void    execute_echo(t_ast *node);
 void    execute_pwd(t_ast *node);
 void    execute_exit(t_ast *node, int sto);
 void    execute_cd(t_ast *node);
+void    execute_unset(t_ast *node);
+void    execute_env(t_ast *node);
+void    print_env(t_env *m_env);
 
 // tools
 bool    ft_isnumber(char *str);

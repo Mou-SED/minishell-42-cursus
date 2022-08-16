@@ -6,49 +6,11 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/15 16:18:54 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/16 19:19:06 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	add_variable(t_env **m_env, t_env *var)
-{
-	t_env	*tmp;
-
-	tmp = *m_env;
-	if (tmp == NULL)
-		tmp = var;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = var;
-}
-
-void	create_own_env(t_env **m_env, char **env)
-{
-	t_env	*tmp;
-	int		i;
-	int		j;
-
-	i = -1;
-	tmp = ft_calloc(1, sizeof(t_env));
-	*m_env = tmp;
-	while (env[++i])
-	{
-		j = 0;
-		while (env[i][j] && env[i][j] != '=')
-			j++;
-		tmp->variable = ft_calloc((j + 1), sizeof(char));
-		ft_memcpy(tmp->variable, env[i], j);
-		if (ft_strcmp(tmp->variable, "SHELL") == 0)
-			tmp->value = ft_strdup("minishell");
-		else
-			tmp->value = ft_strdup(&env[i][j + 1]);
-		if (env[i] && env[i + 1])
-			tmp->next = ft_calloc(1, sizeof(t_env));
-		tmp = tmp->next;
-	}		
-}
 
 void	waiting_for_my_children(void)
 {

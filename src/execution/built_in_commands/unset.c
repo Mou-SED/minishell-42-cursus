@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.h                                      :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 11:43:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/16 19:58:03 by zaabou           ###   ########.fr       */
+/*   Created: 2022/08/15 20:26:22 by zaabou            #+#    #+#             */
+/*   Updated: 2022/08/16 23:59:22 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#include <minishell.h>
 
-typedef	struct env
+void	execute_unset(t_ast *node)
 {
-	char		*variable;
-	char		*value;
-	struct env	*next;
-	struct env	*prev;
-	
-}t_env;
+	int	i;
 
-// functions
-void    add_variable(t_env **m_env, t_env *var);
-char	*get_variable(t_env *m_env, char *var);
-void    remove_variable(t_env **m_env, char *var);
-#endif
+	i = 1;
+	if (node->cmd_node->files != NULL)
+	{
+		if (redirections(node) == false)
+		{
+			status = 1;
+			return ;
+		}
+	}
+	while (node->cmd_node->cmd_table[i])
+		remove_variable(node->cmd_node->m_env, node->cmd_node->cmd_table[i++]);
+	status = 0;
+}

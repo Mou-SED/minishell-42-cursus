@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:30:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/13 21:55:29 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/16 23:14:58 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void    get_cmd(t_ast *node)
 
     i = 0;
     absolute_path = NULL;
-    path = getenv("PATH");
-    if (!path)
+    path = get_variable(*(node->cmd_node->m_env), "PATH");
+    if (path[0] == '\0')
     {
         printf("Minishell: %s: No such file or directory\n",node->cmd_node->cmd_table[0]);
         exit(127);

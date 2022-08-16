@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.h                                      :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 11:43:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/16 19:58:03 by zaabou           ###   ########.fr       */
+/*   Created: 2022/08/15 19:04:41 by zaabou            #+#    #+#             */
+/*   Updated: 2022/08/16 23:57:58 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#include <minishell.h>
 
-typedef	struct env
+void	execute_pwd(t_ast *node)
 {
-	char		*variable;
-	char		*value;
-	struct env	*next;
-	struct env	*prev;
-	
-}t_env;
+	char	*path_name;
 
-// functions
-void    add_variable(t_env **m_env, t_env *var);
-char	*get_variable(t_env *m_env, char *var);
-void    remove_variable(t_env **m_env, char *var);
-#endif
+	if (node->cmd_node->files != NULL)
+	{
+		if (redirections(node) == false)
+		{
+			status = 1;
+			return ;
+		}
+	}
+	path_name = getcwd(NULL, 0);
+	write(node->cmd_node->fdout, path_name, ft_strlen(path_name));
+	write(node->cmd_node->fdout, "\n", 1);
+	free(path_name);
+}

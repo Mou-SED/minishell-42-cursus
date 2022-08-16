@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.h                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 11:43:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/16 19:58:03 by zaabou           ###   ########.fr       */
+/*   Created: 2022/08/16 18:57:13 by zaabou            #+#    #+#             */
+/*   Updated: 2022/08/17 00:00:18 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#include <minishell.h>
 
-typedef	struct env
+void	print_env(t_env *m_env)
 {
-	char		*variable;
-	char		*value;
-	struct env	*next;
-	struct env	*prev;
-	
-}t_env;
+	while (m_env)
+	{
+		printf("%s=%s\n", m_env->variable, m_env->value);
+		m_env = m_env->next;
+	}
+}
 
-// functions
-void    add_variable(t_env **m_env, t_env *var);
-char	*get_variable(t_env *m_env, char *var);
-void    remove_variable(t_env **m_env, char *var);
-#endif
+void	execute_env(t_ast *node)
+{
+	if (node->cmd_node->files != NULL)
+	{
+		if (redirections(node) == false)
+		{
+			status = 1;
+			return ;
+		}
+	}
+	print_env(*(node->cmd_node->m_env));
+	status = 0;
+}

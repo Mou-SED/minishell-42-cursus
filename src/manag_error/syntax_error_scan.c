@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:11:40 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/13 21:19:39 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/17 00:11:28 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static bool	check_syntax_error_helper(t_token_list *token)
 			&token->lexeme[get_first_quote(token->lexeme, &index) + 1],
 			token->lexeme[index]) == true)
 		return (ft_print_error("unclosed_quote"), true);
-	else if (token->next && !ft_strcmp(token->lexeme, "(") && !ft_strcmp(token->next->lexeme, ")"))
+	else if (token->next && !ft_strcmp(token->lexeme, "(")
+		&& !ft_strcmp(token->next->lexeme, ")"))
 		return (ft_print_error(token->next->lexeme), true);
 	else if (token->next && (token->type == OPERATOR || token->type == PIPE)
 		&& (token->next->type != WORD && token->next->type != LEFTPAREN
@@ -66,7 +67,7 @@ static bool	check_syntax_error_helper(t_token_list *token)
 		return (ft_print_error(token->lexeme), true);
 	else if (token->next && token->type == REDIRECTION
 		&& token->next->type != WORD)
-			return (ft_print_error(token->next->lexeme), true);
+		return (ft_print_error(token->next->lexeme), true);
 	return (false);
 }
 
@@ -87,7 +88,7 @@ bool	check_syntax_error(t_token_list *token, int *i)
 		token = token->next;
 	}
 	if (*i != 0)
-		printf("MiniShell: syntax error near unexpected token `unclosed_parentheses`\n");
+		printf("MiniShell: syntax errornearunexpectedtoken `unclosed_parentheses`\n");
 	return (true);
 }
 
