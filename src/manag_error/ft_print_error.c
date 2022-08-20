@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:03:06 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/17 00:07:14 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/21 00:17:29 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,12 @@ void	ft_print_error(char *str)
 void	execution_errors(char *str)
 {
 	dup2(STDERR_FILENO, STDOUT_FILENO);
-	printf("\x1b[32m Minishell : %s: %s\n\x1b[0m", str, strerror(errno));
+	printf("\x1b[33m Minishell : %s: %s\x1b[0m\n", str, strerror(errno));
+}
+
+void	allocation_faild(void)
+{
+	dup2(STDERR_FILENO, STDOUT_FILENO);
+	printf("MiniShell: Error: %s\n", strerror(errno));
+	exit(12);
 }

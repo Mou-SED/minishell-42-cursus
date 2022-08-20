@@ -6,7 +6,7 @@
 #    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/08/16 19:07:53 by zaabou           ###   ########.fr        #
+#    Updated: 2022/08/20 23:43:45 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,11 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/execution/built_in_commands/exit.c \
 					$(SRC_DIR)/execution/built_in_commands/pwd.c \
 					$(SRC_DIR)/execution/built_in_commands/unset.c \
-					$(SRC_DIR)/execution/built_in_commands/env.c
+					$(SRC_DIR)/execution/built_in_commands/env.c \
+					$(SRC_DIR)/execution/built_in_commands/export.c \
+					$(SRC_DIR)/execution/child_work.c \
+					$(SRC_DIR)/execution/built_in_commands/cd.c
+					
 OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
 INC				:= minishell.h
 LIBFT			:= libft.a
@@ -63,7 +67,7 @@ LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS			:= -Wall -Wextra -Werror -g
 INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) $(ILIB)
 LIBFLAGS		:= -L $(LIBFT_DIR) -lft $(SLIB)
 

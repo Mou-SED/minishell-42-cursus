@@ -6,18 +6,21 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:30:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/16 23:14:58 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/20 15:44:39 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <errno.h>
-void    get_cmd(t_ast *node)
+
+char    *get_cmd(t_ast *node)
 {
     char    *path;
     int     i;
     char    *absolute_path;
 
+    if (ft_strchr(node->cmd_node->cmd_table[0], '/') != NULL)
+        return (ft_strdup(node->cmd_node->cmd_table[0]));
     i = 0;
     absolute_path = NULL;
     path = get_variable(*(node->cmd_node->m_env), "PATH");
@@ -31,15 +34,13 @@ void    get_cmd(t_ast *node)
     {
         absolute_path = ft_strjoin_char(node->cmd_node->paths[i], node->cmd_node->cmd_table[0], '/');
         if (absolute_path && access(absolute_path, X_OK) == 0)
-        {
-            free(node->cmd_node->cmd_args);
-            node->cmd_node->cmd_args = absolute_path;
-            return;
-        }
+            break ;
         free(absolute_path);
         i++;
     }
+    return(absolute_path);
 }
+
 
 bool    redirections(t_ast *node)
 {
@@ -88,4 +89,11 @@ bool    check_file(char *filename, t_r mode)
         }
     }
     return (true);
+}
+
+void    failed_fork()
+{
+    dup2(STDERR_FILENO, STDOUT_FILENO);
+    printf("Minishell : Error : %s\n", strerror(errno));
+    exit(EXIT_FAILURE);
 }

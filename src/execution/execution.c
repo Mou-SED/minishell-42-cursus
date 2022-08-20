@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:29:49 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/15 17:17:05 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/20 15:40:25 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,37 +42,25 @@ void    *subshell(t_ast *root)
     }
     return (NULL);
 }
+
 void    execute_cmd(t_ast *node)
 {
-    if (check_if_built_in(node) == true)
+    pid_t   pid;
+
+    if (check_if_built_in(node) == true && node->cmd_node->unused_pipe_fd == -1)
         execute_built_in(node);
     else
     {
-        pid_t   pid;
         pid = fork();
-         if (!pid)
+        if (pid == -1)
+            failed_fork();
+        if (pid == 0)
         {
-            if (node->cmd_node->unused_pipe_fd != -1)
-                close(node->cmd_node->unused_pipe_fd);
-            node->cmd_node->cmd_table = ft_split(node->cmd_node->cmd_args, ' ');
-            if (node->cmd_node->files != NULL)
-                if (redirections(node) == false)
-                    exit(EXIT_FAILURE);
-            if (!node->cmd_node->cmd_table)
-                   exit(EXIT_FAILURE);
-            if (!ft_strchr(node->cmd_node->cmd_table[0], '/'))
-                    get_cmd(node);
+            if (check_if_built_in(node) == true)
+                execute_built_in(node);
             else
-            {
-                free(node->cmd_node->cmd_args);
-                node->cmd_node->cmd_args = node->cmd_node->cmd_table[0];
-            }
-            dup2(node->cmd_node->fdout, 1);
-            dup2(node->cmd_node->fdin, 0);
-            execve(node->cmd_node->cmd_args, node->cmd_node->cmd_table, NULL);
-            dup2(STDERR_FILENO, STDOUT_FILENO);
-            printf("\x1b[32m Minshell : %s: command not found\n\x1b[0m", node->cmd_node->cmd_table[0]);
-            exit(127);
+                run_child(node);
+            exit(status);
         }
         else
         {
@@ -81,7 +69,7 @@ void    execute_cmd(t_ast *node)
             if (node->cmd_node->fdin != 0)
 	    		close(node->cmd_node->fdin);
 		    if (node->cmd_node->fdout != 1)
-	    		close(node->cmd_node->fdout); 
+	    		close(node->cmd_node->fdout);
         }
     }
 }

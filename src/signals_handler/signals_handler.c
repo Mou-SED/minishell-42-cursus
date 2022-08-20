@@ -6,13 +6,13 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:20:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/13 21:23:44 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/20 19:28:53 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	handle_ctl_c(int arg)
+void	handle_ctl_c(int arg)
 {
 	(void)arg;
 	printf("\n");
@@ -21,7 +21,7 @@ static void	handle_ctl_c(int arg)
 	rl_redisplay();
 }
 
-static void	ctl_c_handler(void)
+void	ctl_c_handler(void)
 {
 	rl_catch_signals = 0;
 	signal(SIGINT, &handle_ctl_c);

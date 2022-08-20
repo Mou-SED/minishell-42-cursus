@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/15 16:19:30 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/20 13:35:14 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,6 @@ void			join_cmd_args(t_ast *node, t_token_list *token);
 t_token_list	*join_files(t_ast *node, t_token_list *token);
 t_token_list	*get_next_to_parse(t_token_list *token);
 char			*ft_strjoin_char(char *s1, char const *s2, char c);
+bool			unclosed_quote(char *lexeme, char quote_type);
+int				get_first_quote(char *lexeme, int *index);
 #endif

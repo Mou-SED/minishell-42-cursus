@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:04:41 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/16 23:57:58 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/21 00:33:33 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	execute_pwd(t_ast *node)
 			return ;
 		}
 	}
-	path_name = getcwd(NULL, 0);
-	write(node->cmd_node->fdout, path_name, ft_strlen(path_name));
-	write(node->cmd_node->fdout, "\n", 1);
+	path_name = getcwd(NULL, 0); // get from env
+	printf("%s\n", path_name);
 	free(path_name);
 }

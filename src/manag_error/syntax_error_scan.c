@@ -6,13 +6,13 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:11:40 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/17 00:11:28 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/20 13:33:34 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static bool	unclosed_quote(char *lexeme, char quote_type)
+bool	unclosed_quote(char *lexeme, char quote_type)
 {
 	if (*lexeme == '\0' && quote_type != 0)
 		return (true);
@@ -31,7 +31,7 @@ static bool	unclosed_quote(char *lexeme, char quote_type)
 		return (unclosed_quote(++lexeme, quote_type));
 }
 
-static int	get_first_quote(char *lexeme, int *index)
+int	get_first_quote(char *lexeme, int *index)
 {
 	if (*lexeme == '\0')
 		return (0);
@@ -83,23 +83,21 @@ bool	check_syntax_error(t_token_list *token, int *i)
 			*i += 1;
 		else if (token->type == RIGHTPAREN)
 			*i -= 1;
-		if (check_syntax_error_helper(token))
+		if (check_syntax_error_helper(token) == true)
 			break ;
 		token = token->next;
 	}
-	if (*i != 0)
-		printf("MiniShell: syntax errornearunexpectedtoken `unclosed_parentheses`\n");
 	return (true);
 }
 
-bool	check_empty_parenthesis(t_ast *root)
-{
-	if (root == NULL)
-		return (false);
-	else if (root->type == PAR && (root->right == NULL
-			|| root->right->type == PAR))
-		return (true);
-	else
-		return (check_empty_parenthesis(root->left)
-			&& check_empty_parenthesis(root->right));
-}
+// bool	check_empty_parenthesis(t_ast *root)
+// {
+// 	if (root == NULL)
+// 		return (false);
+// 	else if (root->type == PAR && (root->right == NULL
+// 			|| root->right->type == PAR))
+// 		return (true);
+// 	else
+// 		return (check_empty_parenthesis(root->left)
+// 			&& check_empty_parenthesis(root->right));
+// }

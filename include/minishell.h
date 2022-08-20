@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/15 11:46:32 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/19 15:44:52 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <errno.h>
+# include <paths.h>
 # include "../lib/libft/include/libft.h"
 # include "readline/readline.h"
 # include "readline/history.h"

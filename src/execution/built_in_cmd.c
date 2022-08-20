@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:53:27 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/16 18:56:27 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/20 23:31:32 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void    execute_built_in(t_ast *node)
 {
     int stdo;
     int stin;
-
+    
+    if (node->cmd_node->unused_pipe_fd != -1)
+        close(node->cmd_node->unused_pipe_fd);
     stdo = dup(1);
     stin = dup(0);
     node->cmd_node->cmd_table = ft_split(node->cmd_node->cmd_args, ' ');
@@ -51,13 +53,15 @@ void    execute_built_in(t_ast *node)
     if (!ft_strcmp(node->cmd_node->cmd_table[0], "PWD") || !ft_strcmp(node->cmd_node->cmd_table[0], "pwd"))
         execute_pwd(node);
     if (!ft_strcmp(node->cmd_node->cmd_table[0], "exit"))
-        execute_exit(node, stdo);
+        execute_exit(node);
     if (!ft_strcmp(node->cmd_node->cmd_table[0], "unset"))
         execute_unset(node);
     if (!ft_strcmp(node->cmd_node->cmd_table[0], "env") || !ft_strcmp(node->cmd_node->cmd_table[0], "ENV"))
         execute_env(node);
-    // if (!ft_strcmp(node->cmd_node->cmd_table[0], "cd"))
-    //     execute_cd(node);
+    if (!ft_strcmp(node->cmd_node->cmd_table[0], "export"))
+        execute_export(node);
+    if (!ft_strcmp(node->cmd_node->cmd_table[0], "cd"))
+        execute_cd(node);
     close(node->cmd_node->fdin);
     close(node->cmd_node->fdout);
     dup2(stdo, 1);
