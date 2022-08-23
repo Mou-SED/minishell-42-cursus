@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analysis.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/20 13:35:14 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 10:24:23 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ typedef struct files
 	char	*filename;
 	t_r		mode;
 	struct files *next;
-	
 }t_lst;
-
 
 typedef struct s_cmd
 {
@@ -78,5 +76,5 @@ t_token_list	*join_files(t_ast *node, t_token_list *token);
 t_token_list	*get_next_to_parse(t_token_list *token);
 char			*ft_strjoin_char(char *s1, char const *s2, char c);
 bool			unclosed_quote(char *lexeme, char quote_type);
-int				get_first_quote(char *lexeme, int *index);
+int				get_first_quote(char *lexeme, int index);
 #endif
