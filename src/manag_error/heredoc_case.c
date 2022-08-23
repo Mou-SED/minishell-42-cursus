@@ -6,13 +6,11 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:41:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 12:54:14 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 15:02:59 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
-# include <sig_handler.h>
-# include <expander.h>
+#include <minishell.h>
 
 void	expande_helper(char **herdoc, char *str, t_env *m_env)
 {
@@ -33,7 +31,7 @@ void	expende_dollar(char **herdoc, t_env *m_env)
 	free(*herdoc);
 	*herdoc = NULL;
 	expande_helper(&(*herdoc), herdoc_cp, m_env);
-	if (*herdoc ==  NULL)
+	if (*herdoc == NULL)
 		*herdoc = ft_strdup("");
 	free(herdoc_cp);
 	herdoc_cp = NULL;
@@ -42,7 +40,7 @@ void	expende_dollar(char **herdoc, t_env *m_env)
 void	expande(char **delemeter, char *old_delemeter, int state)
 {
 	if (*old_delemeter == '\0')
-		return;
+		return ;
 	if (*old_delemeter == '\'' && state == 0)
 		old_delemeter = single_quote_case(&(*delemeter), ++old_delemeter);
 	else if (*old_delemeter != '"')
@@ -59,9 +57,10 @@ void	expande(char **delemeter, char *old_delemeter, int state)
 
 char	*open_random_file(char *str)
 {
-	static	long	i;
-	char	*herdoc_number;
-	char	*filename;
+	static long	i;
+	char		*herdoc_number;
+	char		*filename;
+
 	herdoc_number = ft_itoa(i++);
 	filename = ft_strjoin(str, herdoc_number);
 	filename = ft_strjoin("/tmp/minishell/", filename);
@@ -108,18 +107,19 @@ bool	her_doc(t_token_list *token, int *i, t_env *m_env)
 				return (true);
 		}
 		else if (token->next && (token->type == OPERATOR || token->type == PIPE)
-		&& (token->next->type != WORD && token->next->type != LEFTPAREN
-			&& token->next->type != REDIRECTION))
+			&& (token->next->type != WORD && token->next->type != LEFTPAREN
+				&& token->next->type != REDIRECTION))
 			return (true);
-		else if (token->next && !ft_strcmp(token->lexeme, "(") && !ft_strcmp(token->next->lexeme, ")"))
+		else if (token->next && !ft_strcmp(token->lexeme, "(")
+			&& !ft_strcmp(token->next->lexeme, ")"))
 			return (true);
 		else if (token->type == REDIRECTION && token->next == NULL)
 			return (ft_print_error("newline"), true);
 		else if (token->next && token->type == REDIRECTION
-		&& token->next->type != WORD)
+			&& token->next->type != WORD)
 			return (true);
 		else if ((token->type != WORD && token->type != RIGHTPAREN
-			&& token->type != REDIRECTION) && token->next == NULL)
+				&& token->type != REDIRECTION) && token->next == NULL)
 			return (true);
 		token = token->next;
 	}
@@ -130,7 +130,7 @@ void	expand_delemeter(char **delemeter, int *state)
 {
 	char	*old_delemeter;
 
-	if (**delemeter !='\'' && **delemeter != '"')
+	if (**delemeter != '\'' && **delemeter != '"')
 		*state = 1;
 	old_delemeter = ft_strdup(*delemeter);
 	free(*delemeter);

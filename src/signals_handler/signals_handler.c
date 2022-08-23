@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:20:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/22 18:46:26 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 15:03:14 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,4 @@ void	signals_handler(void)
 {
 	ctl_backslash_handler();
 	ctl_c_handler();
-}
-
-void	hundler_child_ctrl_c(int sig)
-{
-	signals_handler();
-	exit(128 + sig);
 }

@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   Helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:16:45 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/11 19:32:59 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 15:09:01 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
 void	add_files(t_lst **head, t_lst *new)
 {
 	t_lst	*tmp;
-	
+
 	tmp = NULL;
 	if (*head == NULL)
 		*head = new;
@@ -70,9 +69,9 @@ t_token_list	*join_files(t_ast *node, t_token_list *token)
 {
 	t_lst	*tmp;
 
-	tmp = NULL;                                                                                                                                                                                                   
-	if (!ft_strcmp(token->lexeme, ">>") || !ft_strcmp(token->lexeme ,">")
-		|| !ft_strcmp(token->lexeme, "<") || !ft_strcmp(token->lexeme ,"<<"))
+	tmp = NULL;
+	if (!ft_strcmp(token->lexeme, ">>") || !ft_strcmp(token->lexeme, ">")
+		|| !ft_strcmp(token->lexeme, "<") || !ft_strcmp(token->lexeme, "<<"))
 	{
 		tmp = ft_calloc(1, sizeof(t_lst));
 		token->is_parsed = 1;

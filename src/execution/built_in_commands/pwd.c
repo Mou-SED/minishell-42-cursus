@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:04:41 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/21 18:50:37 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 14:44:53 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	execute_pwd(t_ast *node, char **cwd)
 			status = 1;
 			return ;
 		}
-	}// get from env
+	}
 	printf("%s\n", *cwd);
 }

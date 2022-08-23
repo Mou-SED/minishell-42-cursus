@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 04:11:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/22 22:39:30 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:55:02 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_update_str(char **str, char c)
 {
-	int 	len;
+	int		len;
 	char	*new_str;
 
 	if (*str == NULL)
@@ -52,7 +52,7 @@ char	*expande_variable(char **update_str, char *str, t_env *m_env)
 	i = 0;
 	while (str[i] && str[i] == '$')
 	{
-		if(str[i] == '$' && str[i + 1] != '$')
+		if (str[i] == '$' && str[i + 1] != '$')
 			break ;
 		i++;
 	}
@@ -102,7 +102,6 @@ void	expander(t_ast *node, int i)
 
 	if (node->cmd_node->cmd_table[i] == NULL)
 		return ;
-
 	str = ft_strdup(node->cmd_node->cmd_table[i]);
 	free(node->cmd_node->cmd_table[i]);
 	node->cmd_node->cmd_table[i] = NULL;

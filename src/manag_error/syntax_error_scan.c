@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:11:40 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 10:23:54 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:59:06 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	check_syntax_error_helper(t_token_list *token, int *error)
 		&& unclosed_quote(
 			&token->lexeme[get_first_quote(token->lexeme, 0) + 1],
 			token->lexeme[get_first_quote(token->lexeme, 0)]) == true)
-		return (ft_print_error("unclosed_quote") , *error = 1, true); // TODO: Delete this line
+		return (ft_print_error("unclosed_quote"), *error = 1, true);
 	else if (token->next && !ft_strcmp(token->lexeme, "(")
 		&& !ft_strcmp(token->next->lexeme, ")"))
 		return (ft_print_error(token->next->lexeme), *error = 2, true);

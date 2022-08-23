@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:20:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/21 21:18:11 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 14:35:28 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <paths.h>
+
 void	build_env(t_env *m_env, char **env)
 {
 	char	*str;
@@ -37,7 +38,7 @@ void	build_env(t_env *m_env, char **env)
 }
 
 void	create_env(t_env **m_env, char *variable, char *value)
-{		
+{
 	(*m_env)->variable = ft_strdup(variable);
 	if (ft_strcmp((*m_env)->variable, "PWD") == 0)
 		(*m_env)->value = value;
@@ -86,7 +87,7 @@ void	duplicate_env(t_env *m_env, char **env)
 		if (ft_strcmp(tmp->variable, "SHLVL") == 0)
 			tmp->value = ft_itoa(ft_atoi(&env[i][j + 1]) + 1);
 		else if (ft_strcmp(tmp->variable, "SHLVL")
-				&& ft_strcmp(tmp->variable, "OLDPWD"))
+			&& ft_strcmp(tmp->variable, "OLDPWD"))
 			tmp->value = ft_strdup(&env[i][j + 1]);
 		if (ft_strcmp(tmp->variable, "OLDPWD") == 0)
 			tmp->exported_to_env = false;

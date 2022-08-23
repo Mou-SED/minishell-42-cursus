@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:07:37 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/15 15:58:31 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 15:08:29 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
 void	lst_clear(t_lst *files)
 {
 	t_lst	*tmp;
+
 	while (files)
 	{
 		tmp = files;
 		files = files->next;
 		free(tmp->filename);
 		free(tmp);
-	}	
+	}
 }
 
 t_ast	*ft_ast_new(t_token_list	*token, t_env **m_env)
@@ -63,11 +63,19 @@ t_ast	*building_ast(t_ast *root, t_token_list *token, t_env **m_env)
 	return (building_ast(root, token, m_env));
 }
 
-void	clear_ast(t_ast *root)
+void	free_table(char **table)
 {
 	int	i;
 
 	i = 0;
+	while (table[i])
+		free(table[i++]);
+	free(table);
+	table = NULL;
+}
+
+void	clear_ast(t_ast *root)
+{
 	if (root == NULL)
 		return ;
 	if (root->left)
@@ -77,11 +85,7 @@ void	clear_ast(t_ast *root)
 	if (root->cmd_node)
 	{
 		if (root->cmd_node->cmd_table)
-		{
-			while (root->cmd_node->cmd_table[i])
-				free(root->cmd_node->cmd_table[i++]);
-			free(root->cmd_node->cmd_table);
-		}
+			free_table(root->cmd_node->cmd_table);
 		if (root->cmd_node->files)
 			lst_clear(root->cmd_node->files);
 		if (root->cmd_node->paths)

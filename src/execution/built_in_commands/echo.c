@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:02:05 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/22 17:47:13 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:41:20 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ void	execute_echo(t_ast *node)
 	i = 1;
 	j = 0;
 	if (node->cmd_node->files != NULL)
+	{
 		if (redirections(node) == false)
 		{
 			status = 1;
 			return ;
 		}
+	}
 	while (node->cmd_node->cmd_table[i] != NULL)
 	{
 		if (is_flag(node->cmd_node->cmd_table[i], &j) == false)

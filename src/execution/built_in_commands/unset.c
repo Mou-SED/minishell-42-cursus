@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 20:26:22 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/21 19:31:33 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 14:45:12 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,14 @@ void	execute_unset(t_ast *node)
 		{
 			if (!ft_strcmp(node->cmd_node->cmd_table[i], "OLDPWD")
 				|| !ft_strcmp(node->cmd_node->cmd_table[i], "PWD"))
-				remove_value(*node->cmd_node->m_env, node->cmd_node->cmd_table[i]);
+				remove_value(*node->cmd_node->m_env,
+					node->cmd_node->cmd_table[i]);
 			else
-				remove_variable(node->cmd_node->m_env, node->cmd_node->cmd_table[i]);
+				remove_variable(node->cmd_node->m_env,
+					node->cmd_node->cmd_table[i]);
 		}
 		i++;
 	}
 	if (status != 1)
-        status = 0;
+		status = 0;
 }
