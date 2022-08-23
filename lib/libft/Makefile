@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/21 20:18:19 by moseddik          #+#    #+#              #
-#    Updated: 2022/07/05 08:49:01 by moseddik         ###   ########.fr        #
+#    Updated: 2022/08/22 14:47:11 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC			:= $(SRC_DIR)/mandatory/ft_atoi.c \
 				$(SRC_DIR)/mandatory/ft_putnbr_fd.c \
 				$(SRC_DIR)/mandatory/ft_putstr_fd.c \
 				$(SRC_DIR)/mandatory/ft_split.c \
+				$(SRC_DIR)/mandatory/ft_split_mode.c \
 				$(SRC_DIR)/mandatory/ft_strchr.c \
 				$(SRC_DIR)/mandatory/ft_strdup.c \
 				$(SRC_DIR)/mandatory/ft_striteri.c \
