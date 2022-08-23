@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 14:33:42 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 17:50:50 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ int	main(int ac, char **av, char **env)
 			waiting_for_my_children();
 		}
 		else if (cmd == NULL)
-			ctl_d_handler(head, m_env);
+			ctl_d_handler(head, m_env, cwd);
 		else if (*cmd == '\0')
 			free(cmd);
+		system("leaks minishell");
 	}
 }
