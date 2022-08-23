@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:30:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/20 15:44:39 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/22 16:51:44 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ char    *get_cmd(t_ast *node)
     i = 0;
     absolute_path = NULL;
     path = get_variable(*(node->cmd_node->m_env), "PATH");
-    if (path[0] == '\0')
+    if (path == NULL)
     {
         printf("Minishell: %s: No such file or directory\n",node->cmd_node->cmd_table[0]);
         exit(127);
     }
     node->cmd_node->paths = ft_split(path, ':');
+    if (node->cmd_node->paths == NULL)
+        allocation_faild();
     while (node->cmd_node->paths[i])
     {
         absolute_path = ft_strjoin_char(node->cmd_node->paths[i], node->cmd_node->cmd_table[0], '/');

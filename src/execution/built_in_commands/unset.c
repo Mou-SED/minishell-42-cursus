@@ -6,18 +6,17 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 20:26:22 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/20 19:07:03 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/21 19:31:33 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	remove_value(t_env *m_env)
+void	remove_value(t_env *m_env, char *variable)
 {
 	while (m_env)
 	{
-		if (!ft_strcmp(m_env->variable, "OLDPWD")
-			|| !ft_strcmp(m_env->variable, "PWD"))
+		if (!ft_strcmp(m_env->variable, variable))
 		{
 			m_env->export_history = false;
 			m_env->exported_to_env = false;
@@ -52,7 +51,7 @@ void	execute_unset(t_ast *node)
 		{
 			if (!ft_strcmp(node->cmd_node->cmd_table[i], "OLDPWD")
 				|| !ft_strcmp(node->cmd_node->cmd_table[i], "PWD"))
-				remove_value(*node->cmd_node->m_env);
+				remove_value(*node->cmd_node->m_env, node->cmd_node->cmd_table[i]);
 			else
 				remove_variable(node->cmd_node->m_env, node->cmd_node->cmd_table[i]);
 		}

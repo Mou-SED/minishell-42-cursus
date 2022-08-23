@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:02:05 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/21 00:26:09 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/22 17:47:13 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ void	execute_echo(t_ast *node)
 		arg = node->cmd_node->cmd_table[i];
 		if (arg != NULL)
 			write(node->cmd_node->fdout, arg, ft_strlen(arg));
-		if (node->cmd_node->cmd_table[i] != NULL)
+		if (node->cmd_node->cmd_table[i + 1] != NULL)
 			write(node->cmd_node->fdout, " ", 1);
 		i++;
 	}
 	if (j != 1)
 		write(node->cmd_node->fdout, "\n", 1);
+	status = 0;
 }

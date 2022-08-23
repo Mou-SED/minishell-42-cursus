@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:56:01 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/13 21:59:01 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/22 19:02:55 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ bool    ft_isnumber(char *str)
     int i;
 
     i = 0;
+    if (str[i] == '-' || str[i] == '+')
+        i++;
     while (str[i])
     {
         if (!ft_isdigit(str[i]))

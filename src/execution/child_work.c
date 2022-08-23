@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_work.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:22:07 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/21 00:05:34 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/22 14:50:59 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void    run_child(t_ast *node)
     char    **env;
 
     env = NULL;
-    node->cmd_node->cmd_table = ft_split(node->cmd_node->cmd_args, ' ');
     free(node->cmd_node->cmd_args);
     if (node->cmd_node->files != NULL)
         if (redirections(node) == false)
