@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:20:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/21 00:22:32 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/21 21:18:11 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	build_env(t_env *m_env, char **env)
 		m_env->next = ft_calloc(1, sizeof(t_env));
 		create_env(&m_env->next, "PWD", str);
 	}
+	if (path_not_exist(m_env) == false)
+		add_path(m_env);
 }
 
 void	create_env(t_env **m_env, char *variable, char *value)
@@ -59,9 +61,6 @@ void	create_env(t_env **m_env, char *variable, char *value)
 		create_env(&(*m_env)->next, "SHELVL", "1");
 	if (ft_strcmp((*m_env)->variable, "SHELVL") == 0)
 		create_env(&(*m_env)->next, "_", "/usr/bin/env");
-	if (ft_strcmp((*m_env)->variable, "_") == 0)
-		create_env(&(*m_env)->next, "PATH", _PATH_STDPATH);
-
 }
 
 void	duplicate_env(t_env *m_env, char **env)
@@ -100,62 +99,6 @@ void	duplicate_env(t_env *m_env, char **env)
 	}
 }
 
-void	add_variable(t_env **m_env, t_env *var)
-{
-	t_env	*tmp;
-
-	tmp = *m_env;
-	if (tmp == NULL)
-		tmp = var;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = var;
-	var->prev = tmp;
-}
-
-char	*get_variable(t_env *m_env, char *var)
-{
-	while (m_env != NULL)
-	{
-		if (ft_strcmp(m_env->variable, var) == 0)
-		{
-			if (m_env->value == NULL)
-				return (NULL);
-			else
-				return (ft_strdup(m_env->value));
-		}
-		m_env = m_env->next;
-	}
-	return (NULL);
-}
-
-void	remove_variable(t_env **m_env, char *var)
-{
-	t_env	*tmp;
-	t_env	*node;
-
-	node = *m_env;
-	while (node)
-	{
-		if (ft_strcmp(node->variable, var) == 0)
-		{
-			if (*m_env == node)
-				*m_env = node->next;
-			if (node && node->prev != NULL)
-				node->prev->next = node->next;
-			if (node && node->next != NULL)
-				node->next->prev = node->prev;
-			tmp = node;
-			node = node->next;
-			free(tmp->variable);
-			free(tmp->value);
-			free(tmp);
-		}
-		else
-			node = node->next;
-	}
-}
-
 char	**convert_envirenment(t_env *m_env)
 {
 	t_env	*tmp;
@@ -183,4 +126,20 @@ char	**convert_envirenment(t_env *m_env)
 	}
 	env[i] = NULL;
 	return (env);
+}
+
+void	remove_env(t_env **m_env)
+{
+	t_env	*tmp;
+
+	while (*m_env)
+	{
+		tmp = *m_env;
+		*m_env = (*m_env)->next;
+		free(tmp->variable);
+		free(tmp->value);
+		free(tmp);
+		tmp = NULL;
+	}
+	free(m_env);
 }
