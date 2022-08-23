@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
+#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/08/20 23:43:45 by zaabou           ###   ########.fr        #
+#    Updated: 2022/08/23 15:11:47 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,15 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/manag_error/ft_print_error.c \
 					$(SRC_DIR)/manag_error/syntax_error_scan.c \
 					$(SRC_DIR)/manag_error/heredoc_case.c \
+					$(SRC_DIR)/expander/expander.c \
+					$(SRC_DIR)/expander/expander_tools.c \
 					$(SRC_DIR)/execution/Helper_functions.c \
 					$(SRC_DIR)/execution/execution.c \
 					$(SRC_DIR)/execution/built_in_cmd.c \
 					$(SRC_DIR)/execution/tools.c \
 					$(SRC_DIR)/environment/environment.c \
+					$(SRC_DIR)/execution/built_in_commands/cd_tools.c \
+					$(SRC_DIR)/execution/built_in_commands/cd.c \
 					$(SRC_DIR)/execution/built_in_commands/echo.c \
 					$(SRC_DIR)/execution/built_in_commands/exit.c \
 					$(SRC_DIR)/execution/built_in_commands/pwd.c \
@@ -58,7 +62,6 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/execution/built_in_commands/export.c \
 					$(SRC_DIR)/execution/child_work.c \
 					$(SRC_DIR)/execution/built_in_commands/cd.c
-					
 OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
 INC				:= minishell.h
 LIBFT			:= libft.a
