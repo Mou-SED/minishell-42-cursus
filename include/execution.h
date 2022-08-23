@@ -2,6 +2,9 @@
 #define EXECUTION_H
 # include <minishell.h>
 
+#define PCDE "\x1b[31m cd: error retrieving current directory:\
+getcwd: cannot access parent directories: %s\x1b[0m\n"
+
 // pipe
 void    create_pipe(t_ast *pipe_node);
 

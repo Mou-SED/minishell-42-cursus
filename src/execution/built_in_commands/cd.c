@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 23:32:00 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 14:40:25 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 17:38:53 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void	check_valid_folder(t_ast *node, char **cwd, int i)
 	if (folder_path == NULL)
 	{
 		dup2(STDERR_FILENO, STDOUT_FILENO);
-		printf("\x1b[31m cd: error retrieving current directory: getcwd: \
-			cannot access parent directories: %s\x1b[0m\n", strerror(errno)); //TODO :Test output
+		printf(PCDE, strerror(errno));
 		update_cwd(node, &(*cwd), 0, NULL);
 	}
 	else if (i == 0)
