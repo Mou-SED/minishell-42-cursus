@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:29:49 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/22 16:32:24 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 11:12:26 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void    execute_cmd(t_ast *node, char **cwd)
     pid_t   pid;
 
     node->cmd_node->cmd_table = ft_split_mode(node->cmd_node->cmd_args, ' ');
+    if (node->cmd_node->cmd_table == NULL)
+        return ;
     expander(node, 0);
     if (check_if_built_in(node) == true && node->cmd_node->unused_pipe_fd == -1)
         execute_built_in(node, &(*cwd));
