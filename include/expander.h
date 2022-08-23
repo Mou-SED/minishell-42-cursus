@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:35:40 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 12:23:08 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:53:46 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ char	*expande_variable(char **update_str, char *str, t_env *m_env);
 
 // Expander tools
 char	*join_expended_str(char *s1, char *s2);
+int		skip_dollars(char *str);
 #endif

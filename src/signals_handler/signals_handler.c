@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:20:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 17:50:45 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 21:43:38 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	handle_ctl_c(int arg)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	status = 130;
+	g_status = 130;
 }
 
 void	ctl_c_handler(void)
@@ -40,8 +40,7 @@ void	ctl_d_handler(t_token_list **head, t_env **m_env, char *cwd)
 	remove_env(m_env);
 	rl_clear_history();
 	printf("\x1B[1;A\x1B[11;Cexit\n");
-	
-	exit(EXIT_SUCCESS);
+	exit(g_status);
 }
 
 void	signals_handler(void)

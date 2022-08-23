@@ -6,11 +6,22 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:29:49 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 14:48:11 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 22:14:38 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	close_files(t_ast *node)
+{
+	if (node->type == CMD || node->type == PAR)
+	{
+		if (node->cmd_node->fdin != 0)
+			close(node->cmd_node->fdin);
+		if (node->cmd_node->fdout != 1)
+			close(node->cmd_node->fdout);
+	}
+}
 
 void	*subshell(t_ast *root, char **cwd)
 {
@@ -21,7 +32,6 @@ void	*subshell(t_ast *root, char **cwd)
 	{
 		if (root->cmd_node->unused_pipe_fd != -1)
 			close(root->cmd_node->unused_pipe_fd);
-		root->cmd_node->cmd_table = ft_split(root->cmd_node->cmd_args, ' ');
 		if (root->cmd_node->files != NULL)
 			if (redirections(root) == false)
 				exit(EXIT_FAILURE);
@@ -29,54 +39,34 @@ void	*subshell(t_ast *root, char **cwd)
 		dup2(root->cmd_node->fdout, 1);
 		execution(root->right, &(*cwd));
 		waiting_for_my_children();
-		exit(status);
+		exit(g_status);
 	}
-	else
-	{
-		if (root->cmd_node->wait == true)
-			wait_for_one_child(pid);
-		if (root->cmd_node->fdin != 0)
-			close(root->cmd_node->fdin);
-		if (root->cmd_node->fdout != 1)
-			close(root->cmd_node->fdout);
-	}
+	else if (root->cmd_node->wait == true)
+		wait_for_one_child(pid);
 	return (NULL);
 }
 
 void	execute_cmd(t_ast *node, char **cwd)
 {
 	pid_t	pid;
+	int		error_files;
 
+	error_files = open_files(node);
 	node->cmd_node->cmd_table = ft_split_mode(node->cmd_node->cmd_args, ' ');
 	if (node->cmd_node->cmd_table == NULL)
 		return ;
 	expander(node, 0);
 	if (check_if_built_in(node) == true && node->cmd_node->unused_pipe_fd == -1)
-		execute_built_in(node, &(*cwd));
+		execute_built_in(node, &(*cwd), error_files);
 	else
 	{
 		pid = fork();
 		if (pid == -1)
 			failed_fork();
 		if (pid == 0)
-		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
-			if (check_if_built_in(node) == true)
-				execute_built_in(node, &(*cwd));
-			else
-				run_child(node);
-			exit(status);
-		}
-		else
-		{
-			if (node->cmd_node->wait == true)
-				wait_for_one_child(pid);
-			if (node->cmd_node->fdin != 0)
-				close(node->cmd_node->fdin);
-			if (node->cmd_node->fdout != 1)
-				close(node->cmd_node->fdout);
-		}
+			run_child(node, &(*cwd), error_files);
+		else if (node->cmd_node->wait == true)
+			wait_for_one_child(pid);
 	}
 }
 
@@ -113,7 +103,8 @@ void	execution(t_ast *root, char **cwd)
 	else if (root->type == PAR)
 		subshell(root, &(*cwd));
 	execution(root->left, &(*cwd));
-	if ((root->type == OR && status != 0)
-		|| (root->type == AND && status == 0) || root->type == PIP)
+	if ((root->type == OR && g_status != 0)
+		|| (root->type == AND && g_status == 0) || root->type == PIP)
 		execution(root->right, &(*cwd));
+	close_files(root);
 }

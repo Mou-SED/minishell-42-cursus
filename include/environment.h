@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 11:43:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 16:22:57 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 23:24:26 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
 
-typedef	struct env
+typedef struct env
 {
 	char		*variable;
 	char		*value;
@@ -28,13 +28,14 @@ typedef	struct env
 void	build_env(t_env *m_env, char **env);
 void	duplicate_env(t_env *m_env, char **env);
 void	create_env(t_env **m_env, char *variable, char *value);
-void    add_variable(t_env **m_env, t_env *var);
+void	add_variable(t_env **m_env, t_env *var);
 char	*get_variable(t_env *m_env, char *var);
-void    remove_variable(t_env **m_env, char *var);
+void	remove_variable(t_env **m_env, char *var);
 char	**convert_envirenment(t_env *m_env);
 void	remove_env(t_env **m_env);
-void	update_value(t_env *m_env, char *str);
 t_env	*get_access_to_var(t_env *m_env, char *variable);
 bool	path_not_exist(t_env *m_env);
 void	add_path(t_env *m_env);
+void	duplicate_env_2(t_env *tmp, char **env, int i, int j);
+
 #endif

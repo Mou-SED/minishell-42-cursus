@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:30:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 14:53:53 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 22:55:25 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,21 @@
 
 char	*get_cmd(t_ast *node)
 {
-	char	*path;
 	int		i;
+	char	*path;
 	char	*absolute_path;
 
 	if (ft_strchr(node->cmd_node->cmd_table[0], '/') != NULL)
 		return (ft_strdup(node->cmd_node->cmd_table[0]));
 	i = 0;
-	absolute_path = NULL;
 	path = get_variable(*(node->cmd_node->m_env), "PATH");
 	if (path == NULL)
-	{
-		printf("Minishell: %s: No such file or directory\n",
-			node->cmd_node->cmd_table[0]);
-		exit(127);
-	}
+		(printf("Minishell: %s: No such file or directory\n",
+				node->cmd_node->cmd_table[0]), exit(127));
 	node->cmd_node->paths = ft_split(path, ':');
 	if (node->cmd_node->paths == NULL)
 		allocation_faild();
+	free(path);
 	while (node->cmd_node->paths[i])
 	{
 		absolute_path = ft_strjoin_char(node->cmd_node->paths[i],
@@ -52,30 +49,13 @@ bool	redirections(t_ast *node)
 		if (node->cmd_node->files->mode == W_APPRND
 			|| node->cmd_node->files->mode == W_TRUNC)
 		{
-			close(node->cmd_node->fdout);
-			if (access(node->cmd_node->files->filename, F_OK) != 0)
-				node->cmd_node->fdout
-					= open(node->cmd_node->files->filename, O_CREAT | O_WRONLY,
-						0644);
-			else if (check_file(node->cmd_node->files->filename, W_TRUNC)
-				== false)
+			if (out_files(node) == false)
 				return (false);
-			else if (node->cmd_node->files->mode == W_APPRND)
-				node->cmd_node->fdout
-					= open(node->cmd_node->files->filename,
-						O_WRONLY | O_APPEND);
-			else if (node->cmd_node->files->mode == W_TRUNC)
-				node->cmd_node->fdout
-					= open(node->cmd_node->files->filename,
-						O_WRONLY | O_TRUNC);
 		}
 		else if (node->cmd_node->files->mode == READ)
 		{
-			close(node->cmd_node->fdin);
-			if (check_file(node->cmd_node->files->filename, READ) == false)
+			if (in_files(node) == false)
 				return (false);
-			node->cmd_node->fdin
-				= open(node->cmd_node->files->filename, O_RDONLY);
 		}
 		node->cmd_node->files = node->cmd_node->files->next;
 	}
@@ -107,5 +87,4 @@ void	failed_fork(void)
 {
 	dup2(STDERR_FILENO, STDOUT_FILENO);
 	printf("Minishell : Error : %s\n", strerror(errno));
-	exit(EXIT_FAILURE);
 }

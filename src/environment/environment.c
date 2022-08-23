@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:20:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 15:59:56 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 23:25:15 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,7 @@ void	duplicate_env(t_env *m_env, char **env)
 			j++;
 		tmp->variable = ft_calloc((j + 1), sizeof(char));
 		ft_memcpy(tmp->variable, env[i], j);
-		if (ft_strcmp(tmp->variable, "_") == 0)
-			tmp->export_history = false;
-		if (ft_strcmp(tmp->variable, "SHLVL") == 0)
-			tmp->value = ft_itoa(ft_atoi(&env[i][j + 1]) + 1);
-		else if (ft_strcmp(tmp->variable, "SHLVL")
-			&& ft_strcmp(tmp->variable, "OLDPWD"))
-			tmp->value = ft_strdup(&env[i][j + 1]);
-		if (ft_strcmp(tmp->variable, "OLDPWD") == 0)
-			tmp->exported_to_env = false;
+		duplicate_env_2(tmp, env, i, j);
 		if (env[i] && env[i + 1])
 			tmp->next = ft_calloc(1, sizeof(t_env));
 		prev = tmp;

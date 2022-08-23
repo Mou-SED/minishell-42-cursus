@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 11:50:56 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 16:25:06 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 22:35:52 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,6 @@ void	remove_variable(t_env **m_env, char *var)
 		else
 			node = node->next;
 	}
-}
-
-void	update_value(t_env *m_env, char *str)
-{
-	free(m_env->value);
-	if (m_env->value != NULL)
-		m_env->value = ft_strdup(str);
-	else
-		m_env->value = NULL;
 }
 
 t_env	*get_access_to_var(t_env *m_env, char *variable)

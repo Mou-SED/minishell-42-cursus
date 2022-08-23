@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 20:26:22 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 14:45:12 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:18:11 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,12 @@ void	execute_unset(t_ast *node)
 	int	i;
 
 	i = 1;
-	if (node->cmd_node->files != NULL)
-	{
-		if (redirections(node) == false)
-		{
-			status = 1;
-			return ;
-		}
-	}
 	while (node->cmd_node->cmd_table[i])
 	{
 		if (check_valid_name(node->cmd_node->cmd_table[i]) == false)
 		{
 			write(2, "Minishell: export: unvalid identifier\n", 38);
-			status = 1;
+			g_status = 1;
 		}
 		else
 		{
@@ -59,6 +51,6 @@ void	execute_unset(t_ast *node)
 		}
 		i++;
 	}
-	if (status != 1)
-		status = 0;
+	if (g_status != 1)
+		g_status = 0;
 }

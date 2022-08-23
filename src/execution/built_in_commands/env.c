@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:57:13 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/20 16:34:04 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 21:18:21 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,7 @@ void	print_env(t_env *m_env)
 
 void	execute_env(t_ast *node)
 {
-	if (node->cmd_node->files != NULL)
-	{
-		if (redirections(node) == false)
-		{
-			status = 1;
-			return ;
-		}
-	}
 	dup2(node->cmd_node->fdout, 1);
 	print_env(*(node->cmd_node->m_env));
-	status = 0;
+	g_status = 0;
 }

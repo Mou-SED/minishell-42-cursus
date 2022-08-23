@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 10:24:23 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 20:31:36 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef enum e_node
 	PAR
 }	t_node;
 
-typedef	enum e_file
+typedef enum e_file
 {
 	W_TRUNC,
 	W_APPRND,
@@ -32,9 +32,9 @@ typedef	enum e_file
 
 typedef struct files
 {
-	char	*filename;
-	t_r		mode;
-	struct files *next;
+	char			*filename;
+	t_r				mode;
+	struct files	*next;
 }t_lst;
 
 typedef struct s_cmd
@@ -62,8 +62,10 @@ typedef struct s_ast
 // AST functions
 t_ast			*ft_ast_new(t_token_list	*token, t_env **m_env);
 t_ast			*building_ast(t_ast *root, t_token_list *token, t_env **m_env);
-t_ast			*parse_operator(t_ast *root, t_token_list *token, t_env **m_env);
-t_ast			*parse_parenteses(t_ast *node, t_token_list *token, t_env **m_env);
+t_ast			*parse_operator(t_ast *root, t_token_list *token,
+					t_env **m_env);
+t_ast			*parse_parenteses(t_ast *node, t_token_list *token,
+					t_env **m_env);
 t_ast			*parse_cmd(t_token_list *token, t_env **m_env);
 t_ast			*parse_pipe(t_ast *node, t_token_list *token, t_env **m_env);
 

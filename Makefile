@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
+#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/08/23 16:03:28 by zaabou           ###   ########.fr        #
+#    Updated: 2022/08/23 22:54:08 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,16 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/signals_handler/signals_handler.c \
 					$(SRC_DIR)/manag_error/ft_print_error.c \
 					$(SRC_DIR)/manag_error/syntax_error_scan.c \
-					$(SRC_DIR)/manag_error/heredoc_case.c \
+					$(SRC_DIR)/manag_error/check_syntax.c \
+					$(SRC_DIR)/manag_error/heredoc_tools.c \
+					$(SRC_DIR)/manag_error/heredoc.c \
 					$(SRC_DIR)/expander/expander.c \
 					$(SRC_DIR)/expander/expander_tools.c \
 					$(SRC_DIR)/execution/Helper_functions.c \
 					$(SRC_DIR)/execution/execution.c \
 					$(SRC_DIR)/execution/built_in_cmd.c \
 					$(SRC_DIR)/execution/tools.c \
+					$(SRC_DIR)/execution/files_management.c \
 					$(SRC_DIR)/environment/environment.c \
 					$(SRC_DIR)/environment/environment_2.c \
 					$(SRC_DIR)/environment/environment_3.c \
@@ -62,6 +65,8 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/execution/built_in_commands/unset.c \
 					$(SRC_DIR)/execution/built_in_commands/env.c \
 					$(SRC_DIR)/execution/built_in_commands/export.c \
+					$(SRC_DIR)/execution/built_in_commands/export_tools.c \
+					$(SRC_DIR)/execution/built_in_commands/export_tools2.c \
 					$(SRC_DIR)/execution/child_work.c
 OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
 INC				:= minishell.h
@@ -71,7 +76,7 @@ LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror
+CFLAGS			:= -Wall -Wextra -Werror -fsanitize=address
 INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) $(ILIB)
 LIBFLAGS		:= -L $(LIBFT_DIR) -lft $(SLIB)
 

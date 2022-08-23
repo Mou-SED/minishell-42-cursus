@@ -6,26 +6,11 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 21:08:44 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/19 00:37:14 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 23:38:57 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
-
-static void	check_state_quote(int *state, char c)
-{
-	if (*state == 1)
-		*state = 0;
-	if (c == '"' || c == '\'')
-	{
-		if (*state == 1)
-			*state = 0;
-		if (*state == c)
-			*state = 0;
-		else if (*state == 0)
-			*state = c;
-	}
-}
 
 static int	count_word(char const *s, char c)
 {
@@ -61,36 +46,31 @@ static void	*free_tab(char **tab, int index)
 
 static char	**remplis(char **splitstr, char const *s, char c, int num_of_word)
 {
-	int		i;
-	int		k;
-	int		start;
-	int		items_word;
-	int		state;
-	char	*str;
+	t_spl_mode_var	spl;
 
-	i = 0;
-	k = 0;
-	start = 0;
-	state = 1;
-	while (s[k] && i < num_of_word)
+	spl.i = 0;
+	spl.k = 0;
+	spl.start = 0;
+	spl.state = 1;
+	while (s[spl.k] && spl.i < num_of_word)
 	{
-		items_word = 0;
-		while (s[k] && s[k] == c)
-			k++;
-		while (s[k])
+		spl.items_word = 0;
+		while (s[spl.k] && s[spl.k] == c)
+			spl.k++;
+		while (s[spl.k])
 		{
-			if (s[k] == c && state == 0)
+			if (s[spl.k] == c && spl.state == 0)
 				break ;
-			check_state_quote(&state, s[k]);
-			if (++items_word == 1)
-				start = k;
-			k++;
+			check_state_quote(&spl.state, s[spl.k]);
+			if (++spl.items_word == 1)
+				spl.start = spl.k;
+			spl.k++;
 		}
-		splitstr[i] = ft_substr(s, start, items_word);
-		if (!splitstr[i++])
-			return (free_tab(&splitstr[i - 1], i - 1));
+		splitstr[spl.i] = ft_substr(s, spl.start, spl.items_word);
+		if (!splitstr[spl.i++])
+			return (free_tab(&splitstr[spl.i - 1], spl.i - 1));
 	}
-	return (splitstr[i] = 0, splitstr);
+	return (splitstr[spl.i] = 0, splitstr);
 }
 
 char	**ft_split_mode(char const *s, char c)

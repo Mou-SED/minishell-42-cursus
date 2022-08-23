@@ -6,21 +6,18 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:22:07 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 14:46:58 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 22:11:53 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	run_child(t_ast *node)
+void	exec_cmd(t_ast *node)
 {
 	char	**env;
 
 	env = NULL;
 	free(node->cmd_node->cmd_args);
-	if (node->cmd_node->files != NULL)
-		if (redirections(node) == false)
-			exit(EXIT_FAILURE);
 	if (!node->cmd_node->cmd_table)
 		exit(EXIT_FAILURE);
 	node->cmd_node->cmd_args = get_cmd(node);
@@ -32,4 +29,16 @@ void	run_child(t_ast *node)
 	printf("\x1b[31m Minshell : %s: command not found\n\x1b[0m",
 		node->cmd_node->cmd_table[0]);
 	exit(127);
+}
+
+void	run_child(t_ast *node, char **cwd, int error_files)
+{
+	if (error_files == 1)
+		exit(EXIT_FAILURE);
+	(signal(SIGINT, SIG_DFL), signal(SIGQUIT, SIG_DFL));
+	if (check_if_built_in(node) == true)
+		execute_built_in(node, &(*cwd), error_files);
+	else
+		exec_cmd(node);
+	exit(g_status);
 }

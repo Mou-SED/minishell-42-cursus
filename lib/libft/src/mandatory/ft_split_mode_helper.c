@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_split_mode_helper.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/20 00:49:13 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/01 17:03:30 by moseddik         ###   ########.fr       */
+/*   Created: 2022/08/23 23:27:36 by moseddik          #+#    #+#             */
+/*   Updated: 2022/08/23 23:28:21 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/libft.h"
+#include "../../include/libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	check_state_quote(int *state, char c)
 {
-	t_list	*ptr;
-	t_list	*temp;
-
-	ptr = NULL;
-	while (lst)
+	if (*state == 1)
+		*state = 0;
+	if (c == '"' || c == '\'')
 	{
-		temp = ft_lstnew(f(lst->content));
-		if (!temp)
-		{
-			ft_lstclear(&ptr, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&ptr, temp);
-		lst = lst->next;
+		if (*state == 1)
+			*state = 0;
+		if (*state == c)
+			*state = 0;
+		else if (*state == 0)
+			*state = c;
 	}
-	return (ptr);
 }

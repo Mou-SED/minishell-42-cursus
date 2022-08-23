@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 04:11:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 14:55:02 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:52:10 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,12 @@ char	*expande_variable(char **update_str, char *str, t_env *m_env)
 	char	*var_name;
 
 	i = 0;
-	while (str[i] && str[i] == '$')
-	{
-		if (str[i] == '$' && str[i + 1] != '$')
-			break ;
-		i++;
-	}
+	i = skip_dollars(str);
 	if (str[i] == '?')
 	{
 		if (str[++i] != '\0')
 			i++;
-		var_value = ft_itoa(status);
+		var_value = ft_itoa(g_status);
 	}
 	else
 	{
@@ -73,7 +68,7 @@ char	*expande_variable(char **update_str, char *str, t_env *m_env)
 	}
 	if (var_value != NULL)
 		*update_str = join_expended_str(*update_str, var_value);
-	return ((str + i) - 1);
+	return (free(var_value), (str + i) - 1);
 }
 
 void	expande_str(char **update_str, char *str, int state, t_env *m_env)

@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:02:05 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 14:41:20 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:14:13 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,10 @@ bool	is_flag(char *str, int *j)
 	return (false);
 }
 
-void	execute_echo(t_ast *node)
+void	print_args(t_ast *node, int i)
 {
-	int		i;
-	int		j;
 	char	*arg;
 
-	i = 1;
-	j = 0;
-	if (node->cmd_node->files != NULL)
-	{
-		if (redirections(node) == false)
-		{
-			status = 1;
-			return ;
-		}
-	}
-	while (node->cmd_node->cmd_table[i] != NULL)
-	{
-		if (is_flag(node->cmd_node->cmd_table[i], &j) == false)
-			break ;
-		else
-			i++;
-	}
 	while (node->cmd_node->cmd_table[i] != NULL)
 	{
 		arg = node->cmd_node->cmd_table[i];
@@ -62,7 +43,24 @@ void	execute_echo(t_ast *node)
 			write(node->cmd_node->fdout, " ", 1);
 		i++;
 	}
+}
+
+void	execute_echo(t_ast *node)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	j = 0;
+	while (node->cmd_node->cmd_table[i] != NULL)
+	{
+		if (is_flag(node->cmd_node->cmd_table[i], &j) == false)
+			break ;
+		else
+			i++;
+	}
+	print_args(node, i);
 	if (j != 1)
 		write(node->cmd_node->fdout, "\n", 1);
-	status = 0;
+	g_status = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:42:15 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/22 14:42:18 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 21:53:29 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,18 @@ char	*join_expended_str(char *s1, char *s2)
 	new_str[len] = '\0';
 	free(s1);
 	return (new_str);
+}
+
+int	skip_dollars(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] == '$')
+	{
+		if (str[i] == '$' && str[i + 1] != '$')
+			break ;
+		i++;
+	}
+	return (i);
 }
