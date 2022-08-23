@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:20:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 14:35:28 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/23 15:59:56 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <paths.h>
 
 void	build_env(t_env *m_env, char **env)
 {
@@ -49,9 +48,11 @@ void	create_env(t_env **m_env, char *variable, char *value)
 		if (ft_strcmp(variable, "_") == 0)
 			(*m_env)->export_history = false;
 		else
+		{
 			(*m_env)->export_history = true;
-		(*m_env)->exported_to_env = true;
-		(*m_env)->next = ft_calloc(1, sizeof(t_env));
+			(*m_env)->exported_to_env = true;
+			(*m_env)->next = ft_calloc(1, sizeof(t_env));
+		}
 	}
 	else
 	{

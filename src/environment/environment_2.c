@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 11:50:56 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/21 21:23:24 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:25:06 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	add_variable(t_env **m_env, t_env *var)
 		tmp = tmp->next;
 	tmp->next = var;
 	var->prev = tmp;
-	var->next = NULL;
 }
 
 char	*get_variable(t_env *m_env, char *var)

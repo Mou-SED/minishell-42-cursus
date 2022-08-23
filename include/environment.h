@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 11:43:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/21 20:54:50 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:22:57 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef	struct env
 	bool		is_printed;
 	struct env	*next;
 	struct env	*prev;
-	
 }t_env;
 
 // functions
@@ -36,6 +35,6 @@ char	**convert_envirenment(t_env *m_env);
 void	remove_env(t_env **m_env);
 void	update_value(t_env *m_env, char *str);
 t_env	*get_access_to_var(t_env *m_env, char *variable);
-bool    path_not_exist(t_env *m_env);
+bool	path_not_exist(t_env *m_env);
 void	add_path(t_env *m_env);
 #endif
