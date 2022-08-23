@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_case.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:41:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/20 19:27:59 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/22 15:59:35 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 char	*open_random_file(char *str)
 {
-	static	int	i;
+	static	long	i;
 	char	*herdoc_number;
 	char	*filename;
 	herdoc_number = ft_itoa(i++);
@@ -24,32 +24,13 @@ char	*open_random_file(char *str)
 	return (filename);
 }
 
-static bool	run_herdoc(t_token_list *token)
+static bool	run_herdoc(t_token_list *token, t_env *m_env)
 {
-	char	*heredoc;
 	char	*filename;
-	int fd;
-	
+
 	filename = open_random_file(token->lexeme);
 	if (!fork())
-	{
-		signal(SIGINT, SIG_DFL);
-		fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
-		while (1)
-		{
-			heredoc = readline("> ");
-			if ((token && heredoc && ft_strcmp(heredoc, token->lexeme) == 0))
-				break ;
-			else if (heredoc == NULL)
-				break ;
-			else
-			{
-				write(fd, heredoc, ft_strlen(heredoc));
-				write(fd, "\n", 1);
-			}
-		}
-		exit(0);
-	}
+		herdoc_child(filename, token, m_env);
 	else
 	{
 		signal(SIGINT, SIG_IGN);
@@ -58,6 +39,7 @@ static bool	run_herdoc(t_token_list *token)
 			status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 		{
+			free(filename);
 			status = WTERMSIG(status);
 			return (false);
 		}
@@ -67,11 +49,8 @@ static bool	run_herdoc(t_token_list *token)
 	return (true);
 }
 
-bool	her_doc(t_token_list *token, int *i)
+bool	her_doc(t_token_list *token, int *i, t_env *m_env)
 {
-	int		index;
-
-	index = 0;
 	if (*i != 0)
 		return (true);
 	if (token->type != WORD && token->type != REDIRECTION
@@ -81,7 +60,7 @@ bool	her_doc(t_token_list *token, int *i)
 	{
 		if (token->next && ft_strcmp(token->lexeme, "<<") == 0)
 		{
-			if (run_herdoc(token->next) == false)
+			if (run_herdoc(token->next, m_env) == false)
 				return (true);
 		}
 		else if (token->next && (token->type == OPERATOR || token->type == PIPE)
@@ -94,11 +73,36 @@ bool	her_doc(t_token_list *token, int *i)
 			return (ft_print_error("newline"), true);
 		else if (token->next && token->type == REDIRECTION
 		&& token->next->type != WORD)
-			return (true); 
+			return (true);
 		else if ((token->type != WORD && token->type != RIGHTPAREN
 			&& token->type != REDIRECTION) && token->next == NULL)
 			return (true);
 		token = token->next;
 	}
 	return (false);
+}
+
+void	herdoc_child(char *filename, t_token_list *token, t_env *m_env)
+{
+	char	*heredoc;
+	int		fd;
+	(void)m_env;
+
+	rl_catch_signals = 1;
+	signal(SIGINT, SIG_DFL);
+	fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0777);
+	while (1)
+	{
+		heredoc = readline("> ");
+		if ((token && heredoc && ft_strcmp(heredoc, token->lexeme) == 0))
+			break ;
+		else if (heredoc == NULL)
+			break ;
+		else
+		{
+			write(fd, heredoc, ft_strlen(heredoc));
+			write(fd, "\n", 1);
+		}
+	}
+	exit(0);
 }
