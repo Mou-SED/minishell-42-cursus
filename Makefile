@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
+#    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/08/23 15:11:47 by moseddik         ###   ########.fr        #
+#    Updated: 2022/08/23 16:03:28 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/execution/built_in_cmd.c \
 					$(SRC_DIR)/execution/tools.c \
 					$(SRC_DIR)/environment/environment.c \
+					$(SRC_DIR)/environment/environment_2.c \
+					$(SRC_DIR)/environment/environment_3.c \
 					$(SRC_DIR)/execution/built_in_commands/cd_tools.c \
 					$(SRC_DIR)/execution/built_in_commands/cd.c \
 					$(SRC_DIR)/execution/built_in_commands/echo.c \
@@ -60,8 +62,7 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/execution/built_in_commands/unset.c \
 					$(SRC_DIR)/execution/built_in_commands/env.c \
 					$(SRC_DIR)/execution/built_in_commands/export.c \
-					$(SRC_DIR)/execution/child_work.c \
-					$(SRC_DIR)/execution/built_in_commands/cd.c
+					$(SRC_DIR)/execution/child_work.c
 OBJ				:= $(SRC:%.c=$(OBJ_DIR)/%.o)
 INC				:= minishell.h
 LIBFT			:= libft.a
@@ -70,7 +71,7 @@ LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -g
+CFLAGS			:= -Wall -Wextra -Werror
 INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) $(ILIB)
 LIBFLAGS		:= -L $(LIBFT_DIR) -lft $(SLIB)
 
