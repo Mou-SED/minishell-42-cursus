@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:30:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 22:55:25 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 09:53:30 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,23 @@ char	*get_cmd(t_ast *node)
 
 bool	redirections(t_ast *node)
 {
-	while (node->cmd_node->files)
+	t_lst	*tmp;
+
+	tmp = node->cmd_node->files;
+	while (tmp)
 	{
-		if (node->cmd_node->files->mode == W_APPRND
-			|| node->cmd_node->files->mode == W_TRUNC)
+		if (tmp->mode == W_APPRND
+			|| tmp->mode == W_TRUNC)
 		{
-			if (out_files(node) == false)
+			if (out_files(node, tmp) == false)
 				return (false);
 		}
-		else if (node->cmd_node->files->mode == READ)
+		else if (tmp->mode == READ)
 		{
-			if (in_files(node) == false)
+			if (in_files(node, tmp) == false)
 				return (false);
 		}
-		node->cmd_node->files = node->cmd_node->files->next;
+		tmp = tmp->next;
 	}
 	return (true);
 }

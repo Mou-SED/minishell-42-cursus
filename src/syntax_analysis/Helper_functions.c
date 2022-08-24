@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:16:45 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 15:09:01 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:44:44 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,8 @@ char	*ft_strjoin_char(char *s1, char const *s2, char c)
 	char	*newstr;
 
 	if (s1 == NULL)
-	{
 		s1 = ft_calloc(1, sizeof(char) * 1);
-		if (s1 == NULL)
-			return (NULL);
-	}
 	newstr = ft_calloc(1, (sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2)));
-	if (newstr == NULL)
-		return (NULL);
 	i = -1;
 	while (s1[++i] != '\0')
 		newstr[i] = s1[i];

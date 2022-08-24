@@ -3,44 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   files_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 22:53:14 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 22:53:34 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 09:52:56 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-bool	out_files(t_ast *node)
+bool	out_files(t_ast *node, t_lst *tmp)
 {
 	if (node->cmd_node->fdout != 1)
 		close(node->cmd_node->fdout);
-	if (access(node->cmd_node->files->filename, F_OK) != 0)
+	if (access(tmp->filename, F_OK) != 0)
 		node->cmd_node->fdout
-			= open(node->cmd_node->files->filename, O_CREAT | O_WRONLY,
+			= open(tmp->filename, O_CREAT | O_WRONLY,
 				0644);
-	else if (check_file(node->cmd_node->files->filename, W_TRUNC)
+	else if (check_file(tmp->filename, W_TRUNC)
 		== false)
 		return (false);
-	else if (node->cmd_node->files->mode == W_APPRND)
+	else if (tmp->mode == W_APPRND)
 		node->cmd_node->fdout
-			= open(node->cmd_node->files->filename,
+			= open(tmp->filename,
 				O_WRONLY | O_APPEND);
-	else if (node->cmd_node->files->mode == W_TRUNC)
+	else if (tmp->mode == W_TRUNC)
 		node->cmd_node->fdout
-			= open(node->cmd_node->files->filename,
+			= open(tmp->filename,
 				O_WRONLY | O_TRUNC);
 	return (true);
 }
 
-bool	in_files(t_ast *node)
+bool	in_files(t_ast *node, t_lst *tmp)
 {
 	if (node->cmd_node->fdin)
 		close(node->cmd_node->fdin);
-	if (check_file(node->cmd_node->files->filename, READ) == false)
+	if (check_file(tmp->filename, READ) == false)
 		return (false);
 	node->cmd_node->fdin
-		= open(node->cmd_node->files->filename, O_RDONLY);
+		= open(tmp->filename, O_RDONLY);
 	return (true);
 }

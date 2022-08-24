@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:20:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 23:25:15 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:54:27 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	**convert_envirenment(t_env *m_env)
 			i++;
 		tmp = tmp->next;
 	}
-	env = malloc((i + 1) * sizeof(char *));
+	env = ft_calloc((i + 1), sizeof(char *));
 	i = 0;
 	while (m_env)
 	{

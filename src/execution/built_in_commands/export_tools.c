@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:39:17 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 20:40:10 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:42:17 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ char	*add_value(char *str1, char *str2)
 		return (ft_strdup(str2));
 	len = ft_strlen(str1) + ft_strlen(str2);
 	new_value = ft_calloc(len + 1, sizeof(char));
-	if (new_value == NULL)
-		allocation_faild();
 	i = 0;
 	j = 0;
 	while (str1[j])

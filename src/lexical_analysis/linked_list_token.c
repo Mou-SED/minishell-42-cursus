@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:48:40 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/01 12:18:54 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:43:09 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ t_token_list	*ft_lstnew_token(char *content)
 	t_token_list	*head;
 
 	head = ft_calloc(1, sizeof(t_token_list));
-	if (!head)
-		return (NULL);
 	if (content)
 		head->lexeme = content;
 	return (head);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:27:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 23:14:01 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 09:54:56 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	execution_errors(char *str);
 bool	check_file(char *filename, t_r mode);
 bool	redirections(t_ast *node);
 void	unused_pipe(t_ast *node);
-bool	in_files(t_ast *node);
-bool	out_files(t_ast *node);
+bool	out_files(t_ast *node, t_lst *tmp);
+bool	in_files(t_ast *node, t_lst *tmp);
 
 // Helpful Functions
 int		open_files(t_ast *node);

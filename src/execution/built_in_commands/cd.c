@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 23:32:00 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 23:12:43 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 11:05:36 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	go_to_dir(t_ast *node)
 	return (0);
 }
 
-void	go_to_home(t_ast *node)
+int	go_to_home(t_ast *node)
 {
 	char	*home;
 
@@ -82,6 +82,7 @@ void	go_to_home(t_ast *node)
 		dup2(STDERR_FILENO, STDOUT_FILENO);
 		printf("Minishell: cd: HOME not set\n");
 		g_status = 1;
+		return (1);
 	}
 	else if (chdir(home) == -1)
 	{
@@ -89,8 +90,10 @@ void	go_to_home(t_ast *node)
 		printf("\x1b[31m Minishell: cd: %s: %s\x1b[0m\n",
 			home, strerror(errno));
 		g_status = 1;
+		return (1);
 	}
 	free(home);
+	return (0);
 }
 
 void	execute_cd(t_ast *node, char **cwd)
@@ -100,7 +103,7 @@ void	execute_cd(t_ast *node, char **cwd)
 	i = 1;
 	dup2(node->cmd_node->fdout, 1);
 	if (node->cmd_node->cmd_table[i] == NULL)
-		go_to_home(node);
+		i = go_to_home(node);
 	else
 		i = go_to_dir(node);
 	check_valid_folder(node, &(*cwd), i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_work.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:22:07 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 22:11:53 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:31:46 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	exec_cmd(t_ast *node)
 	char	**env;
 
 	env = NULL;
+	unused_pipe(node);
 	free(node->cmd_node->cmd_args);
 	if (!node->cmd_node->cmd_table)
 		exit(EXIT_FAILURE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:29:49 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 22:14:38 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:30:18 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	*subshell(t_ast *root, char **cwd)
 	pid = fork();
 	if (!pid)
 	{
-		if (root->cmd_node->unused_pipe_fd != -1)
-			close(root->cmd_node->unused_pipe_fd);
 		if (root->cmd_node->files != NULL)
 			if (redirections(root) == false)
 				exit(EXIT_FAILURE);

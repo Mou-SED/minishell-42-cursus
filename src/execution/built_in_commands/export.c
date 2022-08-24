@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:40:25 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 22:45:02 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:53:42 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	export_varible(char *str, t_env **m_env)
 	new_var = ft_calloc(1, sizeof(t_env));
 	i = 0;
 	i = var_name_len(str);
-	new_var->variable = malloc((i + 1) * sizeof(char));
+	new_var->variable = ft_calloc((i + 1), sizeof(char));
 	ft_memcpy(new_var->variable, str, i);
 	new_var->variable[i] = '\0';
 	if (str[i] == '+')

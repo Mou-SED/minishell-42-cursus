@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 21:01:36 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:43:27 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,8 @@ void	allocate_memory(t_token_list ***head, t_env ***m_env,
 	char **env, char **pwd)
 {
 	*head = ft_calloc(1, sizeof(t_token_list *));
-	if (*head == NULL)
-		allocation_faild();
 	*m_env = ft_calloc(1, sizeof(t_env *));
-	if (*m_env == NULL)
-		allocation_faild();
 	**m_env = ft_calloc(1, sizeof(t_env));
-	if (**m_env == NULL)
-		allocation_faild();
 	*pwd = getcwd(NULL, 0);
 	build_env(**m_env, env);
 }

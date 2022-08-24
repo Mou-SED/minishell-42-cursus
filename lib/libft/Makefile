@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
+#    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/21 20:18:19 by moseddik          #+#    #+#              #
-#    Updated: 2022/08/23 23:35:00 by moseddik         ###   ########.fr        #
+#    Updated: 2022/08/24 10:50:52 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ RED = \033[0;31m
 INC_DIR		:= include
 SRC_DIR		:= src
 OBJ_DIR		:= obj
+Minishell	:= ../../include/
 
 # *********************************** Files ************************************
 NAME		:= libft.a
@@ -68,7 +69,7 @@ INC			:= libft.h
 # ****************************** Compiler Options ******************************
 CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror
-INCFLAGS	:= -I $(INC_DIR)/$(INC)
+INCFLAGS	:= -I $(INC_DIR)/$(INC) -I $(Minishell)
 
 # ******************************* Other commands *******************************
 RM			:= rm -rf

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:07:37 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 15:08:29 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:43:37 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include <minishell.h>
 
 void	lst_clear(t_lst *files)
 {
@@ -30,14 +30,10 @@ t_ast	*ft_ast_new(t_token_list	*token, t_env **m_env)
 	t_ast	*node;
 
 	node = ft_calloc(1, sizeof(t_ast));
-	if (node == NULL)
-		exit(EXIT_FAILURE);
 	if (token && token->type != OPERATOR)
 	{
 		node->type = CMD;
 		node->cmd_node = ft_calloc(1, sizeof(t_cmd));
-		if (node->cmd_node == NULL)
-			exit(EXIT_FAILURE);
 		node->cmd_node->m_env = m_env;
 		node->cmd_node->fdin = 0;
 		node->cmd_node->fdout = 1;
