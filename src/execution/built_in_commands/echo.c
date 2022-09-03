@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:02:05 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 21:14:13 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:58:05 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ bool	is_flag(char *str, int *j)
 	i = 0;
 	if (str[i++] == '-')
 	{
-		while (str[i] != '\0' && str[i] == 'n')
-			i++;
-		if (str[i] == '\0')
+		while (str[i++] == 'n')
 		{
-			*j = 1;
-			return (true);
+			if (str[i] == '\0')
+			{
+				*j = 1;
+				return (true);
+			}
 		}
 	}
 	return (false);
