@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:35:40 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 21:53:46 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:44:45 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXPANDER_H
 # include <minishell.h>
 
-void	expander(t_ast *node, int i);
+void	expander(t_ast *node, int i, int j, char *cp_of_string);
 void	expande_str(char **update_str, char *str, int state, t_env *m_env);
 char	*single_quote_case(char **update_str, char *str);
 void	ft_update_str(char **str, char c);
