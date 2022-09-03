@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 04:11:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:42:46 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/30 15:06:26 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ char	*single_quote_case(char **update_str, char *str)
 	return (single_quote_case(&(*update_str), ++str));
 }
 
+bool	is_not_special_char(char c)
+{
+	if (c != '+' && c != '~' && c != '.' && c != ',' && c != '%') //TODO: Add special char
+		return (true);
+	return (false);
+}
+
 char	*expande_variable(char **update_str, char *str, t_env *m_env)
 {
 	int		i;
@@ -53,14 +60,14 @@ char	*expande_variable(char **update_str, char *str, t_env *m_env)
 	i = skip_dollars(str);
 	if (str[i] == '?')
 	{
-		if (str[++i] != '\0')
+		if (str[++i] != '\0' && str[i] != '$')
 			i++;
 		var_value = ft_itoa(g_status);
 	}
 	else
 	{
 		while (str[i] != '\0' && str[i] != '"' && str[i] != '\''
-			&& str[i] != '$' && str[i] != ' ')
+			&& str[i] != '$' && str[i] != ' ' && is_not_special_char(str[i]))
 			i++;
 		var_name = ft_substr(str, 0, i);
 		var_value = get_variable(m_env, var_name);
@@ -75,7 +82,8 @@ void	expande_str(char **update_str, char *str, int state, t_env *m_env)
 {
 	if (*str == '\0')
 		return ;
-	if (*str == '$')
+	if (*str == '$' && *(str + 1) != ' ' && *(str + 1) != '\0'
+		&& is_not_special_char(*(str + 1)))
 		str = expande_variable(&(*update_str), ++str, m_env);
 	else if (*str == '\'' && state == 0)
 		str = single_quote_case(&(*update_str), ++str);
@@ -91,21 +99,24 @@ void	expande_str(char **update_str, char *str, int state, t_env *m_env)
 	expande_str(&(*update_str), ++str, state, m_env);
 }
 
-void	expander(t_ast *node, int i)
+void	expander(t_ast *node, int i, int j, char *cp_of_string)
 {
-	char	*str;
-
-	if (node->cmd_node->cmd_table[i] == NULL)
+	if (cp_of_string == NULL)
 		return ;
-	str = ft_strdup(node->cmd_node->cmd_table[i]);
-	free(node->cmd_node->cmd_table[i]);
-	node->cmd_node->cmd_table[i] = NULL;
+	if (i == 0)
+	{
+		free(node->cmd_node->cmd_table[i]);
+		node->cmd_node->cmd_table[i] = NULL;
+	}
 	expande_str(&node->cmd_node->cmd_table[i],
-		str, 0, *(node->cmd_node->m_env));
-	if (node->cmd_node->cmd_table[i] == NULL)
-		node->cmd_node->cmd_table[i] = ft_strdup("");
-	free(str);
-	expander(node, ++i);
+		cp_of_string, 0, *(node->cmd_node->m_env));
+	j++;
+	free(cp_of_string);
+	cp_of_string = ft_strdup(node->cmd_node->cmd_table[j]);
+	free(node->cmd_node->cmd_table[j]);
+	node->cmd_node->cmd_table[j] = NULL;
+	if (node->cmd_node->cmd_table[i] != NULL)
+		expander(node, ++i, j, cp_of_string);
+	else
+		expander(node, i, j, cp_of_string);
 }
-// cat | cat | cat | ls 
-// export

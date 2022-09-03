@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:29:49 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/24 10:30:18 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/30 15:17:04 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	execute_cmd(t_ast *node, char **cwd)
 	node->cmd_node->cmd_table = ft_split_mode(node->cmd_node->cmd_args, ' ');
 	if (node->cmd_node->cmd_table == NULL)
 		return ;
-	expander(node, 0);
+	expander(node, 0, 0, ft_strdup(node->cmd_node->cmd_table[0]));
 	if (check_if_built_in(node) == true && node->cmd_node->unused_pipe_fd == -1)
 		execute_built_in(node, &(*cwd), error_files);
 	else

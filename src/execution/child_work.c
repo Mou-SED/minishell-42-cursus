@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_work.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:22:07 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/24 10:31:46 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/26 16:04:36 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	exec_cmd(t_ast *node)
 	char	**env;
 
 	env = NULL;
-	unused_pipe(node);
 	free(node->cmd_node->cmd_args);
 	if (!node->cmd_node->cmd_table)
 		exit(EXIT_FAILURE);
 	node->cmd_node->cmd_args = get_cmd(node);
 	dup2(node->cmd_node->fdout, 1);
 	dup2(node->cmd_node->fdin, 0);
+	unused_pipe(node);
 	env = convert_envirenment(*node->cmd_node->m_env);
 	execve(node->cmd_node->cmd_args, node->cmd_node->cmd_table, env);
 	dup2(STDERR_FILENO, STDOUT_FILENO);

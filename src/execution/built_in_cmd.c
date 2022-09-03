@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:53:27 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 21:45:35 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/24 18:05:38 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ void	unused_pipe(t_ast *node)
 
 bool	check_if_built_in(t_ast *node)
 {
-	int		i;
-
-	i = 0;
 	if (!ft_strcmp("echo", node->cmd_node->cmd_table[0])
 		|| !ft_strcmp("ECHO", node->cmd_node->cmd_table[0])
 		|| !ft_strcmp("unset", node->cmd_node->cmd_table[0])

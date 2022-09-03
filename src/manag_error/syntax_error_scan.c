@@ -6,11 +6,11 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:11:40 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 14:59:06 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/26 16:19:52 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include <minishell.h>
 
 bool	unclosed_quote(char *lexeme, char quote_type)
 {
