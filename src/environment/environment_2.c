@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 11:50:56 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 22:35:52 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/08/27 19:05:28 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ void	add_variable(t_env **m_env, t_env *var)
 	tmp = *m_env;
 	if (tmp == NULL)
 		tmp = var;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = var;
-	var->prev = tmp;
+	else
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = var;
+		var->prev = tmp;
+	}
 }
 
 char	*get_variable(t_env *m_env, char *var)
@@ -58,10 +61,10 @@ void	remove_variable(t_env **m_env, char *var)
 			if (node && node->next != NULL)
 				node->next->prev = node->prev;
 			tmp = node;
-			node = node->next;
 			free(tmp->variable);
 			free(tmp->value);
 			free(tmp);
+			return ;
 		}
 		else
 			node = node->next;

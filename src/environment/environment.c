@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:20:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/24 10:54:27 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/27 18:48:41 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,13 @@ void	create_env(t_env **m_env, char *variable, char *value)
 		(*m_env)->value = value;
 	else
 		(*m_env)->value = ft_strdup(value);
-	if (ft_strcmp(variable, "PATH") != 0)
-	{
-		if (ft_strcmp(variable, "_") == 0)
-			(*m_env)->export_history = false;
-		else
-		{
-			(*m_env)->export_history = true;
-			(*m_env)->exported_to_env = true;
-			(*m_env)->next = ft_calloc(1, sizeof(t_env));
-		}
-	}
+	if (ft_strcmp(variable, "_") == 0)
+		(*m_env)->export_history = false;
 	else
 	{
-		(*m_env)->export_history = false;
-		(*m_env)->exported_to_env = false;
+		(*m_env)->export_history = true;
+		(*m_env)->exported_to_env = true;
+		(*m_env)->next = ft_calloc(1, sizeof(t_env));
 	}
 	if (ft_strcmp((*m_env)->variable, "PWD") == 0)
 		create_env(&(*m_env)->next, "SHELVL", "1");

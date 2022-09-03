@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 20:41:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/24 10:40:54 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/08/27 16:03:07 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ void	duplicate_env_2(t_env *tmp, char **env, int i, int j)
 	if (ft_strcmp(tmp->variable, "_") == 0)
 		tmp->export_history = false;
 	if (ft_strcmp(tmp->variable, "SHLVL") == 0)
-		tmp->value = ft_itoa(ft_atoi(&env[i][j + 1]) + 1);
+	{
+		if (ft_atoi(&env[i][j + 1]) < 0)
+			tmp->value = ft_itoa(0);
+		else
+			tmp->value = ft_itoa(ft_atoi(&env[i][j + 1]) + 1);
+	}
 	else if (ft_strcmp(tmp->variable, "SHLVL")
 		&& ft_strcmp(tmp->variable, "OLDPWD"))
 		tmp->value = ft_strdup(&env[i][j + 1]);
