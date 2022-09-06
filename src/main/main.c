@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:43:27 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/06 11:42:09 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@ void	waiting_for_my_children(void)
 			g_status = WEXITSTATUS(g_status);
 		else if (WIFSIGNALED(g_status))
 		{
-			printf("\n");
+			if (g_status == SIGINT || g_status == SIGQUIT)
+			{
+				if (g_status == SIGQUIT)
+					printf("Quit : %d", SIGQUIT);
+				printf("\n");
+			}
 			g_status = WTERMSIG(g_status) + 128;
 		}
 	}
@@ -40,12 +45,22 @@ void	waiting_for_my_children(void)
 
 void	wait_for_one_child(pid_t pid)
 {
+	signal(SIGINT, SIG_IGN);
 	while (waitpid(pid, &g_status, WNOHANG) != -1)
 		;
 	if (WIFEXITED(g_status))
 		g_status = WEXITSTATUS(g_status);
 	else if (WIFSIGNALED(g_status))
+	{
+		if (g_status == SIGINT || g_status == SIGQUIT)
+		{
+			if (g_status == SIGQUIT)
+				printf("Quit : %d", SIGQUIT);
+			printf("\n");
+		}
 		g_status = WTERMSIG(g_status) + 128;
+	}
+	signals_handler();
 }
 
 bool	tokenization(char *cmd, t_token_list ***head, t_env *m_env)

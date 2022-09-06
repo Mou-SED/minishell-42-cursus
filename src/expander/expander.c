@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 04:11:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/30 15:06:26 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:18:08 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@ char	*single_quote_case(char **update_str, char *str)
 	else
 		ft_update_str(&(*update_str), *str);
 	return (single_quote_case(&(*update_str), ++str));
-}
-
-bool	is_not_special_char(char c)
-{
-	if (c != '+' && c != '~' && c != '.' && c != ',' && c != '%') //TODO: Add special char
-		return (true);
-	return (false);
 }
 
 char	*expande_variable(char **update_str, char *str, t_env *m_env)
@@ -99,24 +92,20 @@ void	expande_str(char **update_str, char *str, int state, t_env *m_env)
 	expande_str(&(*update_str), ++str, state, m_env);
 }
 
-void	expander(t_ast *node, int i, int j, char *cp_of_string)
+void	expander(t_ast *node, int index, char **cp_of_arguments)
 {
-	if (cp_of_string == NULL)
-		return ;
-	if (i == 0)
+	char	*new_arg;
+
+	new_arg = NULL;
+	if (cp_of_arguments[index] == NULL)
 	{
-		free(node->cmd_node->cmd_table[i]);
-		node->cmd_node->cmd_table[i] = NULL;
+		free_table(cp_of_arguments);
+		return ;
 	}
-	expande_str(&node->cmd_node->cmd_table[i],
-		cp_of_string, 0, *(node->cmd_node->m_env));
-	j++;
-	free(cp_of_string);
-	cp_of_string = ft_strdup(node->cmd_node->cmd_table[j]);
-	free(node->cmd_node->cmd_table[j]);
-	node->cmd_node->cmd_table[j] = NULL;
-	if (node->cmd_node->cmd_table[i] != NULL)
-		expander(node, ++i, j, cp_of_string);
-	else
-		expander(node, i, j, cp_of_string);
+	expande_str(&new_arg,
+		cp_of_arguments[index++], 0, *(node->cmd_node->m_env));
+	if (new_arg != NULL)
+		add_argument(node, new_arg);
+	free(new_arg);
+	expander(node, index, cp_of_arguments);
 }

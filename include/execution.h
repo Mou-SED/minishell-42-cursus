@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:27:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/27 15:51:14 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/05 19:47:37 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	unused_pipe(t_ast *node);
 bool	out_files(t_ast *node, t_lst *tmp);
 bool	in_files(t_ast *node, t_lst *tmp);
 void	expande_files_name(char **filename, t_env *m_env);
-
 
 // Helpful Functions
 int		open_files(t_ast *node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:30:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/27 15:51:50 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:12:50 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	redirections(t_ast *node)
 	tmp = node->cmd_node->files;
 	while (tmp)
 	{
-		expande_files_name(&(node->cmd_node->files->filename),
+		expande_files_name(&(tmp->filename),
 			*(node->cmd_node->m_env));
 		if (tmp->mode == W_APPRND
 			|| tmp->mode == W_TRUNC)

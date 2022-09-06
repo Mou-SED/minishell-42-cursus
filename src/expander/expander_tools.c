@@ -6,11 +6,21 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:42:15 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:42:38 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/06 11:13:59 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+bool	is_not_special_char(char c)
+{
+	// Add special char
+	if (c != '+' && c != '~' && c != '.'
+		&& c != ',' && c != '%'
+		&& c != '/')
+		return (true);
+	return (false);
+}
 
 char	*join_expended_str(char *s1, char *s2)
 {
@@ -40,4 +50,41 @@ int	skip_dollars(char *str)
 		i++;
 	}
 	return (i);
+}
+
+char	**cp_arguments(char ***table)
+{
+	char	**new_table;
+
+	new_table = NULL;
+	new_table = *table;
+	*table = NULL;
+	return (new_table);
+}
+
+void	add_argument(t_ast *node, char *new_arg)
+{
+	char	**new_table;
+	int		index;
+
+	if (node->cmd_node->cmd_table == NULL)
+	{
+		node->cmd_node->cmd_table = ft_calloc(2, sizeof(char *));
+		node->cmd_node->cmd_table[0] = ft_strdup(new_arg);
+		return ;
+	}
+	index = 0;
+	while (node->cmd_node->cmd_table[index])
+		index++;
+	new_table = ft_calloc(index + 2, sizeof(char *));
+	index = 0;
+	while (node->cmd_node->cmd_table[index])
+	{
+		new_table[index] = ft_strdup(node->cmd_node->cmd_table[index]);
+		free(node->cmd_node->cmd_table[index]);
+		node->cmd_node->cmd_table[index++] = NULL;
+	}
+	new_table[index] = ft_strdup(new_arg);
+	free(node->cmd_node->cmd_table);
+	node->cmd_node->cmd_table = new_table;
 }

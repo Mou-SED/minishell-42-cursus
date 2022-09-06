@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_handler.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:34:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 20:31:54 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:18:02 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,5 @@
 void	signals_handler(void);
 void	ctl_d_handler(t_token_list **head, t_env **m_env, char *cwd);
 void	ctl_c_handler(void);
-void	hundler_child_ctrl_c(int sig);
 
 #endif

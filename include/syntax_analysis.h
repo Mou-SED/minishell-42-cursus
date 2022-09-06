@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analysis.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 20:31:36 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/05 19:50:00 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_ast			*parse_pipe(t_ast *node, t_token_list *token, t_env **m_env);
 
 // Memory Management functions
 void			clear_ast(t_ast *root);
+void			free_table(char **table);
 
 // Helper functions
 void			join_cmd_args(t_ast *node, t_token_list *token);
