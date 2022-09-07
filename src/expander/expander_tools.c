@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:42:15 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/06 11:13:59 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/06 16:36:13 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	skip_dollars(char *str)
 	return (i);
 }
 
-char	**cp_arguments(char ***table)
+char	**get_arguments(char ***table)
 {
 	char	**new_table;
 
