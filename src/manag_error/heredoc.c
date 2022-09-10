@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:47:03 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 21:01:58 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/10 11:50:27 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	expand_delemeter(char **delemeter, int *state)
 {
 	char	*old_delemeter;
 
-	if (**delemeter != '\'' && **delemeter != '"')
+	if (!ft_strchr(*delemeter, '\'') && !ft_strchr(*delemeter, '"'))
 		*state = 1;
 	old_delemeter = ft_strdup(*delemeter);
 	free(*delemeter);
