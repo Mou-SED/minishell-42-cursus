@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:41:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 19:41:40 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/10 13:30:08 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	expande_helper(char **herdoc, char *str, t_env *m_env)
 	if (*str == '\0')
 		return ;
 	else if (*str == '$')
-		str = expande_variable(&(*herdoc), ++str, m_env);
+		str = expande_variable_herdoc(&(*herdoc), ++str, m_env);
 	else
 		ft_update_str(&(*herdoc), *str);
 	expande_helper(&(*herdoc), ++str, m_env);

@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 04:11:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/10 01:13:26 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/10 16:30:48 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*single_quote_case(char **update_str, char *str)
 	return (single_quote_case(&(*update_str), ++str));
 }
 
-char	*expande_variable(char **update_str, char *str, t_env *m_env)
+char	*expande_variable(t_ast *node, char **update_str, char *str, t_env *m_env, int state)
 {
 	int		i;
 	char	*var_value;
@@ -63,25 +63,30 @@ char	*expande_variable(char **update_str, char *str, t_env *m_env)
 	}
 	else
 	{
-		while (str[i] != '\0' && str[i] != '"' && str[i] != '\''
-			&& str[i] != '$' && str[i] != ' ' && is_not_special_char(str[i]))
+		while (str[i] != '\0' && str[i] != '\'' && str[i] != '"' && str[i] != ' ' && str[i] != '?'
+			&& is_not_special_char(str[i]))
 			i++;
 		var_name = ft_substr(str, 0, i);
 		var_value = get_variable(m_env, var_name);
 		free(var_name);
 	}
 	if (var_value != NULL)
-		*update_str = join_expended_str(*update_str, var_value);
+	{
+		if (state == 0)
+			add_variable_as_argument(node, var_value, &(*update_str));
+		else
+			*update_str = join_expended_str(*update_str, var_value);
+	}
 	return (free(var_value), (str + i) - 1);
 }
 
-void	expande_str(char **update_str, char *str, int state, t_env *m_env)
+void	expande_str(t_ast *node, char **update_str, char *str, int state, t_env *m_env)
 {
 	if (*str == '\0')
 		return ;
-	if (*str == '$' && *(str + 1) != ' ' && *(str + 1) != '\0'
+	if (*str == '$' && *(str + 1) != '\0'
 		&& is_not_special_char(*(str + 1)))
-		str = expande_variable(&(*update_str), ++str, m_env);
+		str = expande_variable(node, &(*update_str), ++str, m_env, state);
 	else if (*str == '\'' && state == 0)
 		str = single_quote_case(&(*update_str), ++str);
 	else if (*str != '"')
@@ -97,7 +102,7 @@ void	expande_str(char **update_str, char *str, int state, t_env *m_env)
 		else
 			state = 0;
 	}
-	expande_str(&(*update_str), ++str, state, m_env);
+	expande_str(node, &(*update_str), ++str, state, m_env);
 }
 
 void	expander(t_ast *node, int index, char **cp_of_arguments)
@@ -110,7 +115,7 @@ void	expander(t_ast *node, int index, char **cp_of_arguments)
 		free_table(cp_of_arguments);
 		return ;
 	}
-	expande_str(&new_arg,
+	expande_str(node, &new_arg,
 		cp_of_arguments[index++], 0, *(node->cmd_node->m_env));
 	if (new_arg != NULL)
 		add_argument(node, new_arg);
