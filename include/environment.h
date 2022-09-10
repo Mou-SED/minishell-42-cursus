@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 11:43:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 23:24:26 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/09 17:00:07 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct env
 // functions
 void	build_env(t_env *m_env, char **env);
 void	duplicate_env(t_env *m_env, char **env);
-void	create_env(t_env **m_env, char *variable, char *value);
+void	create_env(t_env *m_env, char *var_name, char *var_value);
 void	add_variable(t_env **m_env, t_env *var);
 char	*get_variable(t_env *m_env, char *var);
 void	remove_variable(t_env **m_env, char *var);
@@ -37,5 +37,9 @@ t_env	*get_access_to_var(t_env *m_env, char *variable);
 bool	path_not_exist(t_env *m_env);
 void	add_path(t_env *m_env);
 void	duplicate_env_2(t_env *tmp, char **env, int i, int j);
+char    *ft_get_cwd(void);
+void	add_var_not_exist(t_env *m_env);
+void	creat_and_add_var(t_env *m_env, char *var_name);
+
 
 #endif

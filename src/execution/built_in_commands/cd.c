@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 23:32:00 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/24 11:05:36 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/10 00:43:10 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,7 @@ int	go_to_dir(t_ast *node)
 	int		i;
 
 	i = 1;
-	if (ft_strcmp(node->cmd_node->cmd_table[i], "-") == 0)
-	{
-		if (go_to_old_dir(node) == 1)
-			return (1);
-	}
-	else if (chdir(node->cmd_node->cmd_table[i]) == -1)
+	if (chdir(node->cmd_node->cmd_table[i]) == -1)
 	{
 		dup2(STDERR_FILENO, STDOUT_FILENO);
 		printf("\x1b[31m Minishell: cd: %s: %s\x1b[0m\n",

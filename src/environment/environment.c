@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:20:03 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/27 18:48:41 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/09 20:48:43 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,28 @@
 
 void	build_env(t_env *m_env, char **env)
 {
-	char	*str;
 
 	if (env[0] != NULL)
 		duplicate_env(m_env, env);
 	else
-	{
-		str = getcwd(NULL, 0);
-		if (str == NULL)
-		{
-			printf("Minishell : ERROR : %s\n", strerror(errno));
-			exit(EXIT_FAILURE);
-		}
-		m_env->variable = ft_strdup("OLDPWD");
-		m_env->export_history = true;
-		m_env->exported_to_env = false;
-		m_env->next = ft_calloc(1, sizeof(t_env));
-		create_env(&m_env->next, "PWD", str);
-	}
-	if (path_not_exist(m_env) == false)
-		add_path(m_env);
+		create_env(m_env, "SHLVL", "1");
+	add_var_not_exist(m_env);
 }
 
-void	create_env(t_env **m_env, char *variable, char *value)
+void	create_env(t_env *m_env, char *var_name, char *var_value)
 {
-	(*m_env)->variable = ft_strdup(variable);
-	if (ft_strcmp((*m_env)->variable, "PWD") == 0)
-		(*m_env)->value = value;
+	m_env->variable = ft_strdup(var_name);
+	m_env->value = ft_strdup(var_value);
+	m_env->exported_to_env = true;
+	if (ft_strcmp(var_name, "_") == 0)
+		m_env->export_history = false;
 	else
-		(*m_env)->value = ft_strdup(value);
-	if (ft_strcmp(variable, "_") == 0)
-		(*m_env)->export_history = false;
-	else
+		m_env->export_history = true;
+	if (ft_strcmp(m_env->variable, "SHLVL") == 0)
 	{
-		(*m_env)->export_history = true;
-		(*m_env)->exported_to_env = true;
-		(*m_env)->next = ft_calloc(1, sizeof(t_env));
+		m_env->next = ft_calloc(1, sizeof(t_env));
+		create_env(m_env->next, "_", "/usr/bin/env");
 	}
-	if (ft_strcmp((*m_env)->variable, "PWD") == 0)
-		create_env(&(*m_env)->next, "SHELVL", "1");
-	if (ft_strcmp((*m_env)->variable, "SHELVL") == 0)
-		create_env(&(*m_env)->next, "_", "/usr/bin/env");
 }
 
 void	duplicate_env(t_env *m_env, char **env)
@@ -76,7 +57,7 @@ void	duplicate_env(t_env *m_env, char **env)
 		tmp->variable = ft_calloc((j + 1), sizeof(char));
 		ft_memcpy(tmp->variable, env[i], j);
 		duplicate_env_2(tmp, env, i, j);
-		if (env[i] && env[i + 1])
+		if (env[i + 1] != NULL)
 			tmp->next = ft_calloc(1, sizeof(t_env));
 		prev = tmp;
 		tmp = tmp->next;

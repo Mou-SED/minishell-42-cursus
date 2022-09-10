@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/05 19:50:00 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/10 00:09:27 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_file
 	W_TRUNC,
 	W_APPRND,
 	READ,
+	HERE_DOC_FILE_NAME
 }	t_r;
 
 typedef struct files

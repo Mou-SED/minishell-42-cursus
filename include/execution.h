@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 20:27:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/05 19:47:37 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/09 23:16:52 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ bool	redirections(t_ast *node);
 void	unused_pipe(t_ast *node);
 bool	out_files(t_ast *node, t_lst *tmp);
 bool	in_files(t_ast *node, t_lst *tmp);
-void	expande_files_name(char **filename, t_env *m_env);
+bool	expande_files_name(char **filename, t_env *m_env);
+void	redirection_error(char *filename, char *error_msg);
 
 // Helpful Functions
 int		open_files(t_ast *node);

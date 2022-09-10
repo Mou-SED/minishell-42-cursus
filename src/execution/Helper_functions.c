@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:30:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/06 12:12:50 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/10 00:13:53 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,19 @@ bool	redirections(t_ast *node)
 	tmp = node->cmd_node->files;
 	while (tmp)
 	{
-		expande_files_name(&(tmp->filename),
-			*(node->cmd_node->m_env));
+		if (tmp->mode != HERE_DOC_FILE_NAME)
+		{
+			if (expande_files_name(&(tmp->filename),
+				*(node->cmd_node->m_env)) == false)
+			return (false);
+		}
 		if (tmp->mode == W_APPRND
 			|| tmp->mode == W_TRUNC)
 		{
 			if (out_files(node, tmp) == false)
 				return (false);
 		}
-		else if (tmp->mode == READ)
+		else if (tmp->mode == READ || tmp->mode == HERE_DOC_FILE_NAME)
 		{
 			if (in_files(node, tmp) == false)
 				return (false);

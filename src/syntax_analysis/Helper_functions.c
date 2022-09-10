@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:16:45 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:44:44 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/10 00:13:41 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_token_list	*join_files(t_ast *node, t_token_list *token)
 		else if (ft_strcmp(token->lexeme, "<") == 0)
 			tmp->mode = READ;
 		else if (ft_strcmp(token->lexeme, "<<") == 0)
-			tmp->mode = READ;
+			tmp->mode = HERE_DOC_FILE_NAME;
 		token = token->next;
 		token->is_parsed = 1;
 		tmp->filename = ft_strdup(token->lexeme);

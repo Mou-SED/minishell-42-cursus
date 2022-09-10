@@ -6,7 +6,7 @@
 #    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/08/24 10:55:56 by zaabou           ###   ########.fr        #
+#    Updated: 2022/09/10 01:17:39 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/environment/environment.c \
 					$(SRC_DIR)/environment/environment_2.c \
 					$(SRC_DIR)/environment/environment_3.c \
+					$(SRC_DIR)/environment/environment_4.c \
 					$(SRC_DIR)/execution/built_in_commands/cd_tools.c \
 					$(SRC_DIR)/execution/built_in_commands/cd.c \
 					$(SRC_DIR)/execution/built_in_commands/echo.c \

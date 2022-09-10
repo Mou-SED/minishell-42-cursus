@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 04:11:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/06 11:18:08 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/10 01:13:26 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ void	ft_update_str(char **str, char c)
 char	*single_quote_case(char **update_str, char *str)
 {
 	if (*str == '\0' || *str == '\'' )
+	{
+		if (*update_str == NULL)
+			*update_str = ft_strdup("");
 		return (str);
+	}
 	else
 		ft_update_str(&(*update_str), *str);
 	return (single_quote_case(&(*update_str), ++str));
@@ -85,7 +89,11 @@ void	expande_str(char **update_str, char *str, int state, t_env *m_env)
 	if (*str == '"')
 	{
 		if (state == 0)
+		{
+			if (*update_str == NULL)
+				*update_str = ft_strdup("");
 			state = 1;
+		}
 		else
 			state = 0;
 	}
