@@ -3,86 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_mode.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 21:08:44 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 23:38:57 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:30:55 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-static int	count_word(char const *s, char c)
+void	ft_add_string_to_table(char ***table, char *new_string)
 {
-	int	i;
-	int	j;
-	int	state;
+	char	**new_table;
+	int		index;
 
-	i = 0;
-	j = 0;
-	state = 0;
-	while (s[i])
+	if (*table == NULL)
 	{
-		check_state_quote(&state, s[i]);
-		if (s[i] != c && i == 0)
-		{
-			i++;
-			j++;
-		}
-		if (s[i] && s[i] == c && s[i - 1] != c && state == 0)
-			j++;
-		i++;
+		(*table) = ft_calloc(2, sizeof(char *));
+		(*table)[0] = ft_strdup(new_string);
+		return ;
 	}
-	return (j);
-}
-
-static void	*free_tab(char **tab, int index)
-{
-	while (--index)
-		free(tab[index]);
-	free(tab);
-	return (NULL);
-}
-
-static char	**remplis(char **splitstr, char const *s, char c, int num_of_word)
-{
-	t_spl_mode_var	spl;
-
-	spl.i = 0;
-	spl.k = 0;
-	spl.start = 0;
-	spl.state = 1;
-	while (s[spl.k] && spl.i < num_of_word)
+	index = 0;
+	while ((*table)[index])
+		index++;
+	new_table = ft_calloc(index + 2, sizeof(char *));
+	index = 0;
+	while ((*table)[index])
 	{
-		spl.items_word = 0;
-		while (s[spl.k] && s[spl.k] == c)
-			spl.k++;
-		while (s[spl.k])
-		{
-			if (s[spl.k] == c && spl.state == 0)
-				break ;
-			check_state_quote(&spl.state, s[spl.k]);
-			if (++spl.items_word == 1)
-				spl.start = spl.k;
-			spl.k++;
-		}
-		splitstr[spl.i] = ft_substr(s, spl.start, spl.items_word);
-		if (!splitstr[spl.i++])
-			return (free_tab(&splitstr[spl.i - 1], spl.i - 1));
+		new_table[index] = ft_strdup((*table)[index]);
+		free((*table)[index]);
+		(*table)[index++] = NULL;
 	}
-	return (splitstr[spl.i] = 0, splitstr);
+	new_table[index] = ft_strdup(new_string);
+	free(*table);
+	*table = new_table;
 }
 
-char	**ft_split_mode(char const *s, char c)
+char	*get_arg(char *begin, char *end)
 {
-	int		num_of_word;
-	char	**splitstr;
+	char	*new_str;
+	char	*save_begin;
+	int		index;
 
-	if (!s)
-		return (NULL);
-	num_of_word = count_word(s, c);
-	splitstr = (char **)malloc(sizeof(char *) * (num_of_word + 1));
-	if (!splitstr)
-		return (0);
-	return (remplis(splitstr, s, c, num_of_word));
+	save_begin = begin;
+	index = 0;
+	while (begin != end)
+	{
+		begin++;
+		index++;
+	}
+	new_str = ft_calloc(index + 1, sizeof(char));
+	ft_memcpy(new_str, save_begin, index);
+	return (new_str);
+}
+
+char	*next_c(char *str, char c)
+{
+	char	quote_type;
+
+	if (*str == '\0' || *str == c)
+		return (str);
+	else if (*str == '\'' || *str == '"')
+	{
+		quote_type = *str;
+		str++;
+		while (*str != '\0' && *str != quote_type)
+			str++;
+	}
+	return (next_c(++str, c));
+}
+
+void	creat_table(char ***table, char *str, char c)
+{
+	char	*begin;
+	char	*arg;
+
+	if (*str == '\0')
+		return ;
+	str = skip_space(str);
+	if (*str == '\0')
+		return ;
+	begin = str;
+	str = next_c(str, c);
+	arg = get_arg(begin, str);
+	ft_add_string_to_table(&(*table), arg);
+	free(arg);
+	creat_table(&(*table), str, c);
+}
+
+char	**ft_split_mode(char *str, char c)
+{
+	char	**table;
+
+	table = NULL;
+	return (creat_table(&table, str, c), table);
 }
