@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 18:49:40 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/11 19:15:31 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/12 00:32:06 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,25 @@ int	wild_card(char *str, char *file_name)
 	char	*find;
 
 	i = 0;
+	i = skip_wildcard(str, i);
 	while (str[i] != '\0')
 	{
 		i = skip_wildcard(str, i);
+		if (str[i] == '\0')
+			break ;
 		if (i == 0 && str[i] != file_name[0])
 			return (0);
 		to_find = create_to_find(str, &i, i);
-		find = ft_strstr(file_name, to_find);
-		file_name = find;
-		if (find == NULL)
-			return (free(to_find), 0);
-		if (ft_strncmp(to_find, find, ft_strlen(to_find)) == 0)
+		while (true)
 		{
-			if ((ft_strlen(find) - ft_strlen(to_find) != 0) && str[i] == '\0'
-				&& str[i - 1] != '*')
+			find = ft_strstr(file_name, to_find);
+			if (find == NULL)
 				return (free(to_find), 0);
+			file_name = find + ft_strlen(to_find);
+			if (ft_strlen(find) != ft_strlen(to_find) && str[i] == '*')
+				break ;
+			else if (ft_strlen(find) == ft_strlen(to_find))
+				break;
 		}
 		free(to_find);
 	}
