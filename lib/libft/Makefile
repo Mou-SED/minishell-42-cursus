@@ -6,7 +6,7 @@
 #    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/21 20:18:19 by moseddik          #+#    #+#              #
-#    Updated: 2022/08/24 10:50:52 by zaabou           ###   ########.fr        #
+#    Updated: 2022/09/11 18:48:34 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC			:= $(SRC_DIR)/mandatory/ft_atoi.c \
 				$(SRC_DIR)/mandatory/ft_strcmp.c \
 				$(SRC_DIR)/mandatory/ft_strncmp.c \
 				$(SRC_DIR)/mandatory/ft_strnstr.c \
+				$(SRC_DIR)/mandatory/ft_strstr.c \
 				$(SRC_DIR)/mandatory/ft_strrchr.c \
 				$(SRC_DIR)/mandatory/ft_strtrim.c \
 				$(SRC_DIR)/mandatory/ft_substr.c \

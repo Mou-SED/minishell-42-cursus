@@ -6,7 +6,7 @@
 #    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/09/10 16:40:20 by zaabou           ###   ########.fr        #
+#    Updated: 2022/09/11 19:16:45 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC				:= $(SRC_DIR)/main/main.c \
 					$(SRC_DIR)/expander/expander.c \
 					$(SRC_DIR)/expander/expander_tools.c \
 					$(SRC_DIR)/expander/expander_tools2.c \
+					$(SRC_DIR)/expander/wild_card.c \
 					$(SRC_DIR)/execution/Helper_functions.c \
 					$(SRC_DIR)/execution/execution.c \
 					$(SRC_DIR)/execution/built_in_cmd.c \

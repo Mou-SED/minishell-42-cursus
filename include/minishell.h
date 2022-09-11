@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/23 20:59:51 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/11 18:50:29 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <sys/wait.h>
+# include <dirent.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>

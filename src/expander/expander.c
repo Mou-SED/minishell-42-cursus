@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 04:11:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/10 16:30:48 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/11 19:15:43 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,11 @@ void	expande_str(t_ast *node, char **update_str, char *str, int state, t_env *m_
 void	expander(t_ast *node, int index, char **cp_of_arguments)
 {
 	char	*new_arg;
+	int		wild_card;
 
+	
 	new_arg = NULL;
+	wild_card = 0;
 	if (cp_of_arguments[index] == NULL)
 	{
 		free_table(cp_of_arguments);
@@ -118,7 +121,12 @@ void	expander(t_ast *node, int index, char **cp_of_arguments)
 	expande_str(node, &new_arg,
 		cp_of_arguments[index++], 0, *(node->cmd_node->m_env));
 	if (new_arg != NULL)
-		add_argument(node, new_arg);
+	{
+		if (ft_strchr(new_arg, '*') != NULL)
+			wild_card = expande_wild_card(node, new_arg);
+		if (wild_card == 0)
+			add_argument(node, new_arg);
+	}
 	free(new_arg);
 	expander(node, index, cp_of_arguments);
 }

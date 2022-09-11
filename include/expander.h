@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:35:40 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/10 14:58:58 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/11 19:14:47 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,12 @@ char	*expande_variable_herdoc(char **update_str, char *str, t_env *m_env);
 char	*join_expended_str(char *s1, char *s2);
 int		skip_dollars(char *str);
 bool	is_not_special_char(char c);
+
+// wild_card '*'
+int     expande_wild_card(t_ast *node, char *str);
+int     skip_dir(char *dir);
+int     skip_wildcard(char *str, int i);
+char    *create_to_find(char *str, int *i, int start);
+int     wild_card(char *str, char *file_name);
+int     expande_wild_card(t_ast *node, char *str);
 #endif
