@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 21:08:44 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/11 16:30:55 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/12 14:41:19 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ char	**ft_split_mode(char *str, char c)
 {
 	char	**table;
 
+	if (str == NULL)
+		return (NULL);
 	table = NULL;
 	return (creat_table(&table, str, c), table);
 }
