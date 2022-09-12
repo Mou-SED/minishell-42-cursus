@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 04:11:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/11 19:15:43 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/12 14:48:40 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	*expande_variable(t_ast *node, char **update_str, char *str, t_env *m_env, 
 	char	*var_name;
 
 	i = 0;
-	i = skip_dollars(str);
+	if (ft_isdigit(str[i]))
+		return (str);
 	if (str[i] == '?')
 	{
 		if (str[++i] != '\0' && str[i] != '$')
