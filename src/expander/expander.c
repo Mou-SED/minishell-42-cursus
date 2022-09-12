@@ -110,7 +110,6 @@ void	expander(t_ast *node, int index, char **cp_of_arguments)
 	char	*new_arg;
 	int		wild_card;
 
-	
 	new_arg = NULL;
 	wild_card = 0;
 	if (cp_of_arguments[index] == NULL)

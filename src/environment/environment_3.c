@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <minishell.h>
+
 bool	var_not_exist(t_env *m_env, char *var_name)
 {
 	while (m_env)
@@ -42,15 +43,12 @@ void	duplicate_env_2(t_env *tmp, char **env, int i, int j)
 		tmp->value = ft_get_cwd();
 	else if (ft_strcmp(tmp->variable, "SHLVL")
 		&& ft_strcmp(tmp->variable, "OLDPWD")
-		&& ft_strcmp(tmp->variable, "PWD")) 
+		&& ft_strcmp(tmp->variable, "PWD"))
 		tmp->value = ft_strdup(&env[i][j + 1]);
 }
 
 void	add_var_not_exist(t_env *m_env)
 {
-	t_env	*node;
-
-	node = NULL;
 	if (var_not_exist(m_env, "PWD") == false)
 		creat_and_add_var(m_env, "PWD");
 	if (var_not_exist(m_env, "OLDPWD") == false)

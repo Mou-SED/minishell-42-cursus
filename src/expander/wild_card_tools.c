@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment_4.c                                    :+:      :+:    :+:   */
+/*   wild_card_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/09 16:53:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/09 16:56:28 by zaabou           ###   ########.fr       */
+/*   Created: 2022/09/12 01:52:47 by zaabou            #+#    #+#             */
+/*   Updated: 2022/09/12 01:52:51 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*ft_get_cwd(void)
+int	skip_dir(char *dir)
 {
-	char	*cwd;
+	if (ft_strcmp(dir, ".") == 0 || ft_strcmp(dir, "..") == 0)
+		return (1);
+	return (0);
+}
 
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-	{
-		dup2(STDERR_FILENO, 1);
-		printf("Minishell : %s\n", strerror(errno));
-		exit(EXIT_FAILURE);
-	}
-	return (cwd);
+int	skip_wildcard(char *str, int i)
+{
+	while (str[i] == '*')
+		i++;
+	return (i);
 }

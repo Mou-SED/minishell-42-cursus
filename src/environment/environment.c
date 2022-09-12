@@ -14,7 +14,6 @@
 
 void	build_env(t_env *m_env, char **env)
 {
-
 	if (env[0] != NULL)
 		duplicate_env(m_env, env);
 	else

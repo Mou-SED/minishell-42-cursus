@@ -20,16 +20,16 @@ bool	out_files(t_ast *node, t_lst *tmp)
 		node->cmd_node->fdout
 			= open(tmp->filename, O_CREAT | O_WRONLY,
 				0644);
-	else 
+	else
 	{
 		if (check_file(tmp->filename, W_TRUNC) == false)
 			return (false);
 		if (tmp->mode == W_APPRND)
 			node->cmd_node->fdout = open(tmp->filename,
-				O_WRONLY | O_APPEND);
+					O_WRONLY | O_APPEND);
 		if (tmp->mode == W_TRUNC)
 			node->cmd_node->fdout = open(tmp->filename,
-				O_WRONLY | O_TRUNC);
+					O_WRONLY | O_TRUNC);
 	}
 	if (node->cmd_node->fdout == -1)
 		return (redirection_error(tmp->filename, strerror(errno)), false);
@@ -63,7 +63,7 @@ bool	expande_files_name(char **filename, t_env *m_env)
 	else if (**filename == '\0')
 	{
 		redirection_error("", "No such file or directory");
-		return (free(old_filename), false);	
+		return (free(old_filename), false);
 	}
 	return (free(old_filename), true);
 }

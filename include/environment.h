@@ -37,9 +37,8 @@ t_env	*get_access_to_var(t_env *m_env, char *variable);
 bool	path_not_exist(t_env *m_env);
 void	add_path(t_env *m_env);
 void	duplicate_env_2(t_env *tmp, char **env, int i, int j);
-char    *ft_get_cwd(void);
+char	*ft_get_cwd(void);
 void	add_var_not_exist(t_env *m_env);
 void	creat_and_add_var(t_env *m_env, char *var_name);
-
 
 #endif

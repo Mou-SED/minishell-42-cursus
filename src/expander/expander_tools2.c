@@ -12,31 +12,32 @@
 
 #include <minishell.h>
 
-void    add_variable_as_argument(t_ast *node, char *var_value, char **update_str)
+void	add_variable_as_argument(t_ast *node,
+			char *var_value, char **update_str)
 {
-    char    **splited_value;
-    int     index;
+	char	**splited_value;
+	int		index;
 
-    index = 0;
-    splited_value = ft_split(var_value, ' ');
-    if (splited_value == NULL)
-    {
-        if (*update_str == NULL)
-            *update_str = ft_strdup("");
-    }
-    else
-    {
-        if (*update_str != NULL)
-            splited_value[0] = ft_strjoin(*update_str, splited_value[0]);
-        while (splited_value[index + 1] != NULL)
-        {
-            add_argument(node, splited_value[index]);
-            free(splited_value[index++]);
-        }
-        free (*update_str);
-        *update_str = splited_value[index];
-        free(splited_value);
-    }
+	index = 0;
+	splited_value = ft_split(var_value, ' ');
+	if (splited_value == NULL)
+	{
+		if (*update_str == NULL)
+			*update_str = ft_strdup("");
+	}
+	else
+	{
+		if (*update_str != NULL)
+			splited_value[0] = ft_strjoin(*update_str, splited_value[0]);
+		while (splited_value[index + 1] != NULL)
+		{
+			add_argument(node, splited_value[index]);
+			free(splited_value[index++]);
+		}
+		free (*update_str);
+		*update_str = splited_value[index];
+		free(splited_value);
+	}
 }
 
 char	*expande_variable_herdoc(char **update_str, char *str, t_env *m_env)

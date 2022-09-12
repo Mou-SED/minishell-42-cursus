@@ -52,8 +52,8 @@ bool	redirections(t_ast *node)
 		if (tmp->mode != HERE_DOC_FILE_NAME)
 		{
 			if (expande_files_name(&(tmp->filename),
-				*(node->cmd_node->m_env)) == false)
-			return (false);
+					*(node->cmd_node->m_env)) == false)
+				return (false);
 		}
 		if (tmp->mode == W_APPRND
 			|| tmp->mode == W_TRUNC)
