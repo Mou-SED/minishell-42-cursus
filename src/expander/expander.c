@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 04:11:18 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/12 14:48:40 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/13 21:00:10 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ char	*expande_variable(t_ast *node, char **update_str, char *str, t_env *m_env, 
 		return (str);
 	if (str[i] == '?')
 	{
-		if (str[++i] != '\0' && str[i] != '$')
-			i++;
+		i++;
 		var_value = ft_itoa(g_status);
 	}
 	else

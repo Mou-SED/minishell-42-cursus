@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 22:53:14 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/10 12:32:30 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/13 23:52:39 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ char	*expande_var_file_name(char **update_str, char *str, t_env *m_env)
 	char	*var_name;
 
 	i = 0;
-	i = skip_dollars(str);
+	if (ft_isdigit(str[i]))
+		return (str);
 	if (str[i] == '?')
 	{
-		if (str[++i] != '\0' && str[i] != '$')
-			i++;
+		i++;
 		var_value = ft_itoa(g_status);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_tools2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 13:20:35 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/10 15:41:11 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/13 23:53:33 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ char	*expande_variable_herdoc(char **update_str, char *str, t_env *m_env)
 	char	*var_name;
 
 	i = 0;
-	i = skip_dollars(str);
+	if (ft_isdigit(str[i]))
+		return (str);
 	if (str[i] == '?')
 	{
-		if (str[++i] != '\0' && str[i] != '$')
-			i++;
+		i++;
 		var_value = ft_itoa(g_status);
 	}
 	else
