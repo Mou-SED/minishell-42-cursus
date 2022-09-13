@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 11:20:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/13 15:14:08 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 00:25:46 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ctl_d_handler(t_token_list **head, t_env **m_env, char *cwd)
 	free(cwd);
 	remove_env(m_env);
 	rl_clear_history();
-	printf("\x1B[1;A\x1B[11;Cexit\n");
+	printf("exit\n");
 	exit(g_status);
 }
 
