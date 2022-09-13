@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:35:40 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/11 19:14:47 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/13 21:52:40 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*expande_variable_herdoc(char **update_str, char *str, t_env *m_env);
 
 // Expander tools
 char	*join_expended_str(char *s1, char *s2);
-int		skip_dollars(char *str);
 bool	is_not_special_char(char c);
 
 // wild_card '*'
