@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:47:03 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/10 11:50:27 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/13 15:15:04 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ bool	run_herdoc(t_token_list *token, t_env *m_env)
 		{
 			free(filename);
 			g_status = WTERMSIG(g_status);
+			if (g_status == SIGINT)
+				g_status = 1;
 			return (false);
 		}
 		free(token->lexeme);

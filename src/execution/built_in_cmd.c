@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:53:27 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/24 18:05:38 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/13 15:44:48 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	execute_built_in(t_ast *node, char **cwd, int error_files)
 	check_more_built_in(node, &(*cwd));
 	(close(node->cmd_node->fdin), close(node->cmd_node->fdout));
 	(dup2(stdo, 1), dup2(stin, 0));
+	(close(stin), close(stdo));
 }
 
 void	check_more_built_in(t_ast *node, char **cwd)
