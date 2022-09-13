@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:53:27 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/13 15:44:48 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/13 17:47:15 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	execute_built_in(t_ast *node, char **cwd, int error_files)
 		g_status = 1;
 		return ;
 	}
-	unused_pipe(node);
 	stdo = dup(1);
 	stin = dup(0);
 	if (!ft_strcmp(node->cmd_node->cmd_table[0], "echo")
@@ -55,7 +54,7 @@ void	execute_built_in(t_ast *node, char **cwd, int error_files)
 		execute_pwd(node, &(*cwd));
 	check_more_built_in(node, &(*cwd));
 	(close(node->cmd_node->fdin), close(node->cmd_node->fdout));
-	(dup2(stdo, 1), dup2(stin, 0));
+	(unused_pipe(node),dup2(stdo, 1), dup2(stin, 0));
 	(close(stin), close(stdo));
 }
 
