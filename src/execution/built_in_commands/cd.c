@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 23:32:00 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/10 00:43:10 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/13 17:51:07 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	update_cwd(t_ast *node, char **cwd, int mode, char *folderpath)
 		free(pwd->value);
 		pwd->value = ft_strdup(*cwd);
 	}
+	if (oldpwd->export_history == true)
+		oldpwd->exported_to_env = true;
 }
 
 void	check_valid_folder(t_ast *node, char **cwd, int i)
