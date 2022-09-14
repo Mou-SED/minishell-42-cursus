@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 01:31:24 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/01 11:47:36 by moseddik         ###   ########.fr       */
+/*   Created: 2022/08/13 21:56:01 by zaabou            #+#    #+#             */
+/*   Updated: 2022/08/23 22:15:02 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include <minishell.h>
 
-char	*ft_strdup(const char *s1)
+bool	ft_isnumber(char *str)
 {
-	int		i;
-	char	*ptr;
+	int	i;
 
-	if (s1 == NULL)
-		return (NULL);
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	i = 0;
-	if (!ptr)
-		return (0);
-	while (s1[i] != '\0')
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
 	{
-		ptr[i] = s1[i];
+		if (!ft_isdigit(str[i]))
+			return (false);
 		i++;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+	return (true);
+}
+
+int	open_files(t_ast *node)
+{
+	if (node->cmd_node->files != NULL)
+	{
+		if (redirections(node) == false)
+		{
+			g_status = 1;
+			return (1);
+		}
+	}
+	return (0);
 }

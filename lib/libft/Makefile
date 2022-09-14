@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
+#    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/21 20:18:19 by moseddik          #+#    #+#              #
-#    Updated: 2022/07/05 08:49:01 by moseddik         ###   ########.fr        #
+#    Updated: 2022/09/11 18:48:34 by zaabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ RED = \033[0;31m
 INC_DIR		:= include
 SRC_DIR		:= src
 OBJ_DIR		:= obj
+Minishell	:= ../../include/
 
 # *********************************** Files ************************************
 NAME		:= libft.a
@@ -44,6 +45,8 @@ SRC			:= $(SRC_DIR)/mandatory/ft_atoi.c \
 				$(SRC_DIR)/mandatory/ft_putnbr_fd.c \
 				$(SRC_DIR)/mandatory/ft_putstr_fd.c \
 				$(SRC_DIR)/mandatory/ft_split.c \
+				$(SRC_DIR)/mandatory/ft_split_mode.c \
+				$(SRC_DIR)/mandatory/ft_split_mode_helper.c \
 				$(SRC_DIR)/mandatory/ft_strchr.c \
 				$(SRC_DIR)/mandatory/ft_strdup.c \
 				$(SRC_DIR)/mandatory/ft_striteri.c \
@@ -55,36 +58,19 @@ SRC			:= $(SRC_DIR)/mandatory/ft_atoi.c \
 				$(SRC_DIR)/mandatory/ft_strcmp.c \
 				$(SRC_DIR)/mandatory/ft_strncmp.c \
 				$(SRC_DIR)/mandatory/ft_strnstr.c \
+				$(SRC_DIR)/mandatory/ft_strstr.c \
 				$(SRC_DIR)/mandatory/ft_strrchr.c \
 				$(SRC_DIR)/mandatory/ft_strtrim.c \
 				$(SRC_DIR)/mandatory/ft_substr.c \
 				$(SRC_DIR)/mandatory/ft_tolower.c \
-				$(SRC_DIR)/mandatory/ft_toupper.c \
-				$(SRC_DIR)/bonus/single_linked_list/ft_lstadd_back.c \
-				$(SRC_DIR)/bonus/single_linked_list/ft_lstadd_front.c \
-				$(SRC_DIR)/bonus/single_linked_list/ft_lstclear.c \
-				$(SRC_DIR)/bonus/single_linked_list/ft_lstdelone.c \
-				$(SRC_DIR)/bonus/single_linked_list/ft_lstiter.c \
-				$(SRC_DIR)/bonus/single_linked_list/ft_lstlast.c \
-				$(SRC_DIR)/bonus/single_linked_list/ft_lstmap.c \
-				$(SRC_DIR)/bonus/single_linked_list/ft_lstnew.c \
-				$(SRC_DIR)/bonus/single_linked_list/ft_lstsize.c \
-				$(SRC_DIR)/bonus/doubly_linked_list/ft_d_lstadd_back.c \
-				$(SRC_DIR)/bonus/doubly_linked_list/ft_d_lstadd_front.c \
-				$(SRC_DIR)/bonus/doubly_linked_list/ft_d_lstclear.c \
-				$(SRC_DIR)/bonus/doubly_linked_list/ft_d_lstdelone.c \
-				$(SRC_DIR)/bonus/doubly_linked_list/ft_d_lstiter.c \
-				$(SRC_DIR)/bonus/doubly_linked_list/ft_d_lstlast.c \
-				$(SRC_DIR)/bonus/doubly_linked_list/ft_d_lstmap.c \
-				$(SRC_DIR)/bonus/doubly_linked_list/ft_d_lstnew.c \
-				$(SRC_DIR)/bonus/doubly_linked_list/ft_d_lstsize.c
+				$(SRC_DIR)/mandatory/ft_toupper.c
 OBJ			:= ${SRC:%.c=$(OBJ_DIR)/%.o}
 INC			:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror
-INCFLAGS	:= -I $(INC_DIR)/$(INC)
+INCFLAGS	:= -I $(INC_DIR)/$(INC) -I $(Minishell)
 
 # ******************************* Other commands *******************************
 RM			:= rm -rf

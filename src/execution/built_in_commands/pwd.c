@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 16:42:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:48:19 by zaabou           ###   ########.fr       */
+/*   Created: 2022/08/15 19:04:41 by zaabou            #+#    #+#             */
+/*   Updated: 2022/08/23 21:56:03 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
 #include <minishell.h>
 
-void	*ft_calloc(size_t count, size_t size)
+void	execute_pwd(t_ast *node, char **cwd)
 {
-	int	*ptr;
-
-	ptr = (int *)malloc(count * size);
-	if (ptr == NULL)
-		allocation_faild();
-	ft_bzero(ptr, count * size);
-	return (ptr);
+	dup2(node->cmd_node->fdout, 1);
+	printf("%s\n", *cwd);
+	g_status = 0;
 }

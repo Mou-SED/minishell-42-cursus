@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:13:22 by moseddik          #+#    #+#             */
-/*   Updated: 2022/07/19 13:39:06 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/07/31 16:54:51 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define TOKEN_H
 # include "minishell.h"
 
-typedef enum s_token_type
+typedef enum e_token_type
 {
 	WORD,
 	PIPE,
@@ -26,8 +26,10 @@ typedef enum s_token_type
 
 typedef struct s_token_list
 {
-	char				*lexeme;
+	int					is_parsed;
 	t_token_type		type;
+	char				*lexeme;
+	char				*heredoc_content;
 	struct s_token_list	*next;
 }	t_token_list;
 

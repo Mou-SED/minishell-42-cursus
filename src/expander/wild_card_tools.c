@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   wild_card_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 16:42:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:48:19 by zaabou           ###   ########.fr       */
+/*   Created: 2022/09/12 01:52:47 by zaabou            #+#    #+#             */
+/*   Updated: 2022/09/12 01:52:51 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
 #include <minishell.h>
 
-void	*ft_calloc(size_t count, size_t size)
+int	skip_dir(char *dir)
 {
-	int	*ptr;
+	if (ft_strcmp(dir, ".") == 0 || ft_strcmp(dir, "..") == 0)
+		return (1);
+	return (0);
+}
 
-	ptr = (int *)malloc(count * size);
-	if (ptr == NULL)
-		allocation_faild();
-	ft_bzero(ptr, count * size);
-	return (ptr);
+int	skip_wildcard(char *str, int i)
+{
+	while (str[i] == '*')
+		i++;
+	return (i);
 }

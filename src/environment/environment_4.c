@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   environment_4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 16:42:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:48:19 by zaabou           ###   ########.fr       */
+/*   Created: 2022/09/09 16:53:12 by zaabou            #+#    #+#             */
+/*   Updated: 2022/09/09 16:56:28 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
 #include <minishell.h>
 
-void	*ft_calloc(size_t count, size_t size)
+char	*ft_get_cwd(void)
 {
-	int	*ptr;
+	char	*cwd;
 
-	ptr = (int *)malloc(count * size);
-	if (ptr == NULL)
-		allocation_faild();
-	ft_bzero(ptr, count * size);
-	return (ptr);
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+	{
+		dup2(STDERR_FILENO, 1);
+		printf("Minishell : %s\n", strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+	return (cwd);
 }

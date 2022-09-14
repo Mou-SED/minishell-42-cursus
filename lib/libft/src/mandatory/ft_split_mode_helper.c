@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_split_mode_helper.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 16:42:52 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:48:19 by zaabou           ###   ########.fr       */
+/*   Created: 2022/08/23 23:27:36 by moseddik          #+#    #+#             */
+/*   Updated: 2022/09/11 16:18:04 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
-#include <minishell.h>
 
-void	*ft_calloc(size_t count, size_t size)
+char	*skip_space(char *str)
 {
-	int	*ptr;
-
-	ptr = (int *)malloc(count * size);
-	if (ptr == NULL)
-		allocation_faild();
-	ft_bzero(ptr, count * size);
-	return (ptr);
+	while (*str != '\0' && *str == ' ')
+		str++;
+	return (str);
 }

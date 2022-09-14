@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 01:31:24 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/01 11:47:36 by moseddik         ###   ########.fr       */
+/*   Created: 2022/08/16 18:57:13 by zaabou            #+#    #+#             */
+/*   Updated: 2022/08/23 21:18:21 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include <minishell.h>
 
-char	*ft_strdup(const char *s1)
+void	print_env(t_env *m_env)
 {
-	int		i;
-	char	*ptr;
-
-	if (s1 == NULL)
-		return (NULL);
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	i = 0;
-	if (!ptr)
-		return (0);
-	while (s1[i] != '\0')
+	while (m_env)
 	{
-		ptr[i] = s1[i];
-		i++;
+		if (m_env->exported_to_env == true)
+			printf("%s=%s\n", m_env->variable, m_env->value);
+		m_env = m_env->next;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+}
+
+void	execute_env(t_ast *node)
+{
+	dup2(node->cmd_node->fdout, 1);
+	print_env(*(node->cmd_node->m_env));
+	g_status = 0;
 }
