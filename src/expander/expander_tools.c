@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_tools.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 14:42:15 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/13 21:52:29 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:37:20 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*join_expended_str(char *s1, char *s2)
 	free(s1);
 	return (new_str);
 }
-
 
 char	**get_arguments(char ***table)
 {
@@ -78,4 +77,20 @@ void	add_argument(t_ast *node, char *new_arg)
 	new_table[index] = ft_strdup(new_arg);
 	free(node->cmd_node->cmd_table);
 	node->cmd_node->cmd_table = new_table;
+}
+
+char	*get_variable_value(char *str, t_env *m_env, int *i)
+{
+	char	*var_name;
+	char	*var_value;
+
+	var_name = NULL;
+	var_value = NULL;
+	while (str[*i] != '\0' && str[*i] != '\'' && str[*i] != '"'
+		&& str[*i] != ' ' && str[*i] != '?' && is_not_special_char(str[*i]))
+			*i += 1;
+	var_name = ft_substr(str, 0, *i);
+	var_value = get_variable(m_env, var_name);
+	free(var_name);
+	return (var_value);
 }

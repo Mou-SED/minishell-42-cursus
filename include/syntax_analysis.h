@@ -6,7 +6,7 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 16:48:12 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/10 00:09:27 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:39:48 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_cmd
 	int		unused_pipe_fd;
 	int		fdin;
 	int		fdout;
+	int		state;
 	bool	wait;
 }	t_cmd;
 
