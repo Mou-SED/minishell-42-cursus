@@ -6,12 +6,11 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:30:55 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/10 00:13:53 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 11:04:54 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <errno.h>
 
 char	*get_cmd(t_ast *node)
 {

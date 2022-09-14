@@ -6,11 +6,11 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:48:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/06 11:42:09 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:59:33 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include <minishell.h>
 
 void	allocate_memory(t_token_list ***head, t_env ***m_env,
 	char **env, char **pwd)
