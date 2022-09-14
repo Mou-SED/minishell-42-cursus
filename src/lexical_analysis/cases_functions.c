@@ -6,11 +6,11 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:58:01 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:42:55 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:58:52 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include <minishell.h>
 
 char	*redir_case(char *str, t_token_list *token_ptr)
 {

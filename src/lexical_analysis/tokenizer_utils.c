@@ -6,11 +6,11 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:54:39 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/13 10:59:26 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:59:12 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include <minishell.h>
 
 char	*skip_space(char *str)
 {

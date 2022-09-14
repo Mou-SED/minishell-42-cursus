@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:05:39 by zaabou            #+#    #+#             */
-/*   Updated: 2022/08/23 20:30:37 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/09/14 11:00:39 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
 
-# include "minishell.h"
+# include <minishell.h>
 # include "syntax_analysis.h"
 
 void	ft_print_error(char *str);
