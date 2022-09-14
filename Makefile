@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+         #
+#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/18 10:50:08 by moseddik          #+#    #+#              #
-#    Updated: 2022/09/12 02:00:03 by zaabou           ###   ########.fr        #
+#    Updated: 2022/09/14 09:13:39 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,6 @@ BLUE			:= \033[0;34m
 PURPLE			:= \033[1;35m
 CYAN			:= \033[1;36m
 
-# ******************************** Readline lib ********************************
-
-ILIB	=	-I$(shell brew --prefix readline)/include
-SLIB	=	-L$(shell brew --prefix readline)/lib -lreadline
-
 # ******************************** Directories *********************************
 INC_DIR			:= include
 SRC_DIR			:= src
@@ -31,6 +26,11 @@ OBJ_DIR			:= obj
 LIB_DIR			:= lib
 LIBFT_DIR		:= $(LIB_DIR)/libft
 tmp				:= /tmp/minishell
+# ******************************** Readline lib ********************************
+
+ILIB	=	-I$(LIB_DIR)/libreadline/$(INC_DIR)
+SLIB	=	-L$(LIB_DIR)/libreadline -lreadline
+
 # *********************************** Files ************************************
 NAME			:= minishell
 SRC				:= $(SRC_DIR)/main/main.c \
