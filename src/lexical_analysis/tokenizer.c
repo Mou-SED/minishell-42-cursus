@@ -6,11 +6,11 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 09:49:00 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:43:14 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:59:21 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include <minishell.h>
 
 char	*word_case(char *str, t_token_list *token_ptr)
 {

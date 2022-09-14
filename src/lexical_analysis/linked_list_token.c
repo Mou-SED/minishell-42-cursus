@@ -6,11 +6,11 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:48:40 by moseddik          #+#    #+#             */
-/*   Updated: 2022/08/24 10:43:09 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:59:00 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include <minishell.h>
 
 t_token_list	*ft_lstnew_token(char *content)
 {

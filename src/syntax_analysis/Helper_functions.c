@@ -6,11 +6,11 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 16:16:45 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/10 00:13:41 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 11:00:06 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include <minishell.h>
 
 void	add_files(t_lst **head, t_lst *new)
 {

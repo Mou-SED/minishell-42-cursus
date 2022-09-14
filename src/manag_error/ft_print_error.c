@@ -6,11 +6,11 @@
 /*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:03:06 by zaabou            #+#    #+#             */
-/*   Updated: 2022/09/09 23:17:04 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:58:37 by zaabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include <minishell.h>
 
 void	ft_print_error(char *str)
 {
