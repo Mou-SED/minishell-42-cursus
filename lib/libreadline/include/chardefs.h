@@ -24,19 +24,7 @@
 
 #include <ctype.h>
 
-#if defined (HAVE_CONFIG_H)
-#  if defined (HAVE_STRING_H)
-#    if ! defined (STDC_HEADERS) && defined (HAVE_MEMORY_H)
-#      include <memory.h>
-#    endif
-#    include <string.h>
-#  endif /* HAVE_STRING_H */
-#  if defined (HAVE_STRINGS_H)
-#    include <strings.h>
-#  endif /* HAVE_STRINGS_H */
-#else
-#  include <string.h>
-#endif /* !HAVE_CONFIG_H */
+#include <string.h>
 
 #ifndef whitespace
 #define whitespace(c) (((c) == ' ') || ((c) == '\t'))

@@ -32,6 +32,7 @@ extern "C" {
 #  include "keymaps.h"
 #  include "tilde.h"
 #else
+#  include <stdio.h>
 #  include <readline/rlstdc.h>
 #  include <readline/rltypedefs.h>
 #  include <readline/keymaps.h>
@@ -403,7 +404,7 @@ extern void rl_deactivate_mark PARAMS((void));
 extern int rl_mark_active_p PARAMS((void));
 
 #if defined (USE_VARARGS) && defined (PREFER_STDARG)
-extern int rl_message (const char *, ...)  __attribute__((__format__ (printf, 1, 2)));
+extern int rl_message (const char *, ...)  __rl_attribute__((__format__ (printf, 1, 2)));
 #else
 extern int rl_message ();
 #endif

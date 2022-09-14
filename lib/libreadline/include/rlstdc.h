@@ -36,10 +36,10 @@
 #  endif
 #endif
 
-#ifndef __attribute__
-#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
-#    define __attribute__(x)
-#  endif
+#if defined(__GNUC__) && __GNUC__ >= 2
+#  define __rl_attribute__(x) __attribute__(x)
+#else
+#  define __rl_attribute__(x)
 #endif
 
 /* Moved from config.h.in because readline.h:rl_message depends on these

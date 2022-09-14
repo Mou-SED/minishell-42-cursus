@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaabou <zaabou@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 10:46:59 by moseddik          #+#    #+#             */
-/*   Updated: 2022/09/11 18:50:29 by zaabou           ###   ########.fr       */
+/*   Updated: 2022/09/15 00:11:46 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@
 # include <expander.h>
 # include <execution.h>
 
-bool	tokenization(char *cmd, t_token_list ***head, t_env *m_env);
-void	waiting_for_my_children(void);
-void	wait_for_one_child(pid_t pid);
-void	create_own_env(t_env **m_env, char **env);
-int		g_status;
+bool		tokenization(char *cmd, t_token_list ***head, t_env *m_env);
+void		waiting_for_my_children(void);
+void		wait_for_one_child(pid_t pid);
+void		create_own_env(t_env **m_env, char **env);
+extern int	g_status;
 
 #endif
